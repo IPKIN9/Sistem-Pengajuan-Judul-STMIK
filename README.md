@@ -14,6 +14,7 @@ Kemudian masuk kedalam folder projeckt yang telah anda clone tadi dengan perinta
 <sup> cd Sistem-Pengajuan-Judul-STMIK </sup>
 
 Setelah itu silahkan eksekusi kembali perintah dibawah ini.
+
 [//]: (Pastikan kamu sudah menginstall composer terlebih dahulu.)
 
 ```
