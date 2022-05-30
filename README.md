@@ -11,10 +11,10 @@ git clone https://github.com/IPKIN9/Sistem-Pengajuan-Judul-STMIK.git
 ```
 
 Kemudian masuk kedalam folder projeckt yang telah anda clone tadi dengan perintah
-<sub> cd Sistem-Pengajuan-Judul-STMIK </sub>
+<sup> cd Sistem-Pengajuan-Judul-STMIK </sup>
 
 Setelah itu silahkan eksekusi kembali perintah dibawah ini.
-[note]: Pastikan kamu sudah menginstall composer terlebih dahulu.
+[//]: (Pastikan kamu sudah menginstall composer terlebih dahulu.)
 
 ```
 composer install
