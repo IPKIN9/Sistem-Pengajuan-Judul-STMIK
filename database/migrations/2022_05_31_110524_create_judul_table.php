@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateJudulTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('judul', function (Blueprint $table) {
             $table->id();
-            $table->string('id_profile');
-            $table->string('username');
-            $table->string('password');
-            $table->string('role');
+            $table->foreignId('id_mahasiswa')->constrained('mahasiswa');
+            $table->string('nama_judul');
+            $table->text('descJudul');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('judul');
     }
 }
