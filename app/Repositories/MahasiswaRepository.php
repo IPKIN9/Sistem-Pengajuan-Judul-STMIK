@@ -13,19 +13,31 @@ class MahasiswaRepository implements MahasiswaRepositoryInterface
         return $mahasiswa;
     }
 
-    public function getMahasiswaById($mahasiswa_id)
+    public function getMahasiswaById($mahasiswaId)
     {
     }
 
-    public function createMahasiswa(array $mahasiswa_details)
+    public function createMahasiswa(array $mahasiswaDetails)
+    {
+        try {
+            $data = MahasiswaModel::create($mahasiswaDetails);
+            $message = 'Success to create data';
+        } catch (\Throwable $th) {
+            $data = null;
+            $message = $th->getMessage();
+        }
+        $mahasiswa = array(
+            'data' => $data,
+            'message' => $message
+        );
+        return $mahasiswa;
+    }
+
+    public function updateMahasiswaById($mahasiswaId, array $newDetails)
     {
     }
 
-    public function updateMahasiswaById($mahasiswa_id, array $new_details)
-    {
-    }
-
-    public function deleteMahasiswa($mahasiswa_id)
+    public function deleteMahasiswa($mahasiswaId)
     {
     }
 }
