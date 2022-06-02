@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\CMS;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MahasiswaRequest;
 use App\Interfaces\MahasiswaRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -19,5 +20,21 @@ class MahasiswaController extends Controller
 
         return response()->json($mahasiswa);
         // view('view path')->with($mahasiswa);
+    }
+
+    public function createMahasiswa(MahasiswaRequest $request)
+    {
+        $mahasiswaDetails = $request->only([
+            'nama',
+            'nim',
+            'jurusan',
+            'hp',
+            'alamat',
+            'jk',
+            'angkatan',
+            'kelas',
+        ]);
+        $mahasiswa = $this->mahasiswaRepository->createMahasiswa($mahasiswaDetails);
+        return response()->json($mahasiswa, 201);
     }
 }
