@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Contoh\ContohController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
+use PHPUnit\TextUI\XmlConfiguration\Group;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
+route::get('/', function(){
+    return view('CMS.dashboard');
 });
