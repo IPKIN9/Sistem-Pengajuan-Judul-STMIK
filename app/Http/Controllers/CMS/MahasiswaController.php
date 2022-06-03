@@ -22,6 +22,13 @@ class MahasiswaController extends Controller
         // view('view path')->with($mahasiswa);
     }
 
+    public function getById($id)
+    {
+        $mahasiswa = $this->mahasiswaRepository->getMahasiswaById($id);
+
+        return response()->json($mahasiswa, $mahasiswa['code']);
+    }
+
     public function createMahasiswa(MahasiswaRequest $request)
     {
         $mahasiswaDetails = $request->only([
@@ -35,6 +42,6 @@ class MahasiswaController extends Controller
             'kelas',
         ]);
         $mahasiswa = $this->mahasiswaRepository->createMahasiswa($mahasiswaDetails);
-        return response()->json($mahasiswa, 201);
+        return response()->json($mahasiswa);
     }
 }
