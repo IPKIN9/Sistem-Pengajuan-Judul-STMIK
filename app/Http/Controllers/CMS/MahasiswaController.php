@@ -42,6 +42,6 @@ class MahasiswaController extends Controller
             'kelas',
         ]);
         $mahasiswa = $this->mahasiswaRepository->createMahasiswa($mahasiswaDetails);
-        return response()->json($mahasiswa);
+        return response()->json($mahasiswa, $mahasiswa['code']);
     }
 }

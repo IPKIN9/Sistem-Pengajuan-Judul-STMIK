@@ -44,16 +44,18 @@ class MahasiswaRepository implements MahasiswaRepositoryInterface
     public function createMahasiswa(array $mahasiswaDetails)
     {
         try {
-            $data = MahasiswaModel::create($mahasiswaDetails);
-            $message = 'Success to create data';
+            $mahasiswa = array(
+                'data' => MahasiswaModel::create($mahasiswaDetails),
+                'message' => 'Success to create data',
+                'code' => 201
+            );
         } catch (\Throwable $th) {
-            $data = null;
-            $message = $th->getMessage();
+            $mahasiswa = array(
+                'data' => null,
+                'message' => $th->getMessage(),
+                'code' => 500
+            );
         }
-        $mahasiswa = array(
-            'data' => $data,
-            'message' => $message
-        );
         return $mahasiswa;
     }
 
