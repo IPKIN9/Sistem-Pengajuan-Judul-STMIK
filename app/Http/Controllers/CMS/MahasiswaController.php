@@ -18,8 +18,7 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = $this->mahasiswaRepository->getAllMahasiswa();
 
-        return response()->json($mahasiswa);
-        // view('view path')->with($mahasiswa);
+        return view('CMS.mahasiswa')->with('mahasiswa',$mahasiswa);
     }
 
     public function getById($id)

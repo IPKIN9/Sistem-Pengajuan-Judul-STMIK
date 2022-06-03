@@ -24,4 +24,5 @@ Route::get('/swagger-doc', function () {
 
 Route::prefix('mahasiswa')->group(function () {
     Route::get('/', [MahasiswaController::class, 'index']);
+    Route::post('/create', [MahasiswaController::class, 'createMahasiswa'])->name('mahasiswa.create');
 });
