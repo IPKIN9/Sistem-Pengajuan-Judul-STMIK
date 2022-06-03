@@ -15,6 +15,30 @@ class MahasiswaRepository implements MahasiswaRepositoryInterface
 
     public function getMahasiswaById($mahasiswaId)
     {
+        try {
+            $dbResult = MahasiswaModel::whereId($mahasiswaId)->get();
+            if (count($dbResult) >= 1) {
+                $mahasiswa = array(
+                    'data' => $dbResult,
+                    'message' => "Success",
+                    'code' => 200
+                );
+            } else {
+                $mahasiswa = array(
+                    'data' => null,
+                    'message' => "Id mahasiswa not found",
+                    'code' => 404
+                );
+            }
+        } catch (\Throwable $th) {
+            $mahasiswa = array(
+                'data' => null,
+                'message' => $th->getMessage(),
+                'code' => 500
+            );
+        }
+
+        return $mahasiswa;
     }
 
     public function createMahasiswa(array $mahasiswaDetails)
