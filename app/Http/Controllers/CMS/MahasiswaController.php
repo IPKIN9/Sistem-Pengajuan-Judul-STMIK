@@ -18,8 +18,7 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = $this->mahasiswaRepository->getAllMahasiswa();
 
-        return response()->json($mahasiswa);
-        // view('view path')->with($mahasiswa);
+        return view('CMS.mahasiswa')->with('mahasiswa',$mahasiswa);
     }
 
     public function createMahasiswa(MahasiswaRequest $request)
@@ -35,6 +34,6 @@ class MahasiswaController extends Controller
             'kelas',
         ]);
         $mahasiswa = $this->mahasiswaRepository->createMahasiswa($mahasiswaDetails);
-        return response()->json($mahasiswa, 201);
+        return back()->with('status', 'Data baru berhasil ditambahkan', $mahasiswa);
     }
 }
