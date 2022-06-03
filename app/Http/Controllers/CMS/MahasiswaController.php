@@ -44,4 +44,22 @@ class MahasiswaController extends Controller
         $mahasiswa = $this->mahasiswaRepository->createMahasiswa($mahasiswaDetails);
         return response()->json($mahasiswa, $mahasiswa['code']);
     }
+
+    public function updateMahasiswa(MahasiswaRequest $request, $id)
+    {
+        $mahasiswaDetails = $request->only(
+            'nama',
+            'nim',
+            'jurusan',
+            'hp',
+            'alamat',
+            'jk',
+            'angkatan',
+            'kelas',
+        );
+
+        $mahasiswa = $this->mahasiswaRepository->updateMahasiswaById($id, $mahasiswaDetails);
+
+        return response()->json($mahasiswa, $mahasiswa['code']);
+    }
 }
