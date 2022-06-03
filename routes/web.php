@@ -1,10 +1,7 @@
 <?php
 
 use App\Http\Controllers\CMS\MahasiswaController;
-use App\Http\Controllers\Contoh\ContohController;
-use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
-use PHPUnit\TextUI\XmlConfiguration\Group;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +16,10 @@ use PHPUnit\TextUI\XmlConfiguration\Group;
 
 route::get('/', function () {
     return view('CMS.dashboard');
+});
+
+Route::get('/swagger-doc', function () {
+    return view('Swagger.index');
 });
 
 Route::prefix('mahasiswa')->group(function () {

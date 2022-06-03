@@ -6,4 +6,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('mahasiswa')->group(function () {
     Route::post('/', [MahasiswaController::class, 'createMahasiswa']);
+    Route::get('/{id}', [MahasiswaController::class, 'getById']);
+    Route::patch('/{id}', [MahasiswaController::class, 'updateMahasiswa']);
 });

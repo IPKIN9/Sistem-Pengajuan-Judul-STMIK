@@ -1,0 +1,108 @@
+openapi: '3.0.2'
+info:
+  title: SIPEJU Api Documentation
+  version: '1.0'
+servers:
+  - url: http://127.0.0.1:8000
+paths:
+  /mahasiswa:
+    get:
+      tags:
+        - "Mahasiswa"
+      summary: "Get All Data Mahasiswa"
+      description: "To get all data mahasiswa from table"
+      responses:
+        '200':
+          description: OK
+
+  /api/mahasiswa:
+    post:
+      tags:
+        - "Mahasiswa"
+      summary: "Post Data Mahasiswa"
+      description: 'Insert new data to mahasiswa table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama:
+                  type: string
+                nim:
+                  type: number
+                  example: "05520117043"
+                jurusan:
+                  type: string
+                hp:
+                  type: number
+                  example: "081222202202"
+                alamat:
+                  type: string
+                jk:
+                  type: string
+                angkatan:
+                  type: string
+                kelas:
+                  type: string
+      parameters: []
+      responses:
+        '201':
+          description: OK
+  /api/mahasiswa/{mahasiswa_id}:
+    get:
+      tags:
+        - "Mahasiswa"
+      summary: Get Mahasiswa By Id
+      description: 'This endpoint to get mahasiswa by id'
+      parameters: 
+        - in: path
+          name: mahasiswa_id
+          schema:
+            type: integer
+          required: true
+          description: numeric ID
+      responses:
+        '200':
+          description: OK
+    patch:
+      tags:
+        - "Mahasiswa"
+      summary: Update Mahasiswa By Id
+      description: 'This endpoint to get mahasiswa by id'
+      parameters: 
+        - in: path
+          name: mahasiswa_id
+          schema:
+            type: integer
+          required: true
+          description: numeric ID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama:
+                  type: string
+                nim:
+                  type: number
+                  example: "05520117043"
+                jurusan:
+                  type: string
+                hp:
+                  type: number
+                  example: "081222202202"
+                alamat:
+                  type: string
+                jk:
+                  type: string
+                angkatan:
+                  type: string
+                kelas:
+                  type: string
+      responses:
+        '200':
+          description: OK
+
+    
