@@ -16,6 +16,6 @@ class DosenController extends Controller
     {
         $dosen = $this->dosenRepository->getAllDosen();
 
-        return response()->json($dosen);
+        return view('CMS.dosen')->with('dosen', $dosen);
     }
 }
