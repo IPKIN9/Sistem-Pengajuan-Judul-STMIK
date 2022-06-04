@@ -18,4 +18,11 @@ class DosenController extends Controller
 
         return response()->json($dosen);
     }
+
+    public function getById($id)
+    {
+        $dosen = $this->dosenRepository->getDosenById($id);
+
+        return response()->json($dosen, $dosen['code']);
+    }
 }
