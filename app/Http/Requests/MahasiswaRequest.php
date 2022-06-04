@@ -34,7 +34,7 @@ class MahasiswaRequest extends FormRequest
             'response' => array(
                 'icon' => 'error',
                 'title' => 'Validasi Gagal',
-                'message' => 'Data yang di imput tidak tervalidasi',
+                'message' => 'Data yang di input tidak tervalidasi',
             ),
             'errors' => array(
                 'length' => count($validator->errors()),

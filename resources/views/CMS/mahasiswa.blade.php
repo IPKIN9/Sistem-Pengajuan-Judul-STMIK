@@ -185,7 +185,6 @@
             $('#saveId').on('click', function() {
                 let url = "http://127.0.0.1:8000/api/mahasiswa/";
                 let data = $('#formSimpan').serialize();
-                $('.miniAlert').html('');
                 $.ajax({
                     url: url,
                     method: "POST",
@@ -210,6 +209,7 @@
                             text: data.response.message,
                         });
                         if (errorRes.length >= 1) {
+                            $('.miniAlert').html('');
                             $('#alertNama').html(errorRes.data.nama);
                             $('#alertNim').html(errorRes.data.nim);
                             $('#alertJurusan').html(errorRes.data.jurusan);
