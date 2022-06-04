@@ -2,11 +2,6 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
-            @if (session('status'))
-                <div class="alert alert-primary">
-                    {{ session('status') }}
-                </div>
-            @endif
             <div class="col-xl-12">
                 <h4 class="text-muted">Data Mahasiswa</h4>
                 <div class="nav-align-top mb-4">
@@ -32,7 +27,7 @@
                                 <table class="table" id="table">
                                     <thead>
                                         <tr class="text-nowrap">
-                                            <th></th>
+                                            <th>No</th>
                                             <th>Nama</th>
                                             <th>NIM</th>
                                             <th>Jurusan</th>
@@ -347,6 +342,35 @@
                     error: function(result) {
                         let data = result.responseJSON
                         modalClose();
+                        Swal.fire({
+                            icon: data.response.icon,
+                            title: data.response.title,
+                            text: data.response.message,
+                        });
+                    }
+                });
+            });
+
+            $(document).on('click', '#deleteId', function(){
+                let dataId = $(this).data('id');
+                let url = {!! json_encode(url('/api/mahasiswa')) !!} + "/" + dataId;
+                $.ajax({
+                    url: url,
+                    type: 'delete',
+                    success: function(result) {
+                        let data = result.data;
+                        Swal.fire({
+                            title: result.response.title,
+                            text: result.response.message,
+                            icon: result.response.icon,
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Oke'
+                        }).then((result) => {
+                            location.reload();
+                        });
+                    },
+                    error: function(result) {
+                        let data = result.responseJSON
                         Swal.fire({
                             icon: data.response.icon,
                             title: data.response.title,
