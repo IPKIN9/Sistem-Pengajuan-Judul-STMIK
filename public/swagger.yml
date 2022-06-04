@@ -104,5 +104,19 @@ paths:
       responses:
         '200':
           description: OK
+    delete:
+      tags:
+        - "Mahasiswa"
+      summary: Delete Mahasiswa By Id
+      description: 'This endpoint to delete mahasiswa by id'
+      parameters: 
+        - in : path
+          name: mahasiswa_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
 
     
