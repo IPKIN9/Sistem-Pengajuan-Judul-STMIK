@@ -3,19 +3,10 @@ info:
   title: SIPEJU Api Documentation
   version: '1.0'
 servers:
-  - url: http://127.0.0.1:8000
+  - url: http://127.0.0.1:8000/api
 paths:
-  /mahasiswa:
-    get:
-      tags:
-        - "Mahasiswa"
-      summary: "Get All Data Mahasiswa"
-      description: "To get all data mahasiswa from table"
-      responses:
-        '200':
-          description: OK
 
-  /api/mahasiswa:
+  /mahasiswa:
     post:
       tags:
         - "Mahasiswa"
@@ -49,7 +40,8 @@ paths:
       responses:
         '201':
           description: OK
-  /api/mahasiswa/{mahasiswa_id}:
+
+  /mahasiswa/{mahasiswa_id}:
     get:
       tags:
         - "Mahasiswa"
@@ -112,6 +104,22 @@ paths:
       parameters: 
         - in : path
           name: mahasiswa_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+          
+  /dosen/{dosen_id}:
+    get:
+      tags:
+        - "Dosen"
+      summary: Get dosen by id
+      description: 'This endpoint to get dosen by id'
+      parameters:
+        - in : path
+          name: dosen_id
           schema:
             type: integer
           required: true
