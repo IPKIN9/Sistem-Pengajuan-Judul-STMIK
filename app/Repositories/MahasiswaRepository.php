@@ -47,13 +47,21 @@ class MahasiswaRepository implements MahasiswaRepositoryInterface
         try {
             $mahasiswa = array(
                 'data' => MahasiswaModel::create($mahasiswaDetails),
-                'message' => 'Success to create data',
+                'response' => array(
+                    'icon' => 'success',
+                    'title' => 'Tersimpan',
+                    'message' => 'Data berhasil disimpan',
+                ),
                 'code' => 201
             );
         } catch (\Throwable $th) {
             $mahasiswa = array(
                 'data' => null,
-                'message' => $th->getMessage(),
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
                 'code' => 500
             );
         }
