@@ -232,7 +232,7 @@
                     type: 'GET',
                     success: function(result) {
                         let data = result.data;
-                        $('#modalUpdate').show('modal');
+                        $('#modalUpdate').modal('show');
                         $('.modal-title').html('Perubahan Data');
                         $('#formUpdate').html('');
                         $('#formUpdate').append(`
@@ -325,11 +325,15 @@
                 let dataId = $('#mahasiswaId').val();
                 let url = {!! json_encode(url('/api/mahasiswa')) !!} + "/" + dataId;
                 let data = $('#formUpdate').serialize();
+                let modalClose = () => {
+                    $('#modalUpdate').modal('hide');
+                }
                 $.ajax({
                     url: url,
                     method: "patch",
                     data: data,
                     success: function(result) {
+                        modalClose();
                         Swal.fire({
                             title: result.response.title,
                             text: result.response.message,
@@ -342,6 +346,7 @@
                     },
                     error: function(result) {
                         let data = result.responseJSON
+                        modalClose();
                         Swal.fire({
                             icon: data.response.icon,
                             title: data.response.title,
