@@ -8,4 +8,5 @@ Route::prefix('mahasiswa')->group(function () {
     Route::post('/', [MahasiswaController::class, 'createMahasiswa']);
     Route::get('/{id}', [MahasiswaController::class, 'getById']);
     Route::patch('/{id}', [MahasiswaController::class, 'updateMahasiswa']);
+    Route::delete('/{id}', [MahasiswaController::class, 'deleteMahasiswa']);
 });

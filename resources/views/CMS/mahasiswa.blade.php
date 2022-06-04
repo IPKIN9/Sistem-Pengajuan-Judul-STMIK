@@ -46,21 +46,21 @@
                                 </thead>
                                 <tbody>
                                     @php
-                                    $no=1;
+                                    $no = 1;
                                     @endphp
                                     @foreach ($mahasiswa as $d)
                                     <tr>
-                                        <th scope="row">{{$no++}}</th>
-                                        <td>{{$d->nama}}</td>
-                                        <td>{{$d->nim}}</td>
-                                        <td>{{$d->jurusan}}</td>
-                                        <td>{{$d->hp}}</td>
-                                        <td>{{$d->alamat}}</td>
-                                        <td>{{$d->jk}}</td>
-                                        <td>{{$d->angkatan}}</td>
-                                        <td>{{$d->kelas}}</td>
+                                        <th scope="row">{{ $no++ }}</th>
+                                        <td>{{ $d->nama }}</td>
+                                        <td>{{ $d->nim }}</td>
+                                        <td>{{ $d->jurusan }}</td>
+                                        <td>{{ $d->hp }}</td>
+                                        <td>{{ $d->alamat }}</td>
+                                        <td>{{ $d->jk }}</td>
+                                        <td>{{ $d->angkatan }}</td>
+                                        <td>{{ $d->kelas }}</td>
                                         <td>
-                                            <a href="" type="button" id="editId"
+                                            <a href="" type="button"
                                                 class="btn rounded-pill btn-outline-primary">Edit</a>
                                             <a href="" type="button" id="deleteId"
                                                 class="btn rounded-pill btn-outline-danger">Delete</a>
@@ -84,6 +84,7 @@
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" name="nama" id="nama"
                                                 placeholder="Input Nama Lengkap">
+                                            <p class="text-danger miniAlert text-capitalize" id="alertNama"></p>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -91,6 +92,7 @@
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" name="nim" id="nim"
                                                 placeholder="Input NIM">
+                                            <p class="text-danger miniAlert text-capitalize" id="alertNim"></p>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -102,6 +104,7 @@
                                                 <option value="Teknik Informatika">Teknik Informatika</option>
                                                 <option value="Sistem Informasi">Sistem Informasi</option>
                                             </select>
+                                            <p class="text-danger miniAlert text-capitalize" id="alertJurusan"></p>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -110,6 +113,7 @@
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" name="hp" id="hp"
                                                 placeholder="Input No Handphone">
+                                            <p class="text-danger miniAlert text-capitalize" id="alertHp"></p>
                                         </div>
                                     </div>
 
@@ -120,6 +124,7 @@
                                             <textarea name="alamat" id="alamat" class="form-control"
                                                 placeholder="Input alamat lengkap"
                                                 aria-describedby="basic-icon-default-message2"></textarea>
+                                            <p class="text-danger miniAlert text-capitalize" id="alertAlamat"></p>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -131,6 +136,7 @@
                                                 <option value="Laki-Laki">Laki-Laki</option>
                                                 <option value="Perempuan">Perempuan</option>
                                             </select>
+                                            <p class="text-danger miniAlert text-capitalize" id="alertJk"></p>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -138,6 +144,7 @@
                                         <div class="col-sm-10">
                                             <input type="number" class="form-control" name="angkatan" id="angkatan"
                                                 placeholder="Input Tahun Angkatan">
+                                            <p class="text-danger miniAlert text-capitalize" id="alertAngkatan"></p>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -145,6 +152,7 @@
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" name="kelas" id="kelas"
                                                 placeholder="Kelas">
+                                            <p class="text-danger miniAlert text-capitalize" id="alertKelas"></p>
                                         </div>
                                     </div>
                                     <div class="row justify-content-end">
@@ -166,45 +174,55 @@
 @endsection
 @section('js')
 <script>
-    $(document).ready( function () {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+    $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
             $('#table').DataTable();
 
-            $('#saveId').on('click', function()
-            {
+            $('#saveId').on('click', function() {
                 let url = "http://127.0.0.1:8000/api/mahasiswa/";
-                let data = $('#formSimpan').serialize()
-                $.ajax({  
-                    url:url,  
-                    method:"POST",  
-                    data: data,  
-                    success: function (result) {
+                let data = $('#formSimpan').serialize();
+                $('.miniAlert').html('');
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: data,
+                    success: function(result) {
                         Swal.fire({
-                            title: 'Tersimpan',
-                            text: 'Data Baru berhasl di Tambahkan.',
-                            icon: result.message,
+                            title: result.response.title,
+                            text: result.response.message,
+                            icon: result.response.icon,
                             cancelButtonColor: '#d33',
                             confirmButtonText: 'Oke'
                         }).then((result) => {
                             location.reload();
                         });
                     },
-                    error: function () {
+                    error: function(result) {
+                        let data = result.responseJSON
+                        let errorRes = data.errors
                         Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Ada yang salah!',
+                            icon: data.response.icon,
+                            title: data.response.title,
+                            text: data.response.message,
                         });
+                        if (errorRes.length >= 1) {
+                            $('#alertNama').html(errorRes.data.nama);
+                            $('#alertNim').html(errorRes.data.nim);
+                            $('#alertJurusan').html(errorRes.data.jurusan);
+                            $('#alertJk').html(errorRes.data.jk);
+                            $('#alertHp').html(errorRes.data.hp);
+                            $('#alertAlamat').html(errorRes.data.alamat);
+                            $('#alertAngkatan').html(errorRes.data.angkatan);
+                            $('#alertKelas').html(errorRes.data.kelas);
+                        }
                     }
-               });  
+                });
             });
-        } );
-        
-
+        });
 </script>
 @endsection

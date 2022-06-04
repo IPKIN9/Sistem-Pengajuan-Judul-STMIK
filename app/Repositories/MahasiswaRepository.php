@@ -47,13 +47,21 @@ class MahasiswaRepository implements MahasiswaRepositoryInterface
         try {
             $mahasiswa = array(
                 'data' => MahasiswaModel::create($mahasiswaDetails),
-                'message' => 'Success to create data',
+                'response' => array(
+                    'icon' => 'success',
+                    'title' => 'Tersimpan',
+                    'message' => 'Data berhasil disimpan',
+                ),
                 'code' => 201
             );
         } catch (\Throwable $th) {
             $mahasiswa = array(
                 'data' => null,
-                'message' => $th->getMessage(),
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
                 'code' => 500
             );
         }
@@ -93,5 +101,41 @@ class MahasiswaRepository implements MahasiswaRepositoryInterface
 
     public function deleteMahasiswa($mahasiswaId)
     {
+        try {
+            $findId = MahasiswaModel::whereId($mahasiswaId);
+            if ($findId->count() >= 1) {
+                $mahasiswa = array(
+                    'data' => $findId->delete(),
+                    'response' => array(
+                        'icon' => 'success',
+                        'title' => 'Terhapus',
+                        'message' => 'Data berhasil dihapus',
+                    ),
+                    'code' => 201
+                );
+            } else {
+                $mahasiswa = array(
+                    'data' => null,
+                    'response' => array(
+                        'icon' => 'warning',
+                        'title' => 'Not Found',
+                        'message' => 'Data tidak tersedia',
+                    ),
+                    'code' => 404
+                );
+            }
+        } catch (\Throwable $th) {
+            $mahasiswa = array(
+                'data' => null,
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
+                'code' => 500
+            );
+        }
+
+        return $mahasiswa;
     }
 }

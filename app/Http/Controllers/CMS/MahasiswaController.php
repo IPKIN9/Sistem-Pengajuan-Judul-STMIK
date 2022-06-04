@@ -18,7 +18,7 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = $this->mahasiswaRepository->getAllMahasiswa();
 
-        return view('CMS.mahasiswa')->with('mahasiswa',$mahasiswa);
+        return view('CMS.mahasiswa')->with('mahasiswa', $mahasiswa);
     }
 
     public function getById($id)
@@ -58,6 +58,13 @@ class MahasiswaController extends Controller
         );
 
         $mahasiswa = $this->mahasiswaRepository->updateMahasiswaById($id, $mahasiswaDetails);
+
+        return response()->json($mahasiswa, $mahasiswa['code']);
+    }
+
+    public function deleteMahasiswa($id)
+    {
+        $mahasiswa = $this->mahasiswaRepository->deleteMahasiswa($id);
 
         return response()->json($mahasiswa, $mahasiswa['code']);
     }

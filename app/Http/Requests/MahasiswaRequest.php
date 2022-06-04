@@ -31,8 +31,15 @@ class MahasiswaRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([
-            'errors' => $validator->errors(),
-            'status' => true
+            'response' => array(
+                'icon' => 'error',
+                'title' => 'Validasi Gagal',
+                'message' => 'Data yang di imput tidak tervalidasi',
+            ),
+            'errors' => array(
+                'length' => count($validator->errors()),
+                'data' => $validator->errors()
+            ),
         ], 422));
     }
 }
