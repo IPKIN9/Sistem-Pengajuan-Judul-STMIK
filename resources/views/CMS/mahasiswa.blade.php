@@ -355,6 +355,35 @@
                     }
                 });
             });
+
+            $(document).on('click', '#deleteId', function(){
+                let dataId = $(this).data('id');
+                let url = {!! json_encode(url('/api/mahasiswa')) !!} + "/" + dataId;
+                $.ajax({
+                    url: url,
+                    type: 'delete',
+                    success: function(result) {
+                        let data = result.data;
+                        Swal.fire({
+                            title: result.response.title,
+                            text: result.response.message,
+                            icon: result.response.icon,
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Oke'
+                        }).then((result) => {
+                            location.reload();
+                        });
+                    },
+                    error: function(result) {
+                        let data = result.responseJSON
+                        Swal.fire({
+                            icon: data.response.icon,
+                            title: data.response.title,
+                            text: data.response.message,
+                        });
+                    }
+                });
+            });
         });
     </script>
 @endsection
