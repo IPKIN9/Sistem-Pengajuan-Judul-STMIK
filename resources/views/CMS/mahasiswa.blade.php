@@ -8,7 +8,7 @@
                 </div>
             @endif
             <div class="col-xl-12">
-                <h6 class="text-muted">Filled Pills</h6>
+                <h4 class="text-muted">Data Mahasiswa</h4>
                 <div class="nav-align-top mb-4">
                     <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
                         <li class="nav-item">
