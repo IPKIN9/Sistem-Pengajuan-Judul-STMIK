@@ -60,7 +60,7 @@
                                         <td>{{$d->angkatan}}</td>
                                         <td>{{$d->kelas}}</td>
                                         <td>
-                                            <a href="" type="button"
+                                            <a href="" type="button" id="editId"
                                                 class="btn rounded-pill btn-outline-primary">Edit</a>
                                             <a href="" type="button" id="deleteId"
                                                 class="btn rounded-pill btn-outline-danger">Delete</a>
@@ -74,7 +74,7 @@
                     <div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel">
                         <div class="col-xxl">
                             <div class="card-header d-flex align-items-center justify-content-between">
-                                <h5 class="mb-0">Input Data Contoh</h5>
+                                <h5 class="mb-0">Input Data Mahasiswa</h5>
                             </div>
                             <div class="card-body">
                                 <form id="formSimpan">
@@ -102,8 +102,8 @@
                                                 <option value="Teknik Informatika">Teknik Informatika</option>
                                                 <option value="Sistem Informasi">Sistem Informasi</option>
                                             </select>
-                                        </div>                                      
-                                      </div>
+                                        </div>
+                                    </div>
                                     <div class="row mb-3">
                                         <label class="col-sm-2 col-form-label"
                                             for="basic-default-name">Handphone</label>
@@ -123,16 +123,16 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label"
-                                            for="basic-default-message">Jenis Kelamin</label>
+                                        <label class="col-sm-2 col-form-label" for="basic-default-message">Jenis
+                                            Kelamin</label>
                                         <div class="col-sm-10">
                                             <select name="jk" id="jk" class="form-control">
                                                 <option selected disabled>Pilih Jenis Kelamin</option>
                                                 <option value="Laki-Laki">Laki-Laki</option>
                                                 <option value="Perempuan">Perempuan</option>
                                             </select>
-                                        </div>                                      
-                                      </div>
+                                        </div>
+                                    </div>
                                     <div class="row mb-3">
                                         <label class="col-sm-2 col-form-label" for="basic-default-name">Angkatan</label>
                                         <div class="col-sm-10">
