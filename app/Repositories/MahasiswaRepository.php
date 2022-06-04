@@ -86,20 +86,32 @@ class MahasiswaRepository implements MahasiswaRepositoryInterface
                 $dbResult = $findId->update($newDetails);
                 $mahasiswa = array(
                     'data ' => $dbResult,
-                    'message' => 'Success',
+                    'response' => array(
+                        'icon' => 'success',
+                        'title' => 'Tersimpan',
+                        'message' => 'Data berhasil diperbaharui',
+                    ),
                     'code' => 201
                 );
             } else {
                 $mahasiswa = array(
                     'data' => null,
-                    'message' => 'Mahasiswa not found',
+                    'response' => array(
+                        'icon' => 'warning',
+                        'title' => 'Not Found',
+                        'message' => 'Data tidak tersedia',
+                    ),
                     'code' => 404
                 );
             }
         } catch (\Throwable $th) {
             $mahasiswa = array(
                 'data' => null,
-                'message' => $th->getMessage(),
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
                 'code' => 500
             );
         }
