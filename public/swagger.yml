@@ -110,6 +110,30 @@ paths:
       responses:
         '200':
           description: OK
+
+  /dosen:
+    post:
+      tags:
+        - "Dosen"
+      summary: "Post Data Dosen"
+      description: 'Insert new data to dosen table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama:
+                  type: string
+                NIDN:
+                  type: number
+                  example: 522433
+                jabatan:
+                  type: string
+      parameters: []
+      responses:
+        '200':
+          description: OK
           
   /dosen/{dosen_id}:
     get:

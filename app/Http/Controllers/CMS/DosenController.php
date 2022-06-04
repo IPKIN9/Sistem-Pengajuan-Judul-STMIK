@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\CMS;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DosenRequest;
+use App\Http\Requests\MahasiswaRequest;
 use App\Interfaces\DosenRepositoryInterface;
 
 class DosenController extends Controller
@@ -17,6 +19,18 @@ class DosenController extends Controller
         $dosen = $this->dosenRepository->getAllDosen();
 
         return view('CMS.dosen')->with('dosen', $dosen);
+    }
+
+    public function createInDosen(DosenRequest $request)
+    {
+        $dosenDetails = $request->only([
+            'nama',
+            'NIDN',
+            'jabatan'
+        ]);
+
+        $dosen = $this->dosenRepository->createDosen($dosenDetails);
+        return response()->json($dosen, $dosen['code']);
     }
 
     public function getById($id)
