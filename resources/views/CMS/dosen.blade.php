@@ -2,6 +2,11 @@
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
+        @if (session('status'))
+        <div class="alert alert-primary">
+            {{ session('status') }}
+        </div>
+        @endif
         <div class="col-xl-12">
             <h4 class="text-muted">Data Dosen</h4>
             <div class="nav-align-top mb-4">
@@ -27,7 +32,7 @@
                             <table class="table" id="table">
                                 <thead>
                                     <tr class="text-nowrap">
-                                        <th>No</th>
+                                        <th></th>
                                         <th>Nama</th>
                                         <th>NIDN</th>
                                         <th>Jabatan</th>
@@ -114,6 +119,42 @@
             });
 
             $('#table').DataTable();
+
+            $('#saveId').on('click', function() {
+                let url = "http://127.0.0.1:8000/api/dosen/";
+                let data = $('#formSimpan').serialize();
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: data,
+                    success: function(result) {
+                        Swal.fire({
+                            title: result.response.title,
+                            text: result.response.message,
+                            icon: result.response.icon,
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Oke'
+                        }).then((result) => {
+                            location.reload();
+                        });
+                    },
+                    error: function(result) {
+                        let data = result.responseJSON
+                        let errorRes = data.errors
+                        Swal.fire({
+                            icon: data.response.icon,
+                            title: data.response.title,
+                            text: data.response.message,
+                        });
+                        if (errorRes.length >= 1) {
+                            $('.miniAlert').html('');
+                            $('#alertNama').html(errorRes.data.nama);
+                            $('#alertNidn').html(errorRes.data.NIDN);
+                            $('#alertJabatan').html(errorRes.data.jabatan);
+                        }
+                    }
+                });
+            });
         });
 </script>
 @endsection
