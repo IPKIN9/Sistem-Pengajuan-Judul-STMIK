@@ -330,7 +330,6 @@
                     method: "patch",
                     data: data,
                     success: function(result) {
-                        console.log(result);
                         Swal.fire({
                             title: result.response.title,
                             text: result.response.message,
@@ -342,7 +341,6 @@
                         });
                     },
                     error: function(result) {
-                        console.log(result);
                         let data = result.responseJSON
                         Swal.fire({
                             icon: data.response.icon,
