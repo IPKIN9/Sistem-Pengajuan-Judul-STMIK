@@ -15,6 +15,30 @@ class DosenRepository implements DosenRepositoryInterface
 
     public function createDosen(array $newDetails)
     {
+        try {
+            $dbResult = DosenModel::create($newDetails);
+            $dosen = array(
+                'data' => $dbResult,
+                'response' => array(
+                    'icon' => 'success',
+                    'title' => 'Tersimpan',
+                    'message' => 'Data berhasil disimpan',
+                ),
+                'code' => 201
+            );
+        } catch (\Throwable $th) {
+            $dosen = array(
+                'data' => null,
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
+                'code' => 500
+            );
+        }
+
+        return $dosen;
     }
 
     public function getDosenById($dosenId)
