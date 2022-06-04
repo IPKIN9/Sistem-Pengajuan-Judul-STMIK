@@ -17,8 +17,8 @@ class MahasiswaRepository implements MahasiswaRepositoryInterface
     public function getMahasiswaById($mahasiswaId)
     {
         try {
-            $dbResult = MahasiswaModel::whereId($mahasiswaId)->get();
-            if (count($dbResult) >= 1) {
+            $dbResult = MahasiswaModel::whereId($mahasiswaId)->first();
+            if ($dbResult) {
                 $mahasiswa = array(
                     'data' => $dbResult,
                     'message' => "Success",
@@ -27,14 +27,22 @@ class MahasiswaRepository implements MahasiswaRepositoryInterface
             } else {
                 $mahasiswa = array(
                     'data' => null,
-                    'message' => "Id mahasiswa not found",
+                    'response' => array(
+                        'icon' => 'warning',
+                        'title' => 'Not Found',
+                        'message' => 'Data tidak tersedia',
+                    ),
                     'code' => 404
                 );
             }
         } catch (\Throwable $th) {
             $mahasiswa = array(
                 'data' => null,
-                'message' => $th->getMessage(),
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
                 'code' => 500
             );
         }
@@ -78,20 +86,32 @@ class MahasiswaRepository implements MahasiswaRepositoryInterface
                 $dbResult = $findId->update($newDetails);
                 $mahasiswa = array(
                     'data ' => $dbResult,
-                    'message' => 'Success',
+                    'response' => array(
+                        'icon' => 'success',
+                        'title' => 'Tersimpan',
+                        'message' => 'Data berhasil diperbaharui',
+                    ),
                     'code' => 201
                 );
             } else {
                 $mahasiswa = array(
                     'data' => null,
-                    'message' => 'Mahasiswa not found',
+                    'response' => array(
+                        'icon' => 'warning',
+                        'title' => 'Not Found',
+                        'message' => 'Data tidak tersedia',
+                    ),
                     'code' => 404
                 );
             }
         } catch (\Throwable $th) {
             $mahasiswa = array(
                 'data' => null,
-                'message' => $th->getMessage(),
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
                 'code' => 500
             );
         }

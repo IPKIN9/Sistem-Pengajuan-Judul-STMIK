@@ -8,7 +8,7 @@
                 </div>
             @endif
             <div class="col-xl-12">
-                <h6 class="text-muted">Filled Pills</h6>
+                <h4 class="text-muted">Data Mahasiswa</h4>
                 <div class="nav-align-top mb-4">
                     <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
                         <li class="nav-item">
@@ -60,10 +60,11 @@
                                                 <td>{{ $d->angkatan }}</td>
                                                 <td>{{ $d->kelas }}</td>
                                                 <td>
-                                                    <a href="" type="button"
-                                                        class="btn rounded-pill btn-outline-primary">Edit</a>
-                                                    <a href="" type="button" id="deleteId"
-                                                        class="btn rounded-pill btn-outline-danger">Delete</a>
+                                                    <button type="button" id="editId" data-id="{{ $d->id }}"
+                                                        data-bs-toggle="modal" data-bs-target="#modalUpdate"
+                                                        class="btn rounded-pill btn-outline-primary">Edit</button>
+                                                    <button type="button" id="deleteId" data-id="{{ $d->id }}"
+                                                        class="btn rounded-pill btn-outline-danger">Delete</button>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -74,7 +75,7 @@
                         <div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel">
                             <div class="col-xxl">
                                 <div class="card-header d-flex align-items-center justify-content-between">
-                                    <h5 class="mb-0">Input Data Contoh</h5>
+                                    <h5 class="mb-0">Input Data Mahasiswa</h5>
                                 </div>
                                 <div class="card-body">
                                     <form id="formSimpan">
@@ -219,6 +220,138 @@
                             $('#alertAngkatan').html(errorRes.data.angkatan);
                             $('#alertKelas').html(errorRes.data.kelas);
                         }
+                    }
+                });
+            });
+
+            $(document).on('click', '#editId', function() {
+                let dataId = $(this).data('id');
+                let url = {!! json_encode(url('/api/mahasiswa')) !!} + "/" + dataId;
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function(result) {
+                        let data = result.data;
+                        $('#modalUpdate').modal('show');
+                        $('.modal-title').html('Perubahan Data');
+                        $('#formUpdate').html('');
+                        $('#formUpdate').append(`
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-name">Nama</label>
+                                <div class="col-sm-10">
+                                    <input type="hidden" id="mahasiswaId" value="` + data.id + `">
+                                    <input type="text" class="form-control" name="nama" value="` + data.nama + `"
+                                        placeholder="Input Nama Lengkap">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-name">NIM</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="nim" value="` + data.nim + `"
+                                        placeholder="Input NIM">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label"
+                                    for="basic-default-message">Jurusan</label>
+                                <div class="col-sm-10">
+                                    <select name="jurusan" id="jurusanUpdate" class="form-control">
+                                        <option selected disabled>Pilih Jurusan</option>
+                                        <option value="Teknik Informatika">Teknik Informatika</option>
+                                        <option value="Sistem Informasi">Sistem Informasi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label"
+                                    for="basic-default-name">Handphone</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="hp" value="` + data.hp + `"
+                                        placeholder="Input No Handphone">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label"
+                                    for="basic-default-message">Alamat</label>
+                                <div class="col-sm-10">
+                                    <textarea name="alamat" class="form-control"
+                                        placeholder="Input alamat lengkap"
+                                        aria-describedby="basic-icon-default-message2">` + data.alamat + `</textarea>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-message">Jenis
+                                    Kelamin</label>
+                                <div class="col-sm-10">
+                                    <select name="jk" id="jkUpdate" class="form-control">
+                                        <option selected disabled>Pilih Jenis Kelamin</option>
+                                        <option value="Laki-Laki">Laki-Laki</option>
+                                        <option value="Perempuan">Perempuan</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-name">Angkatan</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name="angkatan" value="` + data
+                            .angkatan + `"
+                                        placeholder="Input Tahun Angkatan"> 
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-name">Kelas</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="kelas" value="` + data.kelas + `"
+                                        placeholder="Kelas"> 
+                                </div>
+                            </div>
+                    `);
+                        $('#jurusanUpdate').val(data.jurusan);
+                        $('#jkUpdate').val(data.jk);
+                    },
+                    error: function(result) {
+                        let data = result.responseJSON
+                        Swal.fire({
+                            icon: data.response.icon,
+                            title: data.response.title,
+                            text: data.response.message,
+                        });
+                    }
+
+                });
+            });
+            $('#buttonUpdate').on('click', function() {
+                let dataId = $('#mahasiswaId').val();
+                let url = {!! json_encode(url('/api/mahasiswa')) !!} + "/" + dataId;
+                let data = $('#formUpdate').serialize();
+                let modalClose = () => {
+                    $('#modalUpdate').modal('hide');
+                }
+                $.ajax({
+                    url: url,
+                    method: "patch",
+                    data: data,
+                    success: function(result) {
+                        modalClose();
+                        Swal.fire({
+                            title: result.response.title,
+                            text: result.response.message,
+                            icon: result.response.icon,
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Oke'
+                        }).then((result) => {
+                            location.reload();
+                        });
+                    },
+                    error: function(result) {
+                        let data = result.responseJSON
+                        modalClose();
+                        Swal.fire({
+                            icon: data.response.icon,
+                            title: data.response.title,
+                            text: data.response.message,
+                        });
                     }
                 });
             });
