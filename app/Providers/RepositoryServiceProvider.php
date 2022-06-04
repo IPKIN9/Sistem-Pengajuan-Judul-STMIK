@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Interfaces\DosenRepositoryInterface;
 use App\Interfaces\MahasiswaRepositoryInterface;
+use App\Repositories\DosenRepository;
 use App\Repositories\MahasiswaRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -16,6 +18,7 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(MahasiswaRepositoryInterface::class, MahasiswaRepository::class);
+        $this->app->bind(DosenRepositoryInterface::class, DosenRepository::class);
     }
 
     /**
