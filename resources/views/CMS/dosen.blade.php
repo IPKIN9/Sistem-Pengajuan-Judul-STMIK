@@ -2,11 +2,6 @@
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
-        @if (session('status'))
-        <div class="alert alert-primary">
-            {{ session('status') }}
-        </div>
-        @endif
         <div class="col-xl-12">
             <h4 class="text-muted">Data Dosen</h4>
             <div class="nav-align-top mb-4">
@@ -32,7 +27,7 @@
                             <table class="table" id="table">
                                 <thead>
                                     <tr class="text-nowrap">
-                                        <th></th>
+                                        <th>No</th>
                                         <th>Nama</th>
                                         <th>NIDN</th>
                                         <th>Jabatan</th>
@@ -121,7 +116,7 @@
             $('#table').DataTable();
 
             $('#saveId').on('click', function() {
-                let url = "http://127.0.0.1:8000/api/dosen/";
+                let url = `{{ config('app.url') }}` + "/api/dosen";
                 let data = $('#formSimpan').serialize();
                 $.ajax({
                     url: url,
