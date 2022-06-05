@@ -22,8 +22,8 @@
             </a>
 
             <ul class="menu-sub 
-            {{ Route::is('dosen.index') ? 'show' : '' }} 
-            {{ Route::is('mahasiswa.index') ? 'show' : '' }}
+            {{ Route::is('dosen.index') ? 'open' : '' }} 
+            {{ Route::is('mahasiswa.index') ? 'open' : '' }}
             ">
                 <li class="menu-item {{ Route::is('dosen.index') ? 'active' : '' }}">
                     <a href="{{route ('dosen.index')}}" class="menu-link">
