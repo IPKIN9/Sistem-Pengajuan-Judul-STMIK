@@ -57,6 +57,7 @@ paths:
       responses:
         '200':
           description: OK
+
     patch:
       tags:
         - "Mahasiswa"
@@ -150,5 +151,34 @@ paths:
       responses:
         '200':
           description: OK
+
+    patch:
+      tags:
+        - "Dosen"
+      summary: Update Dosen By Id
+      description: 'This endpoint to get dosen by id'
+      parameters:
+        - in : path
+          name: dosen_id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama:
+                  type: string
+                NIDN:
+                  type: number
+                  example: 522433
+                jabatan:
+                  type: string
+      responses:
+        '200':
+          description: OK
+
 
     
