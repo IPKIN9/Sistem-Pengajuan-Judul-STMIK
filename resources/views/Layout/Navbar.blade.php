@@ -13,18 +13,15 @@
             <span class="menu-header-text">Master Data</span>
         </li>
         <li class="menu-item
-        {{ Route::is('dosen.index') ? 'active' : '' }}
-        {{ Route::is('mahasiswa.index') ? 'active' : '' }}
+        {{ Route::is('dosen.index') ? 'open' : '' }} 
+        {{ Route::is('mahasiswa.index') ? 'open' : '' }}
         ">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
                 <div data-i18n="Layouts">Master Data</div>
             </a>
 
-            <ul class="menu-sub 
-            {{ Route::is('dosen.index') ? 'open' : '' }} 
-            {{ Route::is('mahasiswa.index') ? 'open' : '' }}
-            ">
+            <ul class="menu-sub">
                 <li class="menu-item {{ Route::is('dosen.index') ? 'active' : '' }}">
                     <a href="{{route ('dosen.index')}}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-collection"></i>
