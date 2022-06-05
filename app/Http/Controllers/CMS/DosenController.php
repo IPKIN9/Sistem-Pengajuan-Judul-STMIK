@@ -53,4 +53,11 @@ class DosenController extends Controller
         $dosen = $this->dosenRepository->updateDosenById($id, $newDetails);
         return response()->json($dosen, $dosen['code']);
     }
+
+    public function deleteById($id)
+    {
+        $dosen = $this->dosenRepository->deleteDosen($id);
+
+        return response()->json($dosen, $dosen['code']);
+    }
 }
