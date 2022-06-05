@@ -15,4 +15,6 @@ Route::prefix('mahasiswa')->group(function () {
 Route::prefix('dosen')->group(function () {
     Route::post('/', [DosenController::class, 'createInDosen']);
     Route::get('/{id}', [DosenController::class, 'getById']);
+    Route::patch('/{id}', [DosenController::class, 'updateById']);
+    Route::delete('/{id}', [DosenController::class, 'deleteById']);
 });

@@ -39,4 +39,25 @@ class DosenController extends Controller
 
         return response()->json($dosen, $dosen['code']);
     }
+
+    public function updateById(DosenRequest $request, $id)
+    {
+        $newDetails = $request->only(
+            [
+                'nama',
+                'NIDN',
+                'jabatan'
+            ]
+        );
+
+        $dosen = $this->dosenRepository->updateDosenById($id, $newDetails);
+        return response()->json($dosen, $dosen['code']);
+    }
+
+    public function deleteById($id)
+    {
+        $dosen = $this->dosenRepository->deleteDosen($id);
+
+        return response()->json($dosen, $dosen['code']);
+    }
 }
