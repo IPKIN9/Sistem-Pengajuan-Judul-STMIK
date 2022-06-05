@@ -179,7 +179,7 @@
             $('#table').DataTable();
 
             $('#saveId').on('click', function() {
-                let url = "http://127.0.0.1:8000/api/mahasiswa/";
+                let url = `{{ config('app.url') }}` + "/api/mahasiswa";
                 let data = $('#formSimpan').serialize();
                 $.ajax({
                     url: url,
@@ -221,7 +221,7 @@
 
             $(document).on('click', '#editId', function() {
                 let dataId = $(this).data('id');
-                let url = {!! json_encode(url('/api/mahasiswa')) !!} + "/" + dataId;
+                let url = `{{ config('app.url') }}` + "/api/mahasiswa/" + dataId;
                 $.ajax({
                     url: url,
                     type: 'GET',
@@ -318,7 +318,7 @@
             });
             $('#buttonUpdate').on('click', function() {
                 let dataId = $('#mahasiswaId').val();
-                let url = {!! json_encode(url('/api/mahasiswa')) !!} + "/" + dataId;
+                let url = `{{ config('app.url') }}` + "/api/mahasiswa/" + dataId;
                 let data = $('#formUpdate').serialize();
                 let modalClose = () => {
                     $('#modalUpdate').modal('hide');
@@ -351,33 +351,46 @@
                 });
             });
 
-            $(document).on('click', '#deleteId', function(){
+            $(document).on('click', '#deleteId', function() {
                 let dataId = $(this).data('id');
-                let url = {!! json_encode(url('/api/mahasiswa')) !!} + "/" + dataId;
-                $.ajax({
-                    url: url,
-                    type: 'delete',
-                    success: function(result) {
-                        let data = result.data;
-                        Swal.fire({
-                            title: result.response.title,
-                            text: result.response.message,
-                            icon: result.response.icon,
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Oke'
-                        }).then((result) => {
-                            location.reload();
-                        });
-                    },
-                    error: function(result) {
-                        let data = result.responseJSON
-                        Swal.fire({
-                            icon: data.response.icon,
-                            title: data.response.title,
-                            text: data.response.message,
+                let url = `{{ config('app.url') }}` + "/api/mahasiswa/" + dataId;
+                Swal.fire({
+                    title: 'Anda Yakin?',
+                    text: "Data ini mungkin terhubung ke tabel yang lain!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Batal',
+                    confirmButtonText: 'Hapus'
+                }).then((res) => {
+                    if (res.isConfirmed) {
+                        $.ajax({
+                            url: url,
+                            type: 'delete',
+                            success: function(result) {
+                                let data = result.data;
+                                Swal.fire({
+                                    title: result.response.title,
+                                    text: result.response.message,
+                                    icon: result.response.icon,
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Oke'
+                                }).then((result) => {
+                                    location.reload();
+                                });
+                            },
+                            error: function(result) {
+                                let data = result.responseJSON
+                                Swal.fire({
+                                    icon: data.response.icon,
+                                    title: data.response.title,
+                                    text: data.response.message,
+                                });
+                            }
                         });
                     }
-                });
+                })
             });
         });
     </script>
