@@ -180,5 +180,20 @@ paths:
         '200':
           description: OK
 
+    delete:
+      tags:
+        - "Dosen"
+      summary: Delete Dosen By Id
+      description: 'This endpoint to delete dosen by id'
+      parameters:
+        - in : path
+          name: dosen_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
 
     
