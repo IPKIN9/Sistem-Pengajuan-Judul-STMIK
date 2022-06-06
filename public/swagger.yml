@@ -196,5 +196,33 @@ paths:
         '200':
           description: OK
 
+  /sistem_informasi:
+    post:
+      tags:
+        - "Sistem Informasi"
+      summary: "Post Data Sistem Informasi"
+      description: 'Insert new data to sistem informasi table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tgl_buka:
+                  type: string
+                  format: date
+                tgl_tutup:
+                  type: string
+                  format: date
+                sesi:
+                  type: number
+                  example: 1
+                persyaratan:
+                  type: string
+      parameters: []
+      responses:
+        '200':
+          description: OK
+
 
     
