@@ -18,7 +18,7 @@ class SIController extends Controller
     {
         $SI = $this->SIRepository->getAllSI();
 
-        return response()->json($SI);
+        return view('CMS.sistemInformasi')->with('SI', $SI);
     }
 
     public function createData(SIRequest $request)
