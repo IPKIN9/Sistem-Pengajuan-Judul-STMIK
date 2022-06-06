@@ -272,5 +272,20 @@ paths:
         '200':
           description: OK
 
+    delete:
+      tags:
+        - "Sistem Informasi"
+      summary: "Delete Data Sistem Informasi"
+      description: 'Delete data to sistem informasi table'
+      parameters:
+        - in : path
+          name: SI_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
 
     

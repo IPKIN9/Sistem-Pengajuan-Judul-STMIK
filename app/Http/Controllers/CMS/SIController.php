@@ -53,4 +53,11 @@ class SIController extends Controller
         $SI = $this->SIRepository->updateSI($id, $SIDetails);
         return response()->json($SI, $SI['code']);
     }
+
+    public function deleteData($id)
+    {
+        $SI = $this->SIRepository->deleteSI($id);
+
+        return response()->json($SI, $SI['code']);
+    }
 }
