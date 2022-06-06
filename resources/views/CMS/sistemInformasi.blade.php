@@ -124,42 +124,6 @@
             });
 
             $('#table').DataTable();
-
-            $('#saveId').on('click', function() {
-                let url = `{{ config('app.url') }}` + "/api/dosen";
-                let data = $('#formSimpan').serialize();
-                $.ajax({
-                    url: url,
-                    method: "POST",
-                    data: data,
-                    success: function(result) {
-                        Swal.fire({
-                            title: result.response.title,
-                            text: result.response.message,
-                            icon: result.response.icon,
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Oke'
-                        }).then((result) => {
-                            location.reload();
-                        });
-                    },
-                    error: function(result) {
-                        let data = result.responseJSON
-                        let errorRes = data.errors
-                        Swal.fire({
-                            icon: data.response.icon,
-                            title: data.response.title,
-                            text: data.response.message,
-                        });
-                        if (errorRes.length >= 1) {
-                            $('.miniAlert').html('');
-                            $('#alertNama').html(errorRes.data.nama);
-                            $('#alertNidn').html(errorRes.data.NIDN);
-                            $('#alertJabatan').html(errorRes.data.jabatan);
-                        }
-                    }
-                });
-            });
         });
 </script>
 @endsection
