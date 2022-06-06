@@ -22,4 +22,5 @@ Route::prefix('dosen')->group(function () {
 
 Route::prefix('sistem_informasi')->group(function () {
     Route::post('/', [SIController::class, 'createData']);
+    Route::get('/{id}', [SIController::class, 'getById']);
 });
