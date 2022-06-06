@@ -12,9 +12,11 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Master Data</span>
         </li>
-        <li class="menu-item
+        <li
+            class="menu-item
         {{ Route::is('dosen.index') ? 'open' : '' }} 
         {{ Route::is('mahasiswa.index') ? 'open' : '' }}
+        {{ Route::is('si.index') ? 'open' : '' }}
         ">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
@@ -23,19 +25,19 @@
 
             <ul class="menu-sub">
                 <li class="menu-item {{ Route::is('dosen.index') ? 'active' : '' }}">
-                    <a href="{{route ('dosen.index')}}" class="menu-link">
+                    <a href="{{ route('dosen.index') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-collection"></i>
                         <div data-i18n="Basic">Data Dosen</div>
                     </a>
                 </li>
                 <li class="menu-item {{ Route::is('mahasiswa.index') ? 'active' : '' }}">
-                    <a href="{{route ('mahasiswa.index')}}" class="menu-link">
+                    <a href="{{ route('mahasiswa.index') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-collection"></i>
                         <div data-i18n="Basic">Data Mahasiswa</div>
                     </a>
                 </li>
                 <li class="menu-item {{ Route::is('si.index') ? 'active' : '' }}">
-                    <a href="{{route ('si.index')}}" class="menu-link">
+                    <a href="{{ route('si.index') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-collection"></i>
                         <div data-i18n="Basic">Data Sistem Informasi</div>
                     </a>
