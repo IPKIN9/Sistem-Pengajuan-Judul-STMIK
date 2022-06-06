@@ -240,5 +240,37 @@ paths:
         '200':
           description: OK
 
+    patch:
+      tags:
+        - "Sistem Informasi"
+      summary: "Update Data Sistem Informasi"
+      description: 'Update data to sistem informasi table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tgl_buka:
+                  type: string
+                  format: date
+                tgl_tutup:
+                  type: string
+                  format: date
+                sesi:
+                  type: number
+                  example: 1
+                persyaratan:
+                  type: string
+      parameters:
+        - in : path
+          name: SI_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
 
     
