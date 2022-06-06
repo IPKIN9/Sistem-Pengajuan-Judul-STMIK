@@ -164,6 +164,95 @@
                     }
                 });
             });
+
+            $(document).on('click', '#editId', function() {
+                let dataId = $(this).data('id');
+                let url = `{{ config('app.url') }}` + "/api/sistem_informasi/" + dataId;
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function(result) {
+                        let data = result.data;
+                        $('#modalUpdate').modal('show');
+                        $('.modal-title').html('Perubahan Data');
+                        $('#formUpdate').html('');
+                        $('#formUpdate').append(`
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-name">Tanggal Buka</label>
+                                <div class="col-sm-10">
+                                    <input type="hidden" id="SiId" value="` + data.id + `">
+                                    <input type="text" class="form-control" name="tgl_buka" value="` + data.tgl_buka + `">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-name">Tanggal Tutup</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="tgl_tutup" value="` + data.tgl_tutup + `">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label"
+                                    for="basic-default-name">Sesi</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="sesi" value="` + data.sesi + `">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label"
+                                    for="basic-default-message">Persyaratan</label>
+                                <div class="col-sm-10">
+                                    <textarea name="persyaratan" class="form-control"
+                                        aria-describedby="basic-icon-default-message2">` + data.persyaratan + `</textarea>
+                                </div>
+                            </div>
+                        `);
+                    },
+                    error: function(result) {
+                        let data = result.responseJSON
+                        Swal.fire({
+                            icon: data.response.icon,
+                            title: data.response.title,
+                            text: data.response.message,
+                        });
+                    }
+
+                });
+            });
+            $('#buttonUpdate').on('click', function() {
+                let dataId = $('#SiId').val();
+                let url = `{{ config('app.url') }}` + "/api/sistem_informasi/" + dataId;
+                let data = $('#formUpdate').serialize();
+                let modalClose = () => {
+                    $('#modalUpdate').modal('hide');
+                }
+                $.ajax({
+                    url: url,
+                    method: "patch",
+                    data: data,
+                    success: function(result) {
+                        modalClose();
+                        Swal.fire({
+                            title: result.response.title,
+                            text: result.response.message,
+                            icon: result.response.icon,
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Oke'
+                        }).then((result) => {
+                            location.reload();
+                        });
+                    },
+                    error: function(result) {
+                        let data = result.responseJSON
+                        modalClose();
+                        Swal.fire({
+                            icon: data.response.icon,
+                            title: data.response.title,
+                            text: data.response.message,
+                        });
+                    }
+                });
+            });
         });
 </script>
 @endsection
