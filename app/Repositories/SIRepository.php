@@ -16,6 +16,38 @@ class SIRepository implements SIRepositoryInterface
 
     public function getSIById($SI_id)
     {
+        try {
+            $dbResult = SisteminformasiModel::whereId($SI_id)->first();
+            if ($dbResult) {
+                $SI = array(
+                    'data' => $dbResult,
+                    'message' => "Success",
+                    'code' => 200
+                );
+            } else {
+                $SI = array(
+                    'data' => null,
+                    'response' => array(
+                        'icon' => 'warning',
+                        'title' => 'Not Found',
+                        'message' => 'Data tidak tersedia',
+                    ),
+                    'code' => 404
+                );
+            }
+        } catch (\Throwable $th) {
+            $SI = array(
+                'data' => null,
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
+                'code' => 500
+            );
+        }
+
+        return $SI;
     }
 
     public function createSI(array $newDetails)
@@ -32,7 +64,7 @@ class SIRepository implements SIRepositoryInterface
                 'code' => 201
             );
         } catch (\Throwable $th) {
-            $SI = array([
+            $SI = array(
                 'data' => null,
                 'response' => array(
                     'icon' => 'error',
@@ -40,7 +72,7 @@ class SIRepository implements SIRepositoryInterface
                     'message' => $th->getMessage(),
                 ),
                 'code' => 500
-            ]);
+            );
         }
 
         return $SI;

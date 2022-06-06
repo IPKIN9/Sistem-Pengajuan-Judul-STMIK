@@ -33,4 +33,11 @@ class SIController extends Controller
         $SI = $this->SIRepository->createSI($SIDetails);
         return response()->json($SI, $SI['code']);
     }
+
+    public function getById($id)
+    {
+        $SI = $this->SIRepository->getSIById($id);
+
+        return response()->json($SI, $SI['code']);
+    }
 }
