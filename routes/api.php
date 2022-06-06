@@ -24,4 +24,5 @@ Route::prefix('sistem_informasi')->group(function () {
     Route::post('/', [SIController::class, 'createData']);
     Route::get('/{id}', [SIController::class, 'getById']);
     Route::patch('/{id}', [SIController::class, 'updateInSI']);
+    Route::delete('/{id}', [SIController::class, 'deleteData']);
 });
