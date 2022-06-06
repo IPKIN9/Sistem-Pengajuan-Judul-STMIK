@@ -68,7 +68,8 @@
                                 <form id="formSimpan">
                                     @csrf
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Tanggal Buka</label>
+                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Tanggal
+                                            Buka</label>
                                         <div class="col-sm-10">
                                             <input type="date" class="form-control" name="tgl_buka" id="tgl_buka"
                                                 placeholder="Input Tanggal Buka">
@@ -76,7 +77,8 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Tanggal Tutup</label>
+                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Tanggal
+                                            Tutup</label>
                                         <div class="col-sm-10">
                                             <input type="date" class="form-control" name="tgl_tutup" id="tgl_tutup"
                                                 placeholder="Input Tanggal Tutup">
@@ -92,10 +94,11 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Persyaratan</label>
+                                        <label class="col-sm-2 col-form-label"
+                                            for="basic-default-message">Persyaratan</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="persyaratan" id="persyaratan"
-                                                placeholder="Input Persyaratan">
+                                            <textarea name="persyaratan" id="persyaratan" class="form-control" placeholder="Input Persyaratan"
+                                                aria-describedby="basic-icon-default-message2"></textarea>
                                             <p class="text-danger miniAlert text-capitalize" id="alertPersyaratan"></p>
                                         </div>
                                     </div>
@@ -124,6 +127,43 @@
             });
 
             $('#table').DataTable();
+
+            $('#saveId').on('click', function() {
+                let url = `{{ config('app.url') }}` + "/api/sistem_informasi";
+                let data = $('#formSimpan').serialize();
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: data,
+                    success: function(result) {
+                        Swal.fire({
+                            title: result.response.title,
+                            text: result.response.message,
+                            icon: result.response.icon,
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Oke'
+                        }).then((result) => {
+                            location.reload();
+                        });
+                    },
+                    error: function(result) {
+                        let data = result.responseJSON
+                        let errorRes = data.errors
+                        Swal.fire({
+                            icon: data.response.icon,
+                            title: data.response.title,
+                            text: data.response.message,
+                        });
+                        if (errorRes.length >= 1) {
+                            $('.miniAlert').html('');
+                            $('#alertTglBuka').html(errorRes.data.tgl_buka);
+                            $('#alertTglTutup').html(errorRes.data.tgl_tutup);
+                            $('#alertSesi').html(errorRes.data.sesi);
+                            $('#alertPersyaratan').html(errorRes.data.persyaratan);
+                        }
+                    }
+                });
+            });
         });
 </script>
 @endsection
