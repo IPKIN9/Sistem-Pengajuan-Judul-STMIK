@@ -34,6 +34,12 @@
                         <div data-i18n="Basic">Data Mahasiswa</div>
                     </a>
                 </li>
+                <li class="menu-item {{ Route::is('si.index') ? 'active' : '' }}">
+                    <a href="{{route ('si.index')}}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-collection"></i>
+                        <div data-i18n="Basic">Data Sistem Informasi</div>
+                    </a>
+                </li>
             </ul>
         </li>
 
