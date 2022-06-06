@@ -92,10 +92,11 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Persyaratan</label>
+                                        <label class="col-sm-2 col-form-label"
+                                            for="basic-default-message">Persyaratan</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="persyaratan" id="persyaratan"
-                                                placeholder="Input Persyaratan">
+                                            <textarea name="persyaratan" id="persyaratan" class="form-control" placeholder="Input Persyaratan"
+                                                aria-describedby="basic-icon-default-message2"></textarea>
                                             <p class="text-danger miniAlert text-capitalize" id="alertPersyaratan"></p>
                                         </div>
                                     </div>
@@ -126,7 +127,7 @@
             $('#table').DataTable();
 
             $('#saveId').on('click', function() {
-                let url = `{{ config('app.url') }}` + "/api/dosen";
+                let url = `{{ config('app.url') }}` + "/api/sistem_informasi";
                 let data = $('#formSimpan').serialize();
                 $.ajax({
                     url: url,
@@ -153,9 +154,10 @@
                         });
                         if (errorRes.length >= 1) {
                             $('.miniAlert').html('');
-                            $('#alertNama').html(errorRes.data.nama);
-                            $('#alertNidn').html(errorRes.data.NIDN);
-                            $('#alertJabatan').html(errorRes.data.jabatan);
+                            $('#alertTglBuka').html(errorRes.data.tgl_buka);
+                            $('#alertTglTutup').html(errorRes.data.tgl_tutup);
+                            $('#alertSesi').html(errorRes.data.sesi);
+                            $('#alertPersyaratan').html(errorRes.data.persyaratan);
                         }
                     }
                 });
