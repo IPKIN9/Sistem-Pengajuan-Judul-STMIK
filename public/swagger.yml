@@ -224,5 +224,21 @@ paths:
         '200':
           description: OK
 
+  /sistem_informasi/{SI_id}:
+    get:
+      tags:
+        - "Sistem Informasi"
+      summary: Get sistem informasi by id
+      description: 'This endpoint to get sistem informasi by id'
+      parameters:
+        - in : path
+          name: SI_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
 
     
