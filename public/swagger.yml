@@ -355,5 +355,20 @@ paths:
         '200':
           description: OK
 
+    delete:
+      tags:
+        - "Admin"
+      summary: "Delete Data Admin"
+      description: 'Delete data from admin table'
+      parameters:
+        - in : path
+          name: admin_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
 
     
