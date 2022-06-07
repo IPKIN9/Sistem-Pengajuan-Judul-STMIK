@@ -39,4 +39,16 @@ class AdminController extends Controller
         $admin = $this->adminRepository->createAdmin($adminDetails);
         return response()->json($admin, $admin['code']);
     }
+
+    public function updateData(AdminRequest $request, $id)
+    {
+        $newDetails = $request->only([
+            'nama',
+            'jabatan',
+            'nidn',
+        ]);
+
+        $admin = $this->adminRepository->updateAdmin($id, $newDetails);
+        return response()->json($admin, $admin['code']);
+    }
 }
