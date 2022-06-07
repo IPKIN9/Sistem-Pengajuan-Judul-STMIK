@@ -32,4 +32,5 @@ Route::prefix('admin')->group(function () {
     Route::post('/', [AdminController::class, 'createData']);
     Route::get('/{id}', [AdminController::class, 'getById']);
     Route::patch('/{id}', [AdminController::class, 'updateData']);
+    Route::delete('/{id}', [AdminController::class, 'deleteData']);
 });
