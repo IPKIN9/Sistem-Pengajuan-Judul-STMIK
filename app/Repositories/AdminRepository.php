@@ -20,6 +20,42 @@ class AdminRepository implements AdminRepositoryInterface
 
     public function getAdminById($admin_id)
     {
+        try {
+            $dbResult = AdminModel::whereId($admin_id)->first();
+            if ($dbResult) {
+                $admin = array(
+                    'data' => $dbResult,
+                    'response' => array(
+                        'icon' => 'success',
+                        'title' => 'Ditemukan',
+                        'message' => 'Data berhasil ditemukan',
+                    ),
+                    'code' => 201
+                );
+            } else {
+                $admin = array(
+                    'data' => null,
+                    'response' => array(
+                        'icon' => 'warning',
+                        'title' => 'Not Found',
+                        'message' => 'Data tidak tersedia',
+                    ),
+                    'code' => 404
+                );
+            }
+        } catch (\Throwable $th) {
+            $admin = array(
+                'data' => null,
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
+                'code' => 500
+            );
+        }
+
+        return $admin;
     }
 
     public function createAdmin(array $adminDetails)
