@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\AdminRepositoryInterface;
 use App\Models\AdminModel;
+use Carbon\Carbon;
 
 class AdminRepository implements AdminRepositoryInterface
 {
@@ -88,6 +89,46 @@ class AdminRepository implements AdminRepositoryInterface
 
     public function updateAdmin($admin_id, array $newDetails)
     {
+        $date = Carbon::now();
+        $newDetails['created_at'] = $date;
+
+        try {
+            $dbResult = AdminModel::whereId($admin_id);
+            $findId = $dbResult->first();
+            if ($findId) {
+                $admin = array(
+                    'data' => $dbResult->update($newDetails),
+                    'response' => array(
+                        'icon' => 'success',
+                        'title' => 'Tersimpan',
+                        'message' => 'Data berhasil diperbaharui',
+                    ),
+                    'code' => 201
+                );
+            } else {
+                $admin = array(
+                    'data' => null,
+                    'response' => array(
+                        'icon' => 'warning',
+                        'title' => 'Not Found',
+                        'message' => 'Data tidak tersedia',
+                    ),
+                    'code' => 404
+                );
+            }
+        } catch (\Throwable $th) {
+            $admin = array(
+                'data' => null,
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
+                'code' => 500
+            );
+        }
+
+        return $admin;
     }
 
     public function deleteAdmin($admin_id)
