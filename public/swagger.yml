@@ -311,5 +311,21 @@ paths:
         '200':
           description: OK
 
+  /admin/{admin_id}:
+    get:
+      tags:
+        - "Admin"
+      summary: "Get Data Admin"
+      description: 'Get data from admin table'
+      parameters:
+        - in : path
+          name: admin_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
 
     
