@@ -287,5 +287,29 @@ paths:
         '200':
           description: OK
 
+  /admin:
+    post:
+      tags:
+        - "Admin"
+      summary: "Update Data Admin"
+      description: 'Update data to admin table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama:
+                  type: string
+                jabatan:
+                  type: string
+                nidn:
+                  type: number
+                  example: 4435533
+      parameters: []
+      responses:
+        '200':
+          description: OK
+
 
     
