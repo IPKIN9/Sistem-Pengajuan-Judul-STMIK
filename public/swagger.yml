@@ -291,8 +291,8 @@ paths:
     post:
       tags:
         - "Admin"
-      summary: "Update Data Admin"
-      description: 'Update data to admin table'
+      summary: "Post Data Admin"
+      description: 'Post data to admin table'
       requestBody:
         content:
           application/json:
@@ -317,6 +317,34 @@ paths:
         - "Admin"
       summary: "Get Data Admin"
       description: 'Get data from admin table'
+      parameters:
+        - in : path
+          name: admin_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
+    patch:
+      tags:
+        - "Admin"
+      summary: "Update Data Admin"
+      description: 'Update data to admin table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama:
+                  type: string
+                jabatan:
+                  type: string
+                nidn:
+                  type: number
+                  example: 4435533
       parameters:
         - in : path
           name: admin_id
