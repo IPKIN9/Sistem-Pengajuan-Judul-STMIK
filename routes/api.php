@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CMS\AdminController;
 use App\Http\Controllers\CMS\DosenController;
 use App\Http\Controllers\CMS\MahasiswaController;
 use App\Http\Controllers\CMS\SIController;
@@ -25,4 +26,8 @@ Route::prefix('sistem_informasi')->group(function () {
     Route::get('/{id}', [SIController::class, 'getById']);
     Route::patch('/{id}', [SIController::class, 'updateInSI']);
     Route::delete('/{id}', [SIController::class, 'deleteData']);
+});
+
+Route::prefix('admin')->group(function () {
+    Route::post('/', [AdminController::class, 'createData']);
 });
