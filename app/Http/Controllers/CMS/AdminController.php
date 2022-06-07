@@ -18,7 +18,7 @@ class AdminController extends Controller
     {
         $admin = $this->adminRepository->getAllAdmin();
 
-        return response()->json($admin);
+        return view('CMS.admin')->with('admin', $admin);
     }
 
     public function getById($id)

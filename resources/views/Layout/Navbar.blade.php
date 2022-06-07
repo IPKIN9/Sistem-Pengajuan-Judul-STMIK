@@ -17,6 +17,7 @@
         {{ Route::is('dosen.index') ? 'open' : '' }} 
         {{ Route::is('mahasiswa.index') ? 'open' : '' }}
         {{ Route::is('si.index') ? 'open' : '' }}
+        {{ Route::is('admin.index') ? 'open' : '' }}
         ">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
@@ -40,6 +41,12 @@
                     <a href="{{ route('si.index') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-collection"></i>
                         <div data-i18n="Basic">Data Sistem Informasi</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ Route::is('admin.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.index') }}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-collection"></i>
+                        <div data-i18n="Basic">Data Admin</div>
                     </a>
                 </li>
             </ul>
