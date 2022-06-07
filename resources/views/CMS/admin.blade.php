@@ -84,7 +84,7 @@
                                     <div class="row mb-3">
                                         <label class="col-sm-2 col-form-label" for="basic-default-name">NIDN</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="nidn" id="nidn"
+                                            <input type="number" class="form-control" name="nidn" id="nidn"
                                                 placeholder="Input NIDN">
                                             <p class="text-danger miniAlert text-capitalize" id="alertNidn"></p>
                                         </div>
@@ -116,6 +116,41 @@
 
             $('#table').DataTable();
 
+            $('#saveId').on('click', function() {
+                let url = `{{ config('app.url') }}` + "/api/admin";
+                let data = $('#formSimpan').serialize();
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: data,
+                    success: function(result) {
+                        Swal.fire({
+                            title: result.response.title,
+                            text: result.response.message,
+                            icon: result.response.icon,
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Oke'
+                        }).then((result) => {
+                            location.reload();
+                        });
+                    },
+                    error: function(result) {
+                        let data = result.responseJSON
+                        let errorRes = data.errors
+                        Swal.fire({
+                            icon: data.response.icon,
+                            title: data.response.title,
+                            text: data.response.message,
+                        });
+                        if (errorRes.length >= 1) {
+                            $('.miniAlert').html('');
+                            $('#alertNama').html(errorRes.data.nama);
+                            $('#alertJabatan').html(errorRes.data.jabatan);
+                            $('#alertNidn').html(errorRes.data.nidn);
+                        }
+                    }
+                });
+            });
         });
 </script>
 @endsection
