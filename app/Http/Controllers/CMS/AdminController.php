@@ -21,6 +21,13 @@ class AdminController extends Controller
         return response()->json($admin);
     }
 
+    public function getById($id)
+    {
+        $admin = $this->adminRepository->getAdminById($id);
+
+        return response()->json($admin, $admin['code']);
+    }
+
     public function createData(AdminRequest $request)
     {
         $adminDetails = $request->only([
