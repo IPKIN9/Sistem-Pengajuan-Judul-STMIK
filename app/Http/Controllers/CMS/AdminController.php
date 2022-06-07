@@ -51,4 +51,11 @@ class AdminController extends Controller
         $admin = $this->adminRepository->updateAdmin($id, $newDetails);
         return response()->json($admin, $admin['code']);
     }
+
+    public function deleteData($id)
+    {
+        $admin = $this->adminRepository->deleteAdmin($id);
+
+        return response()->json($admin, $admin['code']);
+    }
 }
