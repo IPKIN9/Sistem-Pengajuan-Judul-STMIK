@@ -38,7 +38,7 @@
                                     @php
                                     $no = 1;
                                     @endphp
-                                    @foreach ($judul as $d)
+                                    @foreach ($judul ['judul'] as $d)
                                     <tr>
                                         <th scope="row">{{ $no++ }}</th>
                                         <td>{{ $d->mahasiswaRole->nama }}</td>
@@ -71,15 +71,16 @@
                                         <div class="col-sm-10">
                                             <select name="id_mahasiswa" id="id_mahasiswa" class="form-control">
                                                 <option selected disabled>Pilih Nama Mahasiswa</option>
-                                                @foreach ($judul as $d)
-                                                <option value="{{$d->id}}">{{$d->mahasiswaRole->nama}}</option>
+                                                @foreach ($judul ['mahasiswa'] as $d)
+                                                <option value="{{$d->id}}">{{$d->nama}}</option>
                                                 @endforeach
                                             </select>
-                                            <p class="text-danger miniAlert text-capitalize" id="alertJudul"></p>
+                                            <p class="text-danger miniAlert text-capitalize" id="alertIdMahasiswa"></p>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Nama Judul</label>
+                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Nama
+                                            Judul</label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" name="nama_judul" id="nama_judul"
                                                 placeholder="Input Nama Judul">
@@ -87,7 +88,8 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Deskripsi Judul</label>
+                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Deskripsi
+                                            Judul</label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" name="descJudul" id="descJudul"
                                                 placeholder="Input Deskripsi Judul">
@@ -119,6 +121,42 @@
             });
 
             $('#table').DataTable();
+            
+            $('#saveId').on('click', function() {
+                let url = `{{ config('app.url') }}` + "/api/judul";
+                let data = $('#formSimpan').serialize();
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: data,
+                    success: function(result) {
+                        Swal.fire({
+                            title: result.response.title,
+                            text: result.response.message,
+                            icon: result.response.icon,
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Oke'
+                        }).then((result) => {
+                            location.reload();
+                        });
+                    },
+                    error: function(result) {
+                        let data = result.responseJSON
+                        let errorRes = data.errors
+                        Swal.fire({
+                            icon: data.response.icon,
+                            title: data.response.title,
+                            text: data.response.message,
+                        });
+                        if (errorRes.length >= 1) {
+                            $('.miniAlert').html('');
+                            $('#alertIdMahasiswa').html(errorRes.data.id_mahasiswa);
+                            $('#alertNamaJudul').html(errorRes.data.nama_judul);
+                            $('#alertDescJudul').html(errorRes.data.descJudul);
+                        }
+                    }
+                });
+            });
         });
 </script>
 @endsection
