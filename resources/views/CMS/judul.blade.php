@@ -88,11 +88,12 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Deskripsi
+                                        <label class="col-sm-2 col-form-label" for="basic-default-message">Deskripsi
                                             Judul</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="descJudul" id="descJudul"
-                                                placeholder="Input Deskripsi Judul">
+                                            <textarea name="descJudul" id="descJudul" class="form-control"
+                                                placeholder="Input Deskripsi judul"
+                                                aria-describedby="basic-icon-default-message2"></textarea>
                                             <p class="text-danger miniAlert text-capitalize" id="alertDescJudul"></p>
                                         </div>
                                     </div>
@@ -154,6 +155,94 @@
                             $('#alertNamaJudul').html(errorRes.data.nama_judul);
                             $('#alertDescJudul').html(errorRes.data.descJudul);
                         }
+                    }
+                });
+            });
+
+            $(document).on('click', '#editId', function() {
+                let dataId = $(this).data('id');
+                let url = `{{ config('app.url') }}` + "/api/judul/" + dataId;
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function(result) {
+                        let data = result.data;
+                        $('#modalUpdate').modal('show');
+                        $('.modal-title').html('Perubahan Data');
+                        $('#formUpdate').html('');
+                        $('#formUpdate').append(`
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-message">Nama
+                                    Mahasiswa</label>
+                                    <input type="hidden" id="judulId" value="` + data.id + `">
+                                    <div class="col-sm-10">
+                                    <select name="id_mahasiswa" id="id_mahasiswaUpdate" class="form-control">
+                                        <option selected disabled>Pilih Nama Mahasiswa</option>
+                                        @foreach ($judul ['mahasiswa'] as $d)
+                                        <option value="{{$d->id}}">{{$d->nama}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-name">Nama Judul</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="nama_judul" value="` + data.nama_judul + `">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label"
+                                    for="basic-default-message">Deskripsi Judul</label>
+                                <div class="col-sm-10">
+                                    <textarea name="descJudul" id="descJudul" class="form-control" placeholder="Input Deskripsi judul"
+                                        aria-describedby="basic-icon-default-message2">`+ data.descJudul+`</textarea>
+                                </div>
+                            </div>
+                            `);
+                            $('#id_mahasiswaUpdate').val(data.id_mahasiswa);
+                    },
+                    error: function(result) {
+                        let data = result.responseJSON
+                        Swal.fire({
+                            icon: data.response.icon,
+                            title: data.response.title,
+                            text: data.response.message,
+                        });
+                    }
+
+                });
+            });
+            $('#buttonUpdate').on('click', function() {
+                let dataId = $('#judulId').val();
+                let url = `{{ config('app.url') }}` + "/api/judul/" + dataId;
+                let data = $('#formUpdate').serialize();
+                let modalClose = () => {
+                    $('#modalUpdate').modal('hide');
+                }
+                $.ajax({
+                    url: url,
+                    method: "patch",
+                    data: data,
+                    success: function(result) {
+                        modalClose();
+                        Swal.fire({
+                            title: result.response.title,
+                            text: result.response.message,
+                            icon: result.response.icon,
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Oke'
+                        }).then((result) => {
+                            location.reload();
+                        });
+                    },
+                    error: function(result) {
+                        let data = result.responseJSON
+                        modalClose();
+                        Swal.fire({
+                            icon: data.response.icon,
+                            title: data.response.title,
+                            text: data.response.message,
+                        });
                     }
                 });
             });
