@@ -32,4 +32,11 @@ class JudulController extends Controller
 
         return response()->json($judul, $judul['code']);
     }
+
+    public function getById($id)
+    {
+        $judul = $this->judulRepository->getJudulById($id);
+
+        return response()->json($judul, $judul['code']);
+    }
 }
