@@ -11,7 +11,10 @@ class JudulRepository implements JudulRepositoryInterface
 {
     public function getAllJudul()
     {
-        $judul = JudulModel::with('mahasiswaRole')->get();
+        $judul = array(
+            'judul' => JudulModel::with('mahasiswaRole')->get(),
+            'mahasiswa' => MahasiswaModel::all()
+        );
 
         return $judul;
     }
