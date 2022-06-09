@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class JudulModel extends Model
 {
@@ -19,8 +18,8 @@ class JudulModel extends Model
         'updated_at',
     ];
 
-    public function mahasiswa(): HasMany
+    public function mahasiswaRole()
     {
-        return $this->hasMany(MahasiswaModel::class, 'id_mahasiswa', 'id');
+        return $this->belongsTo(MahasiswaModel::class, 'id_mahasiswa');
     }
 }
