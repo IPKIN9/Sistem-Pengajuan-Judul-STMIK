@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CMS\AdminController;
 use App\Http\Controllers\CMS\DosenController;
+use App\Http\Controllers\CMS\JudulController;
 use App\Http\Controllers\CMS\MahasiswaController;
 use App\Http\Controllers\CMS\SIController;
 use Illuminate\Http\Request;
@@ -33,4 +34,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/{id}', [AdminController::class, 'getById']);
     Route::patch('/{id}', [AdminController::class, 'updateData']);
     Route::delete('/{id}', [AdminController::class, 'deleteData']);
+});
+
+Route::prefix('judul')->group(function () {
+    Route::post('/', [JudulController::class, 'createData']);
 });
