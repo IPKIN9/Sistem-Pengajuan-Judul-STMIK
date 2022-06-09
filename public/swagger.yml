@@ -395,5 +395,21 @@ paths:
         '200':
           description: OK
 
+  /judul/{judul_id}:
+    get:
+      tags:
+        - "Judul"
+      summary: "Get Data Judul"
+      description: 'Get data from judul table'
+      parameters:
+        - in : path
+          name: judul_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
 
     

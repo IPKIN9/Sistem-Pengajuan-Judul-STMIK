@@ -38,4 +38,5 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('judul')->group(function () {
     Route::post('/', [JudulController::class, 'createData']);
+    Route::get('/{id}', [JudulController::class, 'getById']);
 });
