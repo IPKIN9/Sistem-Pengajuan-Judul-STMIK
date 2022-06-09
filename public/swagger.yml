@@ -440,5 +440,20 @@ paths:
         '200':
           description: OK
 
+    delete:
+      tags:
+        - "Judul"
+      summary: "Delete Data Judul"
+      description: 'Delete data from judul table'
+      parameters:
+        - in : path
+          name: judul_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
 
     
