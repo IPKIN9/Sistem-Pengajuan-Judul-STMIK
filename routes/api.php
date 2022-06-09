@@ -40,4 +40,5 @@ Route::prefix('judul')->group(function () {
     Route::post('/', [JudulController::class, 'createData']);
     Route::get('/{id}', [JudulController::class, 'getById']);
     Route::patch('/{id}', [JudulController::class, 'updateData']);
+    Route::delete('/{id}', [JudulController::class, 'deleteData']);
 });

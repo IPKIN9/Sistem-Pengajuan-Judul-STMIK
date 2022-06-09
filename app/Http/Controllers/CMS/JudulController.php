@@ -51,4 +51,11 @@ class JudulController extends Controller
         $judul = $this->judulRepository->updateJudul($id, $newDetail);
         return response()->json($judul, $judul['code']);
     }
+
+    public function deleteData($id)
+    {
+        $judul = $this->judulRepository->deleteJudul($id);
+
+        return response()->json($judul, $judul['code']);
+    }
 }
