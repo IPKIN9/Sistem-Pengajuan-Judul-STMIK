@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\CMS;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\JudulRequest;
 use App\Interfaces\JudulRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -18,5 +19,17 @@ class JudulController extends Controller
         $judul = $this->judulRepository->getAllJudul();
 
         return response()->json($judul);
+    }
+
+    public function createData(JudulRequest $request)
+    {
+        $judulDetail = $request->only([
+            'id_mahasiswa',
+            'nama_judul',
+            'descJudul',
+        ]);
+        $judul = $this->judulRepository->createJudul($judulDetail);
+
+        return response()->json($judul, $judul['code']);
     }
 }
