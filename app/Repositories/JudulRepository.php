@@ -105,11 +105,13 @@ class JudulRepository implements JudulRepositoryInterface
         $date = Carbon::now();
         $newDetail['updated_at'] = $date;
         try {
-            $dbResult = JudulModel::whereId($judul_id)->where('id_mahasiswa', $newDetail['id_mahasiswa']);
-            $findMahasiswa = $dbResult->first();
-            if ($findMahasiswa) {
+            $dbJudul = JudulModel::whereId($judul_id);
+            $dbMahasiswa = MahasiswaModel::whereId($newDetail['id_mahasiswa']);
+
+            $findMahasiswa = $dbJudul->first();
+            if ($findMahasiswa and $dbMahasiswa) {
                 $judul = array(
-                    'data' => $dbResult->update($newDetail),
+                    'data' => $dbJudul->update($newDetail),
                     'response' => array(
                         'icon' => 'success',
                         'title' => 'Tersimpan',
