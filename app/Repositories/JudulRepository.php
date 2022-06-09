@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Interfaces\JudulRepositoryInterface;
 use App\Models\JudulModel;
 use App\Models\MahasiswaModel;
+use Carbon\Carbon;
 
 class JudulRepository implements JudulRepositoryInterface
 {
@@ -18,7 +19,7 @@ class JudulRepository implements JudulRepositoryInterface
     public function getJudulById($judul_id)
     {
         try {
-            $dbResult = JudulModel::whereId($judul_id)->first();
+            $dbResult = JudulModel::whereId($judul_id)->with('mahasiswaRole')->first();
             if ($dbResult) {
                 $judul = array(
                     'data' => $dbResult,
@@ -35,7 +36,7 @@ class JudulRepository implements JudulRepositoryInterface
                     'response' => array(
                         'icon' => 'warning',
                         'title' => 'Not Found',
-                        'message' => 'Data mahasiswa tersedia',
+                        'message' => 'Data judul tidak tersedia',
                     ),
                     'code' => 404
                 );
@@ -76,7 +77,7 @@ class JudulRepository implements JudulRepositoryInterface
                     'response' => array(
                         'icon' => 'warning',
                         'title' => 'Not Found',
-                        'message' => 'Data mahasiswa tersedia',
+                        'message' => 'Data mahasiswa tidak tersedia',
                     ),
                     'code' => 404
                 );
@@ -98,6 +99,45 @@ class JudulRepository implements JudulRepositoryInterface
 
     public function updateJudul($judul_id, array $newDetail)
     {
+        $date = Carbon::now();
+        $newDetail['updated_at'] = $date;
+        try {
+            $dbResult = JudulModel::whereId($judul_id)->where('id_mahasiswa', $newDetail['id_mahasiswa']);
+            $findMahasiswa = $dbResult->first();
+            if ($findMahasiswa) {
+                $judul = array(
+                    'data' => $dbResult->update($newDetail),
+                    'response' => array(
+                        'icon' => 'success',
+                        'title' => 'Tersimpan',
+                        'message' => 'Data berhasil disimpan',
+                    ),
+                    'code' => 201
+                );
+            } else {
+                $judul = array(
+                    'data' => null,
+                    'response' => array(
+                        'icon' => 'warning',
+                        'title' => 'Not Found',
+                        'message' => 'Data judul atau mahasiswa tersedia',
+                    ),
+                    'code' => 404
+                );
+            }
+        } catch (\Throwable $th) {
+            $judul = array(
+                'data' => null,
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
+                'code' => 500
+            );
+        }
+
+        return $judul;
     }
 
     public function deleteJudul($judul_id)

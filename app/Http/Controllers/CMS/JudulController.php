@@ -39,4 +39,16 @@ class JudulController extends Controller
 
         return response()->json($judul, $judul['code']);
     }
+
+    public function updateData(JudulRequest $request, $id)
+    {
+        $newDetail = $request->only([
+            'id_mahasiswa',
+            'nama_judul',
+            'descJudul',
+        ]);
+
+        $judul = $this->judulRepository->updateJudul($id, $newDetail);
+        return response()->json($judul, $judul['code']);
+    }
 }
