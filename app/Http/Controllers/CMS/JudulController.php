@@ -18,7 +18,7 @@ class JudulController extends Controller
     {
         $judul = $this->judulRepository->getAllJudul();
 
-        return response()->json($judul);
+        return view('CMS.judul')->with('judul', $judul);
     }
 
     public function createData(JudulRequest $request)
