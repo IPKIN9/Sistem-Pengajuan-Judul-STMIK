@@ -370,5 +370,30 @@ paths:
         '200':
           description: OK
 
+  /judul:
+    post:
+      tags:
+        - "Judul"
+      summary: "Post Data Judul"
+      description: 'Post data to judul table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_mahasiswa:
+                  type: integer
+                nama_judul:
+                  type: string
+                descJudul:
+                  type: string
+                  minLength: 3
+                  maxLength: 255
+      parameters: []
+      responses:
+        '200':
+          description: OK
+
 
     
