@@ -115,7 +115,7 @@ class JudulRepository implements JudulRepositoryInterface
                     'response' => array(
                         'icon' => 'success',
                         'title' => 'Tersimpan',
-                        'message' => 'Data berhasil disimpan',
+                        'message' => 'Data berhasil diperbaharui',
                     ),
                     'code' => 201
                 );
@@ -157,7 +157,7 @@ class JudulRepository implements JudulRepositoryInterface
                     'response' => array(
                         'icon' => 'success',
                         'title' => 'Tersimpan',
-                        'message' => 'Data berhasil disimpan',
+                        'message' => 'Data berhasil dihapus',
                     ),
                     'code' => 201
                 );
