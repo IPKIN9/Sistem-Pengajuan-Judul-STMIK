@@ -16,7 +16,7 @@ class CreateJurnalTable extends Migration
         Schema::create('jurnal', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_judul')->constrained('judul');
-            $table->string('nama_judul');
+            $table->string('nama_jurnal');
             $table->string('sumber');
             $table->text('descJurnal');
             $table->string('ISSN');
