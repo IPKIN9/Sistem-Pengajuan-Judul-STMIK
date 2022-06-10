@@ -60,4 +60,11 @@ class JurnalController extends Controller
 
         return response()->json($jurnal, $jurnal['code']);
     }
+
+    public function deleteData($id)
+    {
+        $jurnal = $this->jurnalRepository->deleteJurnal($id);
+
+        return response()->json($jurnal, $jurnal['code']);
+    }
 }
