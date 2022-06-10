@@ -22,8 +22,8 @@ class JurnalModel extends Model
         'created_at',
         'updated_at',
     ];
-    public function judul(): HasMany
+    public function judulRole()
     {
-        return $this->hasMany(JudulModel::class, 'id_judul', 'id');
+        return $this->belongsTo(JudulModel::class, 'id_judul');
     }
 }
