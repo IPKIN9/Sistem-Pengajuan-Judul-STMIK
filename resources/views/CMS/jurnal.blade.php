@@ -22,13 +22,13 @@
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
-                        <div class="table-responsive text-nowrap">
+                    <div class="tab-pane fade show active" id="navs-pills-justified-home">
+                        <div class="table-responsive">
                             <table class="table" id="table">
                                 <thead>
                                     <tr class="text-nowrap">
                                         <th>No</th>
-                                        <th>Judul</th>
+                                        <th style="width: 50%">Judul</th>
                                         <th>Nama Jurnal</th>
                                         <th>Sumber</th>
                                         <th>Deskripsi Jurnal</th>
@@ -51,13 +51,15 @@
                                         <td>{{ $d->descJurnal }}</td>
                                         <td>{{ $d->ISSN }}</td>
                                         <td>{{ $d->tahunterbit }}</td>
-                                        <td>{{ $d->path_file }}</td>
                                         <td>
-                                            <button type="button" id="editId" data-id="{{ $d->id }}"
-                                                data-bs-toggle="modal" data-bs-target="#modalUpdate"
-                                                class="btn rounded-pill btn-outline-primary">Edit</button>
+                                            <a href="{{ asset('storage/jurnal/'.$d->path_file) }}"
+                                                class="btn rounded-pill btn-outline-success" id="InfoId"
+                                                target="_blank"><i class='bx bx-cloud-download' ></i></a>
+                                        </td>
+                                        <td>
                                             <button type="button" id="deleteId" data-id="{{ $d->id }}"
-                                                class="btn rounded-pill btn-outline-danger">Delete</button>
+                                                class="btn rounded-pill btn-outline-danger"><i
+                                                    class='bx bx-trash'></i></button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -71,7 +73,7 @@
                                 <h5 class="mb-0">Input Data Jurnal</h5>
                             </div>
                             <div class="card-body">
-                                <form id="formSimpan">
+                                <form id="formSimpan" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row mb-3">
                                         <label class="col-sm-2 col-form-label" for="basic-default-message">Judul</label>
@@ -95,6 +97,14 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Sumber</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="sumber" id="sumber"
+                                                placeholder="Input Sumber">
+                                            <p class="text-danger miniAlert text-capitalize" id="alertSumber"></p>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
                                         <label class="col-sm-2 col-form-label" for="basic-default-message">Deskripsi
                                             Jurnal</label>
                                         <div class="col-sm-10">
@@ -113,7 +123,8 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Tahun Terbit</label>
+                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Tahun
+                                            Terbit</label>
                                         <div class="col-sm-10">
                                             <input type="years" class="form-control" name="tahunterbit" id="tahunterbit"
                                                 placeholder="Input Tahun Terbit">
@@ -152,6 +163,50 @@
             });
 
             $('#table').DataTable();
+
+            $('#saveId').on('click', function() {
+                let url = `{{ config('app.url') }}` + "/api/jurnal";
+                let data = new FormData($("#formSimpan")[0]);
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(result) {
+                        console.log(result);
+                        Swal.fire({
+                            title: result.response.title,
+                            text: result.response.message,
+                            icon: result.response.icon,
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Oke'
+                        }).then((result) => {
+                            location.reload();
+                        });
+                    },
+                    error: function(result) {
+                        let data = result.responseJSON
+                        let errorRes = data.errors
+                        Swal.fire({
+                            icon: data.response.icon,
+                            title: data.response.title,
+                            text: data.response.message,
+                        });
+                        if (errorRes.length >= 1) {
+                            $('.miniAlert').html('');
+                            $('#alertIdJudul').html(errorRes.data.id_judul);
+                            $('#alertNamaJurnal').html(errorRes.data.nama_jurnal);
+                            $('#alertSumber').html(errorRes.data.sumber);
+                            $('#alertDescJurnal').html(errorRes.data.descJurnal);
+                            $('#alertISSN').html(errorRes.data.ISSN);
+                            $('#alertTahunTerbit').html(errorRes.data.tahunterbit);
+                            $('#alertPathFile').html(errorRes.data.path_file);
+                        }
+                    }
+                });
+            });
             
         });
 </script>

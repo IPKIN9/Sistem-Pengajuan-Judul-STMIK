@@ -28,9 +28,9 @@
                                 <thead>
                                     <tr class="text-nowrap">
                                         <th>No</th>
-                                        <th>Nama</th>
-                                        <th>NIDN</th>
-                                        <th>Jabatan</th>
+                                        <th>Nama Mahasiswa</th>
+                                        <th>Judul</th>
+                                        <th>Deskripsi Judul</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
@@ -47,9 +47,9 @@
                                         <td>
                                             <button type="button" id="editId" data-id="{{ $d->id }}"
                                                 data-bs-toggle="modal" data-bs-target="#modalUpdate"
-                                                class="btn rounded-pill btn-outline-primary">Edit</button>
+                                                class="btn rounded-pill btn-outline-primary"><i class='bx bx-message-square-edit'></i></button>
                                             <button type="button" id="deleteId" data-id="{{ $d->id }}"
-                                                class="btn rounded-pill btn-outline-danger">Delete</button>
+                                                class="btn rounded-pill btn-outline-danger"><i class='bx bx-trash'></i></button>
                                         </td>
                                     </tr>
                                     @endforeach

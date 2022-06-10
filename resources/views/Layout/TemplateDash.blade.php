@@ -54,9 +54,8 @@
                 <div class="app-brand demo">
                     <a href="index.html" class="app-brand-link">
                         <span class="app-brand-logo demo">
-                            <img src="{{ asset('img/logostmik.png') }}" alt="">
+                            <img src="{{ asset('img/logostmik2.png') }}" alt="">
                         </span>
-                        <span class="app-brand-text demo menu-text fw-bolder ms-2">STMIK</span>
                     </a>
 
                     <a href="javascript:void(0);"
