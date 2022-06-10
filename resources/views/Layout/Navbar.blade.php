@@ -12,13 +12,13 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Master Data</span>
         </li>
-        <li
-            class="menu-item
+        <li class="menu-item
         {{ Route::is('dosen.index') ? 'open' : '' }} 
         {{ Route::is('mahasiswa.index') ? 'open' : '' }}
         {{ Route::is('si.index') ? 'open' : '' }}
         {{ Route::is('admin.index') ? 'open' : '' }}
         {{ Route::is('judul.index') ? 'open' : '' }}
+        {{ Route::is('jurnal.index') ? 'open' : '' }}
         ">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
@@ -54,6 +54,12 @@
                     <a href="{{ route('judul.index') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-collection"></i>
                         <div data-i18n="Basic">Data Judul</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ Route::is('jurnal.index') ? 'active' : '' }}">
+                    <a href="{{ route('jurnal.index') }}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-collection"></i>
+                        <div data-i18n="Basic">Data Jurnal</div>
                     </a>
                 </li>
             </ul>
