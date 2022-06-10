@@ -18,7 +18,7 @@ class JurnalController extends Controller
     {
         $jurnal = $this->jurnalRepository->getAllJurnal();
 
-        return response()->json($jurnal);
+        return view('CMS.jurnal')->with('jurnal', $jurnal);
     }
 
     public function createData(JurnalRequest $request)
