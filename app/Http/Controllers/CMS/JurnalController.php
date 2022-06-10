@@ -43,4 +43,21 @@ class JurnalController extends Controller
 
         return response()->json($jurnal, $jurnal['code']);
     }
+
+    public function updateData(JurnalRequest $request, $id)
+    {
+        $newDetail = $request->only(
+            'id_judul',
+            'nama_jurnal',
+            'sumber',
+            'descJurnal',
+            'ISSN',
+            'tahunterbit',
+            'path_file',
+        );
+
+        $jurnal = $this->jurnalRepository->updateJurnal($id, $newDetail);
+
+        return response()->json($jurnal, $jurnal['code']);
+    }
 }

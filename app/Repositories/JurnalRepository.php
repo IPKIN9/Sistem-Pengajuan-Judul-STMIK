@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Interfaces\JurnalRepositoryInterface;
 use App\Models\JudulModel;
 use App\Models\JurnalModel;
+use Carbon\Carbon;
 
 class JurnalRepository implements JurnalRepositoryInterface
 {
@@ -101,6 +102,46 @@ class JurnalRepository implements JurnalRepositoryInterface
 
     public function updateJurnal($jurnal_id, array $newDetail)
     {
+        $date = Carbon::now();
+        $newDetail['updated_at'] = $date;
+        try {
+            $dbResult = JurnalModel::whereId($jurnal_id);
+            $findJurnal = $dbResult->first();
+            $findJudul = JudulModel::whereId($newDetail['id_judul'])->first();
+            if ($findJurnal and $findJudul) {
+                $jurnal = array(
+                    'data' => $dbResult->update($newDetail),
+                    'response' => array(
+                        'icon' => 'success',
+                        'title' => 'Tersimpan',
+                        'message' => 'Data berhasil disimpan',
+                    ),
+                    'code' => 201
+                );
+            } else {
+                $jurnal = array(
+                    'data' => null,
+                    'response' => array(
+                        'icon' => 'warning',
+                        'title' => 'Not Found',
+                        'message' => 'Data judul tidak tersedia',
+                    ),
+                    'code' => 404
+                );
+            }
+        } catch (\Throwable $th) {
+            $jurnal = array(
+                'data' => null,
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
+                'code' => 500
+            );
+        }
+
+        return $jurnal;
     }
 
     public function deleteJurnal($jurnal_id)
