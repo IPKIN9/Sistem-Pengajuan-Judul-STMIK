@@ -3,6 +3,7 @@
 use App\Http\Controllers\CMS\AdminController;
 use App\Http\Controllers\CMS\DosenController;
 use App\Http\Controllers\CMS\JudulController;
+use App\Http\Controllers\CMS\JurnalController;
 use App\Http\Controllers\CMS\MahasiswaController;
 use App\Http\Controllers\CMS\SIController;
 use Illuminate\Http\Request;
@@ -41,4 +42,8 @@ Route::prefix('judul')->group(function () {
     Route::get('/{id}', [JudulController::class, 'getById']);
     Route::patch('/{id}', [JudulController::class, 'updateData']);
     Route::delete('/{id}', [JudulController::class, 'deleteData']);
+});
+
+Route::prefix('jurnal')->group(function () {
+    Route::post('/', [JurnalController::class, 'createData']);
 });
