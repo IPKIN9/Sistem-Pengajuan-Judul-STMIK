@@ -455,5 +455,38 @@ paths:
         '200':
           description: OK
 
+  /jurnal:
+    post:
+      tags:
+        - "Jurnal"
+      summary: "Post Jurnal Judul"
+      description: 'Post data to jurnal table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_judul:
+                  type: integer
+                nama_jurnal:
+                  type: string
+                sumber:
+                  type: string
+                descJurnal:
+                  type: string
+                ISSN:
+                  type: number
+                  example: 55477344
+                tahunterbit:
+                  type: number
+                  format: years
+                path_file:
+                  type: string
+      parameters: []
+      responses:
+        '200':
+          description: OK
+
 
     
