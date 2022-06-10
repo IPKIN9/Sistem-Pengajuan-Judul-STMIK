@@ -36,4 +36,11 @@ class JurnalController extends Controller
         $jurnal = $this->jurnalRepository->createJurnal($jurnalDetail);
         return response()->json($jurnal, $jurnal['code']);
     }
+
+    public function getById($id)
+    {
+        $jurnal = $this->jurnalRepository->getJurnalById($id);
+
+        return response()->json($jurnal, $jurnal['code']);
+    }
 }

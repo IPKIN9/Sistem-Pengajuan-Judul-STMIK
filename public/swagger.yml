@@ -488,5 +488,21 @@ paths:
         '200':
           description: OK
 
+  /jurnal/{jurnal_id}:
+    get:
+      tags:
+        - "Jurnal"
+      summary: "Get Data Jurnal"
+      description: 'Get data from jurnal table'
+      parameters:
+        - in : path
+          name: jurnal_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
 
     

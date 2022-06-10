@@ -46,4 +46,5 @@ Route::prefix('judul')->group(function () {
 
 Route::prefix('jurnal')->group(function () {
     Route::post('/', [JurnalController::class, 'createData']);
+    Route::get('/{id}', [JurnalController::class, 'getById']);
 });
