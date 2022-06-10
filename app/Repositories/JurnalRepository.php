@@ -6,6 +6,7 @@ use App\Interfaces\JurnalRepositoryInterface;
 use App\Models\JudulModel;
 use App\Models\JurnalModel;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class JurnalRepository implements JurnalRepositoryInterface
 {
@@ -63,7 +64,11 @@ class JurnalRepository implements JurnalRepositoryInterface
     {
         try {
             $findJudul = JudulModel::whereId($jurnalDetail['id_judul'])->first();
+            $fileUpload = $jurnalDetail['path_file'];
+
+            $jurnalDetail['path_file'] = $fileUpload->getClientOriginalName();
             $dbResult = new JurnalModel;
+
             if ($findJudul) {
                 $jurnal = array(
                     'data' => $dbResult->create($jurnalDetail),
@@ -74,6 +79,8 @@ class JurnalRepository implements JurnalRepositoryInterface
                     ),
                     'code' => 201
                 );
+                $filePath = public_path('storage/jurnal');
+                $fileUpload->move($filePath, $fileUpload->getClientOriginalName());
             } else {
                 $jurnal = array(
                     'data' => null,

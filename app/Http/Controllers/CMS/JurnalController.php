@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\JurnalRequest;
 use App\Interfaces\JurnalRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 
 class JurnalController extends Controller
 {
@@ -30,9 +32,9 @@ class JurnalController extends Controller
             'descJurnal',
             'ISSN',
             'tahunterbit',
-            'path_file',
         );
-
+        $filePath = $request->file('path_file');
+        $jurnalDetail['path_file'] = $filePath;
         $jurnal = $this->jurnalRepository->createJurnal($jurnalDetail);
         return response()->json($jurnal, $jurnal['code']);
     }
