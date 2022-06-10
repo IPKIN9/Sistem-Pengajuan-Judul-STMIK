@@ -20,6 +20,42 @@ class JurnalRepository implements JurnalRepositoryInterface
 
     public function getJurnalById($jurnal_id)
     {
+        try {
+            $dbResult = JurnalModel::whereId($jurnal_id)->with('judulRole')->first();
+            if ($dbResult) {
+                $jurnal = array(
+                    'data' => $dbResult,
+                    'response' => array(
+                        'icon' => 'success',
+                        'title' => 'Tersimpan',
+                        'message' => 'Data berhasil disimpan',
+                    ),
+                    'code' => 201
+                );
+            } else {
+                $jurnal = array(
+                    'data' => null,
+                    'response' => array(
+                        'icon' => 'warning',
+                        'title' => 'Not Found',
+                        'message' => 'Data judul tidak tersedia',
+                    ),
+                    'code' => 404
+                );
+            }
+        } catch (\Throwable $th) {
+            $jurnal = array(
+                'data' => null,
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
+                'code' => 500
+            );
+        }
+
+        return $jurnal;
     }
 
     public function createJurnal(array $jurnalDetail)
