@@ -39,7 +39,7 @@ class JurnalRepository implements JurnalRepositoryInterface
                     'response' => array(
                         'icon' => 'warning',
                         'title' => 'Not Found',
-                        'message' => 'Data judul tidak tersedia',
+                        'message' => 'Data jurnal tidak tersedia',
                     ),
                     'code' => 404
                 );
@@ -114,7 +114,7 @@ class JurnalRepository implements JurnalRepositoryInterface
                     'response' => array(
                         'icon' => 'success',
                         'title' => 'Tersimpan',
-                        'message' => 'Data berhasil disimpan',
+                        'message' => 'Data berhasil diperbaharui',
                     ),
                     'code' => 201
                 );
@@ -146,5 +146,42 @@ class JurnalRepository implements JurnalRepositoryInterface
 
     public function deleteJurnal($jurnal_id)
     {
+        try {
+            $dbResult = JurnalModel::whereId($jurnal_id);
+            $findJurnal = $dbResult->first();
+            if ($findJurnal) {
+                $jurnal = array(
+                    'data' => $dbResult->delete($jurnal_id),
+                    'response' => array(
+                        'icon' => 'success',
+                        'title' => 'Tersimpan',
+                        'message' => 'Data berhasil dihapus',
+                    ),
+                    'code' => 201
+                );
+            } else {
+                $jurnal = array(
+                    'data' => null,
+                    'response' => array(
+                        'icon' => 'warning',
+                        'title' => 'Not Found',
+                        'message' => 'Data jurnal tidak tersedia',
+                    ),
+                    'code' => 404
+                );
+            }
+        } catch (\Throwable $th) {
+            $jurnal = array(
+                'data' => null,
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
+                'code' => 500
+            );
+        }
+
+        return $jurnal;
     }
 }
