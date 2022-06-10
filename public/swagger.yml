@@ -460,7 +460,7 @@ paths:
     post:
       tags:
         - "Jurnal"
-      summary: "Post Jurnal Judul"
+      summary: "Post Jurnal"
       description: 'Post data to jurnal table'
       requestBody:
         content:
@@ -508,7 +508,7 @@ paths:
     patch:
       tags:
         - "Jurnal"
-      summary: "Update Jurnal Judul"
+      summary: "Update Jurnal"
       description: 'Update data to jurnal table'
       requestBody:
         content:
@@ -532,6 +532,21 @@ paths:
                   format: years
                 path_file:
                   type: string
+      parameters:
+        - in : path
+          name: jurnal_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
+    delete:
+      tags:
+        - "Jurnal"
+      summary: "Delete Jurnal"
+      description: 'Delete data to jurnal table'
       parameters:
         - in : path
           name: jurnal_id
