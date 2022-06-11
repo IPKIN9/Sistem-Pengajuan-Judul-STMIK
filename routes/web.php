@@ -5,6 +5,7 @@ use App\Http\Controllers\CMS\DosenController;
 use App\Http\Controllers\CMS\JudulController;
 use App\Http\Controllers\CMS\JurnalController;
 use App\Http\Controllers\CMS\MahasiswaController;
+use App\Http\Controllers\CMS\PengajuanController;
 use App\Http\Controllers\CMS\SIController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,4 @@ Route::get('/sistem_informasi_page', [SIController::class, 'index'])->name('si.i
 Route::get('/admin_page', [AdminController::class, 'index'])->name('admin.index');
 Route::get('/judul_page', [JudulController::class, 'index'])->name('judul.index');
 Route::get('/jurnal_page', [JurnalController::class, 'index'])->name('jurnal.index');
+Route::get('/pengajuan_page', [PengajuanController::class, 'index'])->name('pengajuan.index');
