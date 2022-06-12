@@ -118,5 +118,41 @@ class SkripsiRepository implements SkripsiRepositoryInterface
 
     public function deleteSkripsi($skrips_id)
     {
+        try {
+            $dbResult = SkripsiModel::whereId($skrips_id);
+            $findId = $dbResult->first();
+            if ($findId) {
+                $skripsi = array(
+                    'data' => $dbResult->delete(),
+                    'response' => array(
+                        'icon' => 'success',
+                        'title' => 'Terhapus',
+                        'message' => 'Data berhasil dihapus',
+                    ),
+                    'code' => 200
+                );
+            } else {
+                $skripsi = array(
+                    'data' => null,
+                    'response' => array(
+                        'icon' => 'error',
+                        'title' => 'Gagal',
+                        'message' => 'Data tidak ditemukan',
+                    ),
+                    'code' => 404
+                );
+            }
+        } catch (\Throwable $th) {
+            $skripsi = array(
+                'data' => null,
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
+                'code' => 500
+            );
+        }
+        return $skripsi;
     }
 }
