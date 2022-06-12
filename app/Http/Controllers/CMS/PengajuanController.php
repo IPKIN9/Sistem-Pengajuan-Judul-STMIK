@@ -40,4 +40,11 @@ class PengajuanController extends Controller
 
         return response()->json($pengajuan);
     }
+
+    public function deleteData($id)
+    {
+        $pengajuan = $this->pengajuanRepository->deletePengajuan($id);
+
+        return response()->json($pengajuan);
+    }
 }
