@@ -23,7 +23,7 @@ class JurnalRequest extends FormRequest
             'descJurnal' => 'required|min:2',
             'ISSN' => 'required|min:2',
             'tahunterbit' => 'required|numeric',
-            'path_file' => 'required',
+            'path_file' => 'required|file|mimes:pdf',
         ];
     }
 
