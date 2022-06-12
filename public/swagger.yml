@@ -699,6 +699,21 @@ paths:
       responses:
         '200':
           description: OK
+
+    delete:
+      tags:
+        - "Skripsi"
+      summary: "Delete Skripsi"
+      description: 'Delete data to skripsi table'
+      parameters:
+        - in : path
+          name: skripsi_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
     
 
 
