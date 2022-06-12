@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\PengajuanRepositoryInterface;
 use App\Models\PengajuanModel;
+use Carbon\Carbon;
 
 class PengajuanRepository implements PengajuanRepositoryInterface
 {
@@ -84,9 +85,43 @@ class PengajuanRepository implements PengajuanRepositoryInterface
 
     public function updatePengajuan($pengajuan_id, array $newDetail)
     {
-        $pengajuan = PengajuanModel::find($pengajuan_id);
-        $pengajuan->update($newDetail);
-
+        $date = Carbon::now();
+        $newDetail['updated_at'] = $date;
+        try {
+            $dbResult = PengajuanModel::whereId($pengajuan_id);
+            $findId = $dbResult->first();
+            if ($findId) {
+                $pengajuan = array(
+                    'data' => $dbResult->update($newDetail),
+                    'response' => array(
+                        'icon' => 'success',
+                        'title' => 'Tersimpan',
+                        'message' => 'Data berhasil disimpan',
+                    ),
+                    'code' => 201
+                );
+            } else {
+                $pengajuan = array(
+                    'data' => null,
+                    'response' => array(
+                        'icon' => 'warning',
+                        'title' => 'Not Found',
+                        'message' => 'Data pengajuan tidak tersedia',
+                    ),
+                    'code' => 404
+                );
+            }
+        } catch (\Throwable $th) {
+            $pengajuan = array(
+                'data' => null,
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
+                'code' => 500
+            );
+        }
         return $pengajuan;
     }
 
