@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PengajuanModel extends Model
 {
@@ -15,18 +14,20 @@ class PengajuanModel extends Model
         'id_mahasiswa',
         'id_judul',
         'status',
-        'ck1',
-        'ck2',
-        'ck3',
+        'detail_tanggal',
         'created_at',
         'updated_at',
     ];
-    public function mahasiswa(): HasMany
+    public function mahasiswa()
     {
-        return $this->hasMany(MahasiswaModel::class, 'id_mahasiswa', 'id');
+        return $this->belongsTo(MahasiswaModel::class, 'id_mahasiswa');
     }
-    public function judul(): HasMany
+    public function judul()
     {
-        return $this->hasMany(JudulModel::class, 'id_judul', 'id');
+        return $this->belongsTo(JudulModel::class, 'id_judul');
+    }
+    public function detailTanggal()
+    {
+        return $this->belongsTo(SisteminformasiModel::class, 'detail_tanggal');
     }
 }
