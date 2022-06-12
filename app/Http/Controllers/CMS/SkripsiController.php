@@ -33,6 +33,12 @@ class SkripsiController extends Controller
         );
 
         $skripsi = $this->skripsiRepository->createSkripsi($skripsiDetail);
-        return response()->json($skripsi);
+        return response()->json($skripsi, $skripsi['code']);
+    }
+
+    public function getById($skrips_id)
+    {
+        $skripsi = $this->skripsiRepository->getSkripsiById($skrips_id);
+        return response()->json($skripsi, $skripsi['code']);
     }
 }
