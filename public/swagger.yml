@@ -646,6 +646,22 @@ paths:
       responses:
         '200':
           description: OK
+
+  /skripsi/{skripsi_id}:
+    get:
+      tags:
+        - "Skripsi"
+      summary: "Get Data Skripsi"
+      description: 'Get data from skripsi table'
+      parameters:
+        - in : path
+          name: skripsi_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
     
 
 
