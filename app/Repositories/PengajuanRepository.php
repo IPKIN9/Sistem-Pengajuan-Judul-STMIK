@@ -44,7 +44,40 @@ class PengajuanRepository implements PengajuanRepositoryInterface
 
     public function getPengajuanById($pengajuan_id)
     {
-        $pengajuan = PengajuanModel::find($pengajuan_id);
+        try {
+            $dbResult = PengajuanModel::whereId($pengajuan_id)->with('mahasiswaRole', 'judulRole', 'detailTanggalRole')->first();
+            if ($dbResult) {
+                $pengajuan = array(
+                    'data' => $dbResult,
+                    'response' => array(
+                        'icon' => 'success',
+                        'title' => 'Tersimpan',
+                        'message' => 'Data berhasil disimpan',
+                    ),
+                    'code' => 201
+                );
+            } else {
+                $pengajuan = array(
+                    'data' => null,
+                    'response' => array(
+                        'icon' => 'warning',
+                        'title' => 'Not Found',
+                        'message' => 'Data pengajuan tidak tersedia',
+                    ),
+                    'code' => 404
+                );
+            }
+        } catch (\Throwable $th) {
+            $pengajuan = array(
+                'data' => null,
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
+                'code' => 500
+            );
+        }
 
         return $pengajuan;
     }

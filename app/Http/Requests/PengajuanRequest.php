@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class JurnalRequest extends FormRequest
+class PengajuanRequest extends FormRequest
 {
 
     public function authorize()
@@ -14,16 +14,14 @@ class JurnalRequest extends FormRequest
         return true;
     }
 
+
     public function rules()
     {
         return [
+            'id_mahasiswa' => 'required|integer',
             'id_judul' => 'required|integer',
-            'nama_jurnal' => 'required|min:2',
-            'sumber' => 'required|min:2',
-            'descJurnal' => 'required|min:2',
-            'ISSN' => 'required|min:2',
-            'tahunterbit' => 'required|numeric',
-            'path_file' => 'required|file|mimes:pdf',
+            'status' => 'required|string|min:2',
+            'detail_tanggal' => 'required|integer',
         ];
     }
 

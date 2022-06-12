@@ -33,4 +33,11 @@ class PengajuanController extends Controller
 
         return response()->json($pengajuan);
     }
+
+    public function getById($id)
+    {
+        $pengajuan = $this->pengajuanRepository->getPengajuanById($id);
+
+        return response()->json($pengajuan);
+    }
 }
