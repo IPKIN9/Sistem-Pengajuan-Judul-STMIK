@@ -662,6 +662,43 @@ paths:
       responses:
         '200':
           description: OK
+
+    patch:
+      tags:
+        - "Skripsi"
+      summary: "Update Data Skripsi"
+      description: 'Update data to skripsi table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama_judul:
+                  type: string
+                peneliti:
+                  type: string
+                tempat_penelitian:
+                  type: string
+                abstrak:
+                  type: string
+                pembimbing1:
+                  type: string
+                pembimbing2:
+                  type: string
+                tgl_terbit:
+                  type: number
+                  format: date
+                  example: '2020-01-01'
+      parameters:
+        - in : path
+          name: skripsi_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
     
 
 

@@ -41,4 +41,20 @@ class SkripsiController extends Controller
         $skripsi = $this->skripsiRepository->getSkripsiById($skrips_id);
         return response()->json($skripsi, $skripsi['code']);
     }
+
+    public function updateData(SkripsiRequest $request, $skrips_id)
+    {
+        $skripsiDetail = $request->only(
+            'nama_judul',
+            'peneliti',
+            'tempat_penelitian',
+            'abstrak',
+            'pembimbing1',
+            'pembimbing2',
+            'tgl_terbit'
+        );
+
+        $skripsi = $this->skripsiRepository->updateSkripsi($skrips_id, $skripsiDetail);
+        return response()->json($skripsi, $skripsi['code']);
+    }
 }
