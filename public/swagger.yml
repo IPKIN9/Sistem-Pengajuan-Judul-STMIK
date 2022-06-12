@@ -464,7 +464,7 @@ paths:
       description: 'Post data to jurnal table'
       requestBody:
         content:
-          application/json:
+          multipart/form-data:
             schema:
               type: object
               properties:
@@ -484,6 +484,7 @@ paths:
                   format: years
                 path_file:
                   type: string
+                  format: binary
       parameters: []
       responses:
         '200':
@@ -579,9 +580,25 @@ paths:
                     - "Diajukan"
                     - "Diterima"
                     - "Ditolak"
-                detail_tenggal:
+                detail_tanggal:
                   type: integer
       parameters: []
+      responses:
+        '200':
+          description: OK
+
+  /pengajuan/{pengajuan_id}:
+    get:
+      tags:
+        - "Pengajuan"
+      summary: "Get Data Pengajuan"
+      description: 'Get data from pengajuan table'
+      parameters:
+        - in : path
+          name: pengajuan_id
+          schema:
+            type: integer
+          required: true
       responses:
         '200':
           description: OK
