@@ -5,6 +5,7 @@ use App\Http\Controllers\CMS\DosenController;
 use App\Http\Controllers\CMS\JudulController;
 use App\Http\Controllers\CMS\JurnalController;
 use App\Http\Controllers\CMS\MahasiswaController;
+use App\Http\Controllers\CMS\PengajuanController;
 use App\Http\Controllers\CMS\SIController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -49,4 +50,11 @@ Route::prefix('jurnal')->group(function () {
     Route::get('/{id}', [JurnalController::class, 'getById']);
     Route::patch('/{id}', [JurnalController::class, 'updateData']);
     Route::delete('/{id}', [JurnalController::class, 'deleteData']);
+});
+
+Route::prefix('pengajuan')->group(function () {
+    Route::post('/', [PengajuanController::class, 'createData']);
+    Route::get('/{id}', [PengajuanController::class, 'getById']);
+    Route::patch('/{id}', [PengajuanController::class, 'updateData']);
+    Route::delete('/{id}', [PengajuanController::class, 'deleteData']);
 });
