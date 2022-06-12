@@ -603,5 +603,20 @@ paths:
         '200':
           description: OK
 
+    delete:
+      tags:
+        - "Pengajuan"
+      summary: "Delete Pengajuan"
+      description: 'Delete data to pengajuan table'
+      parameters:
+        - in : path
+          name: pengajuan_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
 
     
