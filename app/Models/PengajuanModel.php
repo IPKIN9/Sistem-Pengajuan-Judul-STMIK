@@ -18,15 +18,15 @@ class PengajuanModel extends Model
         'created_at',
         'updated_at',
     ];
-    public function mahasiswa()
+    public function mahasiswaRole()
     {
         return $this->belongsTo(MahasiswaModel::class, 'id_mahasiswa');
     }
-    public function judul()
+    public function judulRole()
     {
         return $this->belongsTo(JudulModel::class, 'id_judul');
     }
-    public function detailTanggal()
+    public function detailTanggalRole()
     {
         return $this->belongsTo(SisteminformasiModel::class, 'detail_tanggal');
     }
