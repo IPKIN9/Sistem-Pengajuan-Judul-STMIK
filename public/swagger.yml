@@ -557,5 +557,34 @@ paths:
         '200':
           description: OK
 
+  /pengajuan:
+    post:
+      tags:
+        - "Pengajuan"
+      summary: "Post Jurnal"
+      description: 'Post data to jurnal table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_mahasiswa:
+                  type: integer
+                id_judul:
+                  type: integer
+                status:
+                  type: string
+                  enum:
+                    - "Diajukan"
+                    - "Diterima"
+                    - "Ditolak"
+                detail_tenggal:
+                  type: integer
+      parameters: []
+      responses:
+        '200':
+          description: OK
+
 
     
