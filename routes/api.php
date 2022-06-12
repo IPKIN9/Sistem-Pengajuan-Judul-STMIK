@@ -7,6 +7,7 @@ use App\Http\Controllers\CMS\JurnalController;
 use App\Http\Controllers\CMS\MahasiswaController;
 use App\Http\Controllers\CMS\PengajuanController;
 use App\Http\Controllers\CMS\SIController;
+use App\Http\Controllers\CMS\SkripsiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -57,4 +58,11 @@ Route::prefix('pengajuan')->group(function () {
     Route::get('/{id}', [PengajuanController::class, 'getById']);
     Route::patch('/{id}', [PengajuanController::class, 'updateData']);
     Route::delete('/{id}', [PengajuanController::class, 'deleteData']);
+});
+
+Route::prefix('skripsi')->group(function () {
+    Route::post('/', [SkripsiController::class, 'createData']);
+    Route::get('/{id}', [SkripsiController::class, 'getById']);
+    Route::patch('/{id}', [SkripsiController::class, 'updateData']);
+    Route::delete('/{id}', [SkripsiController::class, 'deleteData']);
 });
