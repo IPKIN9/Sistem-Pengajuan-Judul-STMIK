@@ -15,6 +15,33 @@ class SkripsiRepository implements SkripsiRepositoryInterface
 
     public function getSkripsiById($skrips_id)
     {
+        try {
+            $dbResult = SkripsiModel::whereId($skrips_id)->first();
+            if ($dbResult) {
+                $skripsi = array(
+                    'data' => $dbResult,
+                    'message' => "Success",
+                    'code' => 200
+                );
+            } else {
+                $skripsi = array(
+                    'data' => $dbResult,
+                    'message' => "Data not found",
+                    'code' => 404
+                );
+            }
+        } catch (\Throwable $th) {
+            $skripsi = array(
+                'data' => null,
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
+                'code' => 500
+            );
+        }
+        return $skripsi;
     }
 
     public function createSkripsi(array $skripsiDetail)
