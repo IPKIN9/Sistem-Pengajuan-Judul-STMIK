@@ -19,6 +19,29 @@ class SkripsiRepository implements SkripsiRepositoryInterface
 
     public function createSkripsi(array $skripsiDetail)
     {
+        try {
+            $dbResult = SkripsiModel::create($skripsiDetail);
+            $skripsi = array(
+                'data' => $dbResult,
+                'response' => array(
+                    'icon' => 'success',
+                    'title' => 'Tersimpan',
+                    'message' => 'Data berhasil disimpan',
+                ),
+                'code' => 201
+            );
+        } catch (\Throwable $th) {
+            $skripsi = array(
+                'data' => null,
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
+                'code' => 500
+            );
+        }
+        return $skripsi;
     }
 
     public function updateSkripsi($skrips_id, array $newDetail)
