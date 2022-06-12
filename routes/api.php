@@ -55,5 +55,6 @@ Route::prefix('jurnal')->group(function () {
 Route::prefix('pengajuan')->group(function () {
     Route::post('/', [PengajuanController::class, 'createData']);
     Route::get('/{id}', [PengajuanController::class, 'getById']);
+    Route::patch('/{id}', [PengajuanController::class, 'updateData']);
     Route::delete('/{id}', [PengajuanController::class, 'deleteData']);
 });
