@@ -566,6 +566,39 @@ paths:
         '200':
           description: OK
 
+    patch:
+      tags:
+        - "Pengajuan"
+      summary: "Update Data Pengajuan"
+      description: 'Update data to pengajuan table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_mahasiswa:
+                  type: integer
+                id_judul:
+                  type: integer
+                status:
+                  type: string
+                  enum:
+                    - "Diajukan"
+                    - "Diterima"
+                    - "Ditolak"
+                detail_tanggal:
+                  type: integer
+      parameters:
+        - in : path
+          name: pengajuan_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
     delete:
       tags:
         - "Pengajuan"
@@ -580,6 +613,7 @@ paths:
       responses:
         '200':
           description: OK
+    
 
 
     

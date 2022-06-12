@@ -41,6 +41,19 @@ class PengajuanController extends Controller
         return response()->json($pengajuan);
     }
 
+    public function updateData(PengajuanRequest $request, $id)
+    {
+        $pengajuanDetail = $request->only(
+            'id_mahasiswa',
+            'id_judul',
+            'status',
+            'detail_tanggal'
+        );
+        $pengajuan = $this->pengajuanRepository->updatePengajuan($id, $pengajuanDetail);
+
+        return response()->json($pengajuan);
+    }
+
     public function deleteData($id)
     {
         $pengajuan = $this->pengajuanRepository->deletePengajuan($id);
