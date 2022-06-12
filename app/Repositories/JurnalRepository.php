@@ -6,6 +6,7 @@ use App\Interfaces\JurnalRepositoryInterface;
 use App\Models\JudulModel;
 use App\Models\JurnalModel;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class JurnalRepository implements JurnalRepositoryInterface
@@ -107,56 +108,13 @@ class JurnalRepository implements JurnalRepositoryInterface
         return $jurnal;
     }
 
-    public function updateJurnal($jurnal_id, array $newDetail)
-    {
-        $date = Carbon::now();
-        $newDetail['updated_at'] = $date;
-        try {
-            $dbResult = JurnalModel::whereId($jurnal_id);
-            $findJurnal = $dbResult->first();
-            $findJudul = JudulModel::whereId($newDetail['id_judul'])->first();
-            if ($findJurnal and $findJudul) {
-                $jurnal = array(
-                    'data' => $dbResult->update($newDetail),
-                    'response' => array(
-                        'icon' => 'success',
-                        'title' => 'Tersimpan',
-                        'message' => 'Data berhasil diperbaharui',
-                    ),
-                    'code' => 201
-                );
-            } else {
-                $jurnal = array(
-                    'data' => null,
-                    'response' => array(
-                        'icon' => 'warning',
-                        'title' => 'Not Found',
-                        'message' => 'Data judul tidak tersedia',
-                    ),
-                    'code' => 404
-                );
-            }
-        } catch (\Throwable $th) {
-            $jurnal = array(
-                'data' => null,
-                'response' => array(
-                    'icon' => 'error',
-                    'title' => 'Gagal',
-                    'message' => $th->getMessage(),
-                ),
-                'code' => 500
-            );
-        }
-
-        return $jurnal;
-    }
-
     public function deleteJurnal($jurnal_id)
     {
         try {
             $dbResult = JurnalModel::whereId($jurnal_id);
             $findJurnal = $dbResult->first();
             if ($findJurnal) {
+                File::delete(public_path('storage/jurnal/' . $findJurnal['path_file']));
                 $jurnal = array(
                     'data' => $dbResult->delete($jurnal_id),
                     'response' => array(

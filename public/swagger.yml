@@ -506,43 +506,6 @@ paths:
         '200':
           description: OK
 
-    patch:
-      tags:
-        - "Jurnal"
-      summary: "Update Jurnal"
-      description: 'Update data to jurnal table'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id_judul:
-                  type: integer
-                nama_jurnal:
-                  type: string
-                sumber:
-                  type: string
-                descJurnal:
-                  type: string
-                ISSN:
-                  type: number
-                  example: 55477344
-                tahunterbit:
-                  type: number
-                  format: years
-                path_file:
-                  type: string
-      parameters:
-        - in : path
-          name: jurnal_id
-          schema:
-            type: integer
-          required: true
-      responses:
-        '200':
-          description: OK
-
     delete:
       tags:
         - "Jurnal"
@@ -593,6 +556,21 @@ paths:
         - "Pengajuan"
       summary: "Get Data Pengajuan"
       description: 'Get data from pengajuan table'
+      parameters:
+        - in : path
+          name: pengajuan_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
+    delete:
+      tags:
+        - "Pengajuan"
+      summary: "Delete Pengajuan"
+      description: 'Delete data to pengajuan table'
       parameters:
         - in : path
           name: pengajuan_id

@@ -92,5 +92,42 @@ class PengajuanRepository implements PengajuanRepositoryInterface
 
     public function deletePengajuan($pengajuan_id)
     {
+        try {
+            $dbResult = PengajuanModel::whereId($pengajuan_id);
+            $findId = $dbResult->first();
+
+            if ($findId) {
+                $pengajuan = array(
+                    'data' => $dbResult->delete(),
+                    'response' => array(
+                        'icon' => 'success',
+                        'title' => 'Terhapus',
+                        'message' => 'Data berhasil dihapus',
+                    ),
+                    'code' => 201
+                );
+            } else {
+                $pengajuan = array(
+                    'data' => null,
+                    'response' => array(
+                        'icon' => 'warning',
+                        'title' => 'Not Found',
+                        'message' => 'Data pengajuan tidak tersedia',
+                    ),
+                    'code' => 404
+                );
+            }
+        } catch (\Throwable $th) {
+            $pengajuan = array(
+                'data' => null,
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
+                'code' => 500
+            );
+        }
+        return $pengajuan;
     }
 }
