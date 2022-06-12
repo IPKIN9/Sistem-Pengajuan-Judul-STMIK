@@ -18,9 +18,7 @@ class CreatePengajuanTable extends Migration
             $table->foreignId('id_mahasiswa')->constrained('mahasiswa');
             $table->foreignId('id_judul')->constrained('judul');
             $table->string('status');
-            $table->date('ck1');
-            $table->date('ck2');
-            $table->date('ck3');
+            $table->foreignId('detail_tanggal')->constrained('sistem_informasi');
             $table->timestamps();
         });
     }
