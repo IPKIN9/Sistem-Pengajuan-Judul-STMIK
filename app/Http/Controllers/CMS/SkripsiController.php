@@ -57,4 +57,10 @@ class SkripsiController extends Controller
         $skripsi = $this->skripsiRepository->updateSkripsi($skrips_id, $skripsiDetail);
         return response()->json($skripsi, $skripsi['code']);
     }
+
+    public function deleteData($skrips_id)
+    {
+        $skripsi = $this->skripsiRepository->deleteSkripsi($skrips_id);
+        return response()->json($skripsi, $skripsi['code']);
+    }
 }
