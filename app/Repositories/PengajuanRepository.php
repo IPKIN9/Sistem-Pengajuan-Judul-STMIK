@@ -10,7 +10,7 @@ class PengajuanRepository implements PengajuanRepositoryInterface
 {
     public function getPengajuanAll()
     {
-        $pengajuan = PengajuanModel::with('mahasiswa', 'judul', 'detail_tanggal')->get();
+        $pengajuan = PengajuanModel::with('mahasiswaRole', 'judulRole', 'detailTanggalRole')->get();
 
         return $pengajuan;
     }
