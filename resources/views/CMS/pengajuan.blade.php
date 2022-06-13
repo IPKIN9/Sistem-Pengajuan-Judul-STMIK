@@ -31,10 +31,6 @@
                                         <td>{{ $d->status }}</td>
                                         <td>{{ $d->detailTanggalRole->tgl_buka }}</td>
                                         <td>
-                                            <button type="button" id="infoId" data-id="{{ $d->id }}"
-                                                data-bs-toggle="modal" data-bs-target="#modalUpdate"
-                                                class="btn rounded-pill btn-outline-primary"><i
-                                                    class='bx bxs-low-vision'></i></button>
                                             <button type="button" id="deleteId" data-id="{{ $d->id }}"
                                                 class="btn rounded-pill btn-outline-danger"><i
                                                     class='bx bx-trash'></i></button>
@@ -61,6 +57,48 @@
             });
 
             $('#table').DataTable();
+
+            $(document).on('click', '#deleteId', function() {
+                let dataId = $(this).data('id');
+                let url = `{{ config('app.url') }}` + "/api/pengajuan/" + dataId;
+                Swal.fire({
+                    title: 'Anda Yakin?',
+                    text: "Data ini mungkin terhubung ke tabel yang lain!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Batal',
+                    confirmButtonText: 'Hapus'
+                }).then((res) => {
+                    if (res.isConfirmed) {
+                        $.ajax({
+                            url: url,
+                            type: 'delete',
+                            success: function(result) {
+                                let data = result.data;
+                                Swal.fire({
+                                    title: result.response.title,
+                                    text: result.response.message,
+                                    icon: result.response.icon,
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Oke'
+                                }).then((result) => {
+                                    location.reload();
+                                });
+                            },
+                            error: function(result) {
+                                let data = result.responseJSON
+                                Swal.fire({
+                                    icon: data.response.icon,
+                                    title: data.response.title,
+                                    text: data.response.message,
+                                });
+                            }
+                        });
+                    }
+                })
+            });
              
         });
 </script>
