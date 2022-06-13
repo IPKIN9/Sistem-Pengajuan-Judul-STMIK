@@ -18,7 +18,7 @@ class PengajuanController extends Controller
     {
         $pengajuan = $this->pengajuanRepository->getPengajuanAll();
 
-        return response()->json($pengajuan);
+        return view('CMS.pengajuan')->with('pengajuan', $pengajuan);
     }
 
     public function createData(PengajuanRequest $request)
