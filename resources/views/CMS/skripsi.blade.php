@@ -205,6 +205,118 @@
                     }
                 });
             });
+
+            $(document).on('click', '#editId', function() {
+                let dataId = $(this).data('id');
+                let url = `{{ config('app.url') }}` + "/api/skripsi/" + dataId;
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function(result) {
+                        let data = result.data;
+                        $('#modalUpdate').modal('show');
+                        $('.modal-title').html('Perubahan Data');
+                        $('#formUpdate').html('');
+                        $('#formUpdate').append(`
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" for="basic-default-message">Judul</label>
+                            <div class="col-sm-10">
+                                <input type="hidden" id="skripsiId" value="` + data.id + `">
+                                <textarea name="nama_judul" class="form-control"
+                                    aria-describedby="basic-icon-default-message2">`+data.nama_judul+`</textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" for="basic-default-name">Peneliti</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="peneliti" id="peneliti" value="`+data.peneliti+`">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" for="basic-default-name">Tempat
+                                Penelitian</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="tempat_penelitian"
+                                    id="tempat_penelitian" value="`+data.tempat_penelitian+`">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label"
+                                for="basic-default-message">Abstrak</label>
+                            <div class="col-sm-10">
+                                <textarea name="abstrak" class="form-control"
+                                    aria-describedby="basic-icon-default-message2">`+data.abstrak+`</textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" for="basic-default-name">Pembimbing
+                                1</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="pembimbing1" id="pembimbing1" value="`+data.pembimbing1+`">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" for="basic-default-name">Pembimbing
+                                2</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="pembimbing2" id="pembimbing2" value="`+data.pembimbing2+`">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" for="basic-default-name">Tanggal
+                                Terbit</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" name="tgl_terbit" id="tgl_terbit" value="`+data.tgl_terbit+`">
+                            </div>
+                        </div>
+                    `);
+                    },
+                    error: function(result) {
+                        let data = result.responseJSON
+                        Swal.fire({
+                            icon: data.response.icon,
+                            title: data.response.title,
+                            text: data.response.message,
+                        });
+                    }
+
+                });
+            });
+            $('#buttonUpdate').on('click', function() {
+                let dataId = $('#skripsiId').val();
+                let url = `{{ config('app.url') }}` + "/api/skripsi/" + dataId;
+                let data = $('#formUpdate').serialize();
+                let modalClose = () => {
+                    $('#modalUpdate').modal('hide');
+                }
+                $.ajax({
+                    url: url,
+                    method: "patch",
+                    data: data,
+                    success: function(result) {
+                        modalClose();
+                        Swal.fire({
+                            title: result.response.title,
+                            text: result.response.message,
+                            icon: result.response.icon,
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Oke'
+                        }).then((result) => {
+                            location.reload();
+                        });
+                    },
+                    error: function(result) {
+                        let data = result.responseJSON
+                        modalClose();
+                        Swal.fire({
+                            icon: data.response.icon,
+                            title: data.response.title,
+                            text: data.response.message,
+                        });
+                    }
+                });
+            });
         });
 </script>
 @endsection
