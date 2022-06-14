@@ -55,9 +55,11 @@
                                         <td>
                                             <button type="button" id="editId" data-id="{{ $d->id }}"
                                                 data-bs-toggle="modal" data-bs-target="#modalUpdate"
-                                                class="btn rounded-pill btn-outline-primary"><i class='bx bx-message-square-edit'></i></button>
+                                                class="btn rounded-pill btn-outline-primary"><i
+                                                    class='bx bx-message-square-edit'></i></button>
                                             <button type="button" id="deleteId" data-id="{{ $d->id }}"
-                                                class="btn rounded-pill btn-outline-danger"><i class='bx bx-trash'></i></button>
+                                                class="btn rounded-pill btn-outline-danger"><i
+                                                    class='bx bx-trash'></i></button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -74,10 +76,11 @@
                                 <form id="formSimpan">
                                     @csrf
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Judul</label>
+                                        <label class="col-sm-2 col-form-label" for="basic-default-message">Judul</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="nama_judul" id="nama_judul"
-                                                placeholder="Input Judul">
+                                            <textarea name="nama_judul" id="nama_judul" class="form-control"
+                                                placeholder="Input Judul"
+                                                aria-describedby="basic-icon-default-message2"></textarea>
                                             <p class="text-danger miniAlert text-capitalize" id="alertNamaJudul"></p>
                                         </div>
                                     </div>
@@ -90,23 +93,28 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Tempat Penelitian</label>
+                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Tempat
+                                            Penelitian</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="tempat_penelitian" id="tempat_penelitian"
-                                                placeholder="Input Tempat Penelitian">
-                                            <p class="text-danger miniAlert text-capitalize" id="alertTempatPenelitian"></p>
+                                            <input type="text" class="form-control" name="tempat_penelitian"
+                                                id="tempat_penelitian" placeholder="Input Tempat Penelitian">
+                                            <p class="text-danger miniAlert text-capitalize" id="alertTempatPenelitian">
+                                            </p>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Abstrak</label>
+                                        <label class="col-sm-2 col-form-label"
+                                            for="basic-default-message">Abstrak</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="abstrak" id="abstrak"
-                                                placeholder="Input Abstrak">
+                                            <textarea name="abstrak" id="abstrak" class="form-control"
+                                                placeholder="Input Abstrak"
+                                                aria-describedby="basic-icon-default-message2"></textarea>
                                             <p class="text-danger miniAlert text-capitalize" id="alertAbstrak"></p>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Pembimbing 1</label>
+                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Pembimbing
+                                            1</label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" name="pembimbing1" id="pembimbing1"
                                                 placeholder="Input Pembimbing 1">
@@ -114,7 +122,8 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Pembimbing 2</label>
+                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Pembimbing
+                                            2</label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" name="pembimbing2" id="pembimbing2"
                                                 placeholder="Input Pembimbing 2">
@@ -122,11 +131,13 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Tanggal Terbit</label>
+                                        <label class="col-sm-2 col-form-label" for="basic-default-name">Tanggal
+                                            Terbit</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="tgl_terbit" id="tgl_terbit"
+                                            <input type="date" class="form-control" name="tgl_terbit" id="tgl_terbit"
                                                 placeholder="Input Tanggal Terbit">
-                                            <p class="text-danger miniAlert text-capitalize" id="alertTanggalTerbit"></p>
+                                            <p class="text-danger miniAlert text-capitalize" id="alertTanggalTerbit">
+                                            </p>
                                         </div>
                                     </div>
                                     <div class="row justify-content-end">
@@ -154,6 +165,46 @@
             });
 
             $('#table').DataTable();
+
+            $('#saveId').on('click', function() {
+                let url = `{{ config('app.url') }}` + "/api/skripsi";
+                let data = $('#formSimpan').serialize();
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: data,
+                    success: function(result) {
+                        Swal.fire({
+                            title: result.response.title,
+                            text: result.response.message,
+                            icon: result.response.icon,
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Oke'
+                        }).then((result) => {
+                            location.reload();
+                        });
+                    },
+                    error: function(result) {
+                        let data = result.responseJSON
+                        let errorRes = data.errors
+                        Swal.fire({
+                            icon: data.response.icon,
+                            title: data.response.title,
+                            text: data.response.message,
+                        });
+                        if (errorRes.length >= 1) {
+                            $('.miniAlert').html('');
+                            $('#alertNamaJudul').html(errorRes.data.nama_judul);
+                            $('#alertPeneliti').html(errorRes.data.peneliti);
+                            $('#alertTempatPenelitian').html(errorRes.data.tempat_penelitian);
+                            $('#alertAbstrak').html(errorRes.data.abstrak);
+                            $('#alertPembimbing1').html(errorRes.data.pembimbing1);
+                            $('#alertPembimbing2').html(errorRes.data.pembimbing2);
+                            $('#alertTanggalTerbit').html(errorRes.data.tgl_terbit);
+                        }
+                    }
+                });
+            });
         });
 </script>
 @endsection
