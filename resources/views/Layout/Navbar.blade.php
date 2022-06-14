@@ -20,6 +20,7 @@
         {{ Route::is('judul.index') ? 'open' : '' }}
         {{ Route::is('jurnal.index') ? 'open' : '' }}
         {{ Route::is('pengajuan.index') ? 'open' : '' }}
+        {{ Route::is('skripsi.index') ? 'open' : '' }}
         ">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
@@ -67,6 +68,12 @@
                     <a href="{{ route('pengajuan.index') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-collection"></i>
                         <div data-i18n="Basic">Data Pengajuan</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ Route::is('skripsi.index') ? 'active' : '' }}">
+                    <a href="{{ route('skripsi.index') }}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-collection"></i>
+                        <div data-i18n="Basic">Data Skripsi</div>
                     </a>
                 </li>
             </ul>
