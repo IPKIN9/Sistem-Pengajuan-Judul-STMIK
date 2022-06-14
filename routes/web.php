@@ -16,15 +16,15 @@ Route::prefix('auth')->group(function () {
     Route::post('/', [AuthController::class, 'checkCredential'])->name('login.check');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
-Route::middleware('auth')->group(function () {
-    route::get('/', function () {
-        return view('CMS.dashboard');
-    })->name('home');
 
-    Route::get('/swagger-doc', function () {
-        return view('Swagger.index');
-    });
+route::get('/', function () {
+    return view('CMS.dashboard');
+})->name('home')->middleware('role:suadmin|user');
+Route::get('/swagger-doc', function () {
+    return view('Swagger.index');
+})->middleware('role:suadmin|user');
 
+Route::middleware(['auth', 'role:suadmin',])->group(function () {
     Route::get('/mahasiswa_page', [MahasiswaController::class, 'index'])->name('mahasiswa.index');
     Route::get('/dosen_page', [DosenController::class, 'index'])->name('dosen.index');
     Route::get('/sistem_informasi_page', [SIController::class, 'index'])->name('si.index');
