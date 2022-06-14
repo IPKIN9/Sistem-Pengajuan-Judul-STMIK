@@ -17,7 +17,7 @@ class SkripsiController extends Controller
     public function index()
     {
         $skripsi = $this->skripsiRepository->getAllSkripsi();
-        return response()->json($skripsi);
+        return view('CMS.skripsi')->with('skripsi', $skripsi);
     }
 
     public function createData(SkripsiRequest $request)
