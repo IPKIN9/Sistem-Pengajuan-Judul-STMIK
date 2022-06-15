@@ -11,18 +11,19 @@ use App\Http\Controllers\CMS\SIController;
 use App\Http\Controllers\CMS\SkripsiController;
 use Illuminate\Support\Facades\Route;
 
+route::get('/', function () {
+    return view('CMS.dashboard');
+})->name('home')->middleware(['auth', 'role:suadmin|user']);
+
+Route::get('/swagger-doc', function () {
+    return view('Swagger.index');
+})->middleware(['auth', 'role:suadmin|user']);
+
 Route::prefix('auth')->group(function () {
     Route::get('/', [AuthController::class, 'index'])->name('login');
     Route::post('/', [AuthController::class, 'checkCredential'])->name('login.check');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
-
-route::get('/', function () {
-    return view('CMS.dashboard');
-})->name('home')->middleware('role:suadmin|user');
-Route::get('/swagger-doc', function () {
-    return view('Swagger.index');
-})->middleware('role:suadmin|user');
 
 Route::middleware(['auth', 'role:suadmin',])->group(function () {
     Route::get('/mahasiswa_page', [MahasiswaController::class, 'index'])->name('mahasiswa.index');
