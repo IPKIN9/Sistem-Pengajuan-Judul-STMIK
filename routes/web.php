@@ -9,9 +9,12 @@ use App\Http\Controllers\CMS\MahasiswaController;
 use App\Http\Controllers\CMS\PengajuanController;
 use App\Http\Controllers\CMS\SIController;
 use App\Http\Controllers\CMS\SkripsiController;
+use App\Http\Controllers\WEB\UserDashboardController;
 use Illuminate\Support\Facades\Route;
 
-route::get('/', function () {
+Route::get('/', [UserDashboardController::class, 'index'])->name('user.dash');
+
+route::get('/admin_panel', function () {
     return view('CMS.dashboard');
 })->name('home')->middleware(['auth', 'role:suadmin|user']);
 

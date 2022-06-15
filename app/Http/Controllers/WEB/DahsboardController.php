@@ -9,6 +9,7 @@ class DahsboardController extends Controller
 {
     public function index()
     {
+        
     }
 
     public function getById($id)
