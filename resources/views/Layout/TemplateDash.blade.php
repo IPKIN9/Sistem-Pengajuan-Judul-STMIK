@@ -51,10 +51,10 @@
             <!-- Menu -->
 
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-                <div class="app-brand demo">
-                    <a href="index.html" class="app-brand-link">
+                <div class="app-brand demo {{ Route::is('home') ? 'active' : '' }}">
+                    <a href="{{route ('home')}}" class="app-brand-link">
                         <span class="app-brand-logo demo">
-                            <img src="{{ asset('img/logostmik2.png') }}" alt="">
+                            <img src="{{ asset('img/logostmik2.png') }}" alt=""">
                         </span>
                     </a>
 
