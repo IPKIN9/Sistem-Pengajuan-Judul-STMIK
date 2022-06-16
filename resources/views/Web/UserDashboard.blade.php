@@ -99,7 +99,7 @@
 
             <div class="container-xxl flex-grow-1 container-p-y">
                 <div class="row">
-                    <div class="col-lg-8 mb-4 order-0">
+                    <div class="col-lg-12 mb-4 order-0">
                         <div class="card">
                             <div class="d-flex align-items-end row">
                                 <div class="col-sm-7">
@@ -116,56 +116,77 @@
                                             alt="View Badge User" data-app-dark-img="illustrations/man-with-laptop-dark.png"
                                             data-app-light-img="illustrations/man-with-laptop-light.png" />
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-4 order-1">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-12 col-6 mb-4">
-                                <div class="card">
+                    @if ($data['persyaratan'])
+                    <div class="col-lg-12 mb-4 order-0">
+                        <div class="card">
+                            <div class="d-flex align-items-end row">
+                                <div class="col-sm-12">
                                     <div class="card-body">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                        </div>
-                                        <span class="fw-semibold d-block mb-1">Pengajuan Sistem</span>
-                                        <h3 class="card-title mb-2 text-warning">12</h3>
+                                        <h4 class="card-title text-primary">Persyaratan</h4>
+                                        <p class="mb-4">
+                                            @nl2br($data['persyaratan'])
+                                        </p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-12 col-6 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                        </div>
-                                        <span class="fw-semibold d-block mb-1">Pengajuan Teknik</span>
-                                        <h3 class="card-title mb-2 text-danger">12</h3>
-                                    </div>
-                                </div>
-                            </div>
-                            
                         </div>
                     </div>
+                    @endif
                 </div>
                 <div class="row">
                     <!-- Transactions -->
                     <div class="col-md-8 col-lg-8 order-0 mb-4">
                         <div class="card h-100">
                             <div class="card-header d-flex align-items-center justify-content-between">
-                                <h5 class="card-title m-0 me-2">Persyaratan</h5>
+                                <h5 class="card-title m-0 me-2">Jadwal</h5>
                             </div>
                             <div class="card-body">
-                                <ul class="p-0 m-0">
-                                    <li class="d-flex mb-4 pb-1">
-                                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                            <div class="me-2">
-                                                <p class="mb-0">1. Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, possimus quo blanditiis doloremque obcaecati maiores vel placeat voluptatibus soluta tenetur optio, ut aliquid rem voluptatem quae cum nisi at corrupti.</p>
-                                            </div>
-                                            <div class="user-progress d-flex align-items-center gap-1">
-                                                <span class="text-muted"><i class='bx bx-dots-horizontal-rounded'></i></span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
+                              @if (count($data['jadwal_list']) > 0)
+                              <ul class="p-0 m-0">
+                                @foreach ($data['jadwal_list'] as $d)
+                                <li class="d-flex mb-4 pb-1">
+                                  <div class="avatar flex-shrink-0 me-3">
+                                    <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-mobile-alt"></i></span>
+                                  </div>
+                                  <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div class="me-2">
+                                      <h6 class="mb-0">Jadwal Sesi {{ $d->sesi }}</h6>
+                                      <small class="text-muted">{{ date('d-M', strtotime($d->tgl_buka)) }} Sampai {{ date('d-M-Y', strtotime($d->tgl_tutup)) }}</small>
+                                    </div>
+                                    <div class="user-progress">
+                                      <small>
+                                        @if ($d->tgl_buka <= date('Y-m-d') and $d->tgl_tutup >= date('Y-m-d'))
+                                        <a href="" class="btn btn-primary btn-sm">Buka</a>
+                                        @elseif ($d->tgl_buka > date('Y-m-d') and $d->tgl_tutup > date('Y-m-d'))
+                                        <small class="text-muted">Belum Buka</small>
+                                        @else
+                                        <small class="text-danger">Sudah Tutup</small>
+                                        @endif
+                                      </small>
+                                    </div>
+                                  </div>
+                                </li>
+                                @endforeach
+                              </ul>
+                              @else
+                              <ul class="p-0 m-0">
+                                  <li class="d-flex mb-4 pb-1">
+                                      <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                          <div class="me-2">
+                                              <p class="mb-0">
+                                              Pengajuan Judul Belum Dibuka
+                                          </div>
+                                          <div class="user-progress d-flex align-items-center gap-1">
+                                              <span class="text-muted"><i class='bx bx-dots-horizontal-rounded'></i></span>
+                                          </div>
+                                      </div>
+                                  </li>
+                              </ul>
+                              @endif
                             </div>
                         </div>
                     </div>
@@ -175,15 +196,10 @@
                         <div class="card h-100">
                             <div class="card-header d-flex align-items-center justify-content-between pb-0">
                                 <div class="card-title mb-0">
-                                    <h5 class="m-0 me-2">List Mahasiswa</h5>
+                                    <h5 class="m-0 me-2">Pengumuman</h5>
                                 </div>
                             </div>
                             <div class="card-body mt-2" >
-                                <div class="d-flex justify-content-between align-items-center mb-4">
-                                    <div class="d-flex flex-column align-items-center gap-1">
-                                        <button class="btn btn-secondary btn-sm">Pengajuan Baru</button>
-                                    </div>
-                                </div>
                                 <div class="d-flex justify-content-between align-items-center mb-4">
                                     <div class="d-flex flex-column align-items-center gap-1">
                                         <span>Download Pengumuman</span>
@@ -221,7 +237,7 @@
                 <div class="mb-2 mb-md-0">
                   ©
                   <script>
-                    document.write(new Date().getFullYear());
+                      document.write(new Date().getFullYear());
                   </script>
                   , made with ❤️ by
                   <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
@@ -240,7 +256,7 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="{{ asset('/assets/vendor/libs/jquery/jquery.js') }}"></script> 
+    <script src="{{ asset('/assets/vendor/libs/jquery/jquery.js') }}"></script>
     <script src="{{ asset('/assets/vendor/libs/popper/popper.js') }}"></script>
     <script src="{{ asset('/assets/vendor/js/bootstrap.js') }}"></script>
     <script src="{{ asset('/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>

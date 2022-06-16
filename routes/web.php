@@ -10,17 +10,21 @@ use App\Http\Controllers\CMS\PengajuanController;
 use App\Http\Controllers\CMS\SIController;
 use App\Http\Controllers\CMS\SkripsiController;
 use App\Http\Controllers\WEB\UserDashboardController;
+use App\Http\Controllers\WEB\ValidationJudulController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [UserDashboardController::class, 'index'])->name('user.dash');
 
-route::get('/admin_panel', function () {
-    return view('CMS.dashboard');
-})->name('home')->middleware(['auth', 'role:suadmin|user']);
 
-Route::get('/swagger-doc', function () {
-    return view('Swagger.index');
-})->middleware(['auth', 'role:suadmin|user']);
+Route::middleware(['auth', 'role:suadmin|user'])->group(function () {
+    route::get('/admin_panel', function () {
+        return view('CMS.dashboard');
+    })->name('home');
+    Route::get('/swagger-doc', function () {
+        return view('Swagger.index');
+    });
+    Route::get('/judul_validation', [ValidationJudulController::class, 'index'])->name('judul.validation');
+});
 
 Route::prefix('auth')->group(function () {
     Route::get('/', [AuthController::class, 'index'])->name('login');
