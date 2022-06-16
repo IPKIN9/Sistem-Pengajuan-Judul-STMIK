@@ -12,7 +12,6 @@ class PengajuanModel extends Model
     protected $fillable = [
         'id',
         'id_mahasiswa',
-        'id_judul',
         'status',
         'detail_tanggal',
         'created_at',
@@ -21,10 +20,6 @@ class PengajuanModel extends Model
     public function mahasiswaRole()
     {
         return $this->belongsTo(MahasiswaModel::class, 'id_mahasiswa');
-    }
-    public function judulRole()
-    {
-        return $this->belongsTo(JudulModel::class, 'id_judul');
     }
     public function detailTanggalRole()
     {

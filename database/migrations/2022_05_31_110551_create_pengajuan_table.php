@@ -16,7 +16,6 @@ class CreatePengajuanTable extends Migration
         Schema::create('pengajuan', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_mahasiswa')->constrained('mahasiswa');
-            $table->foreignId('id_judul')->constrained('judul');
             $table->string('status');
             $table->foreignId('detail_tanggal')->constrained('sistem_informasi');
             $table->timestamps();
