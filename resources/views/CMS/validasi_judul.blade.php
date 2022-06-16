@@ -30,7 +30,7 @@
                                         <td>{{date('Y-m-d', strtotime($d->tgl_tutup))}}</td>
                                         <td>
                                             @if ($d->rilis == 0)
-                                            <a href="#" type="button" data-id="{{$d->id}}" class="btn btn-sm btn-info">Look</a>
+                                            <a href="{{route('judul.validation.detail', $d->id)}}" type="button" data-id="{{$d->id}}" class="btn btn-sm btn-info">Look</a>
                                             @else
                                             <button disabled data-id="{{$d->id}}" class="btn btn-sm btn-secondary">Look</button>
                                             @endif

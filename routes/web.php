@@ -9,12 +9,14 @@ use App\Http\Controllers\CMS\MahasiswaController;
 use App\Http\Controllers\CMS\PengajuanController;
 use App\Http\Controllers\CMS\SIController;
 use App\Http\Controllers\CMS\SkripsiController;
+use App\Http\Controllers\WEB\DetailPengajuan;
 use App\Http\Controllers\WEB\UserDashboardController;
 use App\Http\Controllers\WEB\ValidationJudulController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [UserDashboardController::class, 'index'])->name('user.dash');
 
+Route::get('/detail_judul/{id}', [DetailPengajuan::class, 'getAllJudul']);
 
 Route::middleware(['auth', 'role:suadmin|user'])->group(function () {
     route::get('/admin_panel', function () {
@@ -24,6 +26,7 @@ Route::middleware(['auth', 'role:suadmin|user'])->group(function () {
         return view('Swagger.index');
     });
     Route::get('/judul_validation', [ValidationJudulController::class, 'index'])->name('judul.validation');
+    Route::get('/judul_validation/{id}', [DetailPengajuan::class, 'getById'])->name('judul.validation.detail');
 });
 
 Route::prefix('auth')->group(function () {
