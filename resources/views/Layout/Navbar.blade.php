@@ -73,6 +73,11 @@
                 <div data-i18n="Basic">Data Skripsi</div>
             </a>
         </li>
+        <li class="menu-item {{ Route::is('judul.validation') ? 'active' : '' }}">
+            <a href="{{ route('judul.validation') }}" class="menu-link">
+                <div data-i18n="Basic">Data Validasi Judul</div>
+            </a>
+        </li>
 
     </ul>
 </nav>
