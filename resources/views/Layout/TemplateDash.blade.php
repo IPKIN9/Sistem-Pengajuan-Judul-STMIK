@@ -54,13 +54,13 @@
                 <div class="app-brand demo {{ Route::is('home') ? 'active' : '' }}">
                     <a href="{{route ('home')}}" class="app-brand-link">
                         <span class="app-brand-logo demo">
-                            <img src="{{ asset('img/logostmik2.png') }}" alt=""">
+                            <img src="{{ asset('img/logostmik2.png') }}" alt="">
                         </span>
                     </a>
 
-                    <a href="javascript:void(0);"
-                        class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-                        <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                    <a href=" javascript:void(0);"
+                                class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+                            <i class="bx bx-chevron-left bx-sm align-middle"></i>
                     </a>
                 </div>
 
@@ -104,8 +104,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <span
-                                                        class="fw-semibold d-block">{{ Auth::user()->username }}</span>
+                                                    <span class="fw-semibold d-block">{{ Auth::user()->username
+                                                        }}</span>
                                                     <small class="text-muted">Admin</small>
                                                 </div>
                                             </div>
@@ -198,8 +198,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel1">Modal title</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form id="formUpdate">
@@ -216,11 +215,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="buy-now">
-        <a href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/" target="_blank"
-            class="btn btn-danger btn-buy-now">Upgrade to Pro</a>
     </div>
 
     <!-- Core JS -->
