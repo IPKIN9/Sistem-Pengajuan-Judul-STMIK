@@ -20,7 +20,7 @@ class CreateJudulTable extends Migration
             $table->string('nama_judul');
             $table->text('descJudul');
             $table->string('status');
-            $table->file('jurnal');
+            $table->string('jurnal');
             $table->timestamps();
         });
     }
