@@ -7,6 +7,7 @@ use App\Http\Controllers\CMS\JudulController;
 use App\Http\Controllers\CMS\JurnalController;
 use App\Http\Controllers\CMS\MahasiswaController;
 use App\Http\Controllers\CMS\PengajuanController;
+use App\Http\Controllers\CMS\PersyaratanController;
 use App\Http\Controllers\CMS\SIController;
 use App\Http\Controllers\CMS\SkripsiController;
 use App\Http\Controllers\WEB\DetailPengajuan;
@@ -44,6 +45,7 @@ Route::middleware(['auth', 'role:suadmin',])->group(function () {
     Route::get('/jurnal_page', [JurnalController::class, 'index'])->name('jurnal.index');
     Route::get('/pengajuan_page', [PengajuanController::class, 'index'])->name('pengajuan.index');
     Route::get('/skripsi_page', [SkripsiController::class, 'index'])->name('skripsi.index');
+    Route::get('/persyaratan_page', [PersyaratanController::class, 'index'])->name('persyaratan.index');
 });
 
 Route::prefix('api')->middleware('auth')->group(function () {
@@ -101,6 +103,13 @@ Route::prefix('api')->middleware('auth')->group(function () {
         Route::get('/{id}', [SkripsiController::class, 'getById']);
         Route::patch('/{id}', [SkripsiController::class, 'updateData']);
         Route::delete('/{id}', [SkripsiController::class, 'deleteData']);
+    });
+
+    Route::prefix('persyaratan')->group(function () {
+        Route::post('/', [PersyaratanController::class, 'createData']);
+        Route::get('/{id}', [PersyaratanController::class, 'getById']);
+        Route::patch('/{id}', [PersyaratanController::class, 'updateData']);
+        Route::delete('/{id}', [PersyaratanController::class, 'deleteData']);
     });
 
     Route::prefix('judul_validation')->group(function () {

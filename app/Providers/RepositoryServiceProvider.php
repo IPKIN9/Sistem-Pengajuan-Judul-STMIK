@@ -8,6 +8,7 @@ use App\Interfaces\JudulRepositoryInterface;
 use App\Interfaces\JurnalRepositoryInterface;
 use App\Interfaces\MahasiswaRepositoryInterface;
 use App\Interfaces\PengajuanRepositoryInterface;
+use App\Interfaces\PersyaratanInterface;
 use App\Interfaces\SIRepositoryInterface;
 use App\Interfaces\SkripsiRepositoryInterface;
 use App\Repositories\AdminRepository;
@@ -16,6 +17,7 @@ use App\Repositories\JudulRepository;
 use App\Repositories\JurnalRepository;
 use App\Repositories\MahasiswaRepository;
 use App\Repositories\PengajuanRepository;
+use App\Repositories\PersyaratanRepository;
 use App\Repositories\SIRepository;
 use App\Repositories\SkripsiRepository;
 use Illuminate\Support\ServiceProvider;
@@ -37,6 +39,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(JurnalRepositoryInterface::class, JurnalRepository::class);
         $this->app->bind(PengajuanRepositoryInterface::class, PengajuanRepository::class);
         $this->app->bind((SkripsiRepositoryInterface::class), SkripsiRepository::class);
+        $this->app->bind((PersyaratanInterface::class), PersyaratanRepository::class);
     }
 
     /**
