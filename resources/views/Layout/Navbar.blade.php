@@ -23,6 +23,7 @@
         <li class="menu-item
         {{ Route::is('dosen.index') ? 'open' : '' }} 
         {{ Route::is('mahasiswa.index') ? 'open' : '' }}
+        {{ Route::is('persyaratan.index') ? 'open' : '' }}
         ">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
@@ -38,6 +39,11 @@
                 <li class="menu-item {{ Route::is('mahasiswa.index') ? 'active' : '' }}">
                     <a href="{{ route('mahasiswa.index') }}" class="menu-link">
                         <div data-i18n="Basic">Data Mahasiswa</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ Route::is('persyaratan.index') ? 'active' : '' }}">
+                    <a href="{{ route('persyaratan.index') }}" class="menu-link">
+                        <div data-i18n="Basic">Data Persyaratan</div>
                     </a>
                 </li>
 

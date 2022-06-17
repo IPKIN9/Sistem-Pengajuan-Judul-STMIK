@@ -10,7 +10,7 @@ class PersyaratanRepository implements PersyaratanInterface
     public function getAllPersyaratan()
     {
         try {
-            $dbResult = PersyaratanModel::all();
+            $dbResult = PersyaratanModel::first();
         } catch (\Throwable $th) {
             $dbResult = null;
         }

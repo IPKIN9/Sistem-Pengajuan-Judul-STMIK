@@ -16,7 +16,8 @@ class PersyaratanController extends Controller
     public function index()
     {
         $persyaratan = $this->persyaratanRepository->getAllPersyaratan();
-        return response()->json($persyaratan);
+        // return dd($persyaratan);
+        return view('CMS.persyaratan')->with('data', $persyaratan);
     }
 
     public function createData(Request $request)
