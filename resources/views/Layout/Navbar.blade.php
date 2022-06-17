@@ -50,22 +50,12 @@
         </li>
         <li class="menu-item {{ Route::is('si.index') ? 'active' : '' }}">
             <a href="{{ route('si.index') }}" class="menu-link">
-                <div data-i18n="Basic">Data Jadwal Pengajuan</div>
-            </a>
-        </li>
-        <li class="menu-item {{ Route::is('judul.index') ? 'active' : '' }}">
-            <a href="{{ route('judul.index') }}" class="menu-link">
-                <div data-i18n="Basic">Data Judul</div>
-            </a>
-        </li>
-        <li class="menu-item {{ Route::is('jurnal.index') ? 'active' : '' }}">
-            <a href="{{ route('jurnal.index') }}" class="menu-link">
-                <div data-i18n="Basic">Data Jurnal</div>
+                <div data-i18n="Basic">Jadwal Pengajuan</div>
             </a>
         </li>
         <li class="menu-item {{ Route::is('pengajuan.index') ? 'active' : '' }}">
             <a href="{{ route('pengajuan.index') }}" class="menu-link">
-                <div data-i18n="Basic">Data Pengajuan</div>
+                <div data-i18n="Basic">Pengajuan</div>
             </a>
         </li>
         <li class="menu-item {{ Route::is('skripsi.index') ? 'active' : '' }}">
@@ -75,7 +65,7 @@
         </li>
         <li class="menu-item {{ Route::is('judul.validation') ? 'active' : '' }}">
             <a href="{{ route('judul.validation') }}" class="menu-link">
-                <div data-i18n="Basic">Data Validasi Judul</div>
+                <div data-i18n="Basic">Validasi Judul</div>
             </a>
         </li>
 

@@ -19,4 +19,9 @@ class SisteminformasiModel extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function sistemInformasiChild()
+    {
+        return $this->hasMany(PengajuanModel::class, 'detail_tanggal');
+    }
 }
