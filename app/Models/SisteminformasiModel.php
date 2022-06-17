@@ -15,7 +15,6 @@ class SisteminformasiModel extends Model
         'tgl_tutup',
         'sesi',
         'rilis',
-        'persyaratan',
         'created_at',
         'updated_at',
     ];

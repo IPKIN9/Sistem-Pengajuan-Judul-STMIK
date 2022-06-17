@@ -12,8 +12,11 @@ class JudulModel extends Model
     protected $fillable = [
         'id',
         'id_mahasiswa',
+        'detail_tanggal',
         'nama_judul',
         'descJudul',
+        'status',
+        'jurnal',
         'created_at',
         'updated_at',
     ];
@@ -21,5 +24,9 @@ class JudulModel extends Model
     public function mahasiswaRole()
     {
         return $this->belongsTo(MahasiswaModel::class, 'id_mahasiswa');
+    }
+    public function detailTanggalRole()
+    {
+        return $this->belongsTo(SisteminformasiModel::class, 'detail_tanggal');
     }
 }

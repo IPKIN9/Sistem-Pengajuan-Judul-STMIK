@@ -19,7 +19,6 @@ class CreateSistemInformasiTable extends Migration
             $table->date('tgl_tutup')->nullable();
             $table->string('sesi');
             $table->boolean('rilis')->default(0);
-            $table->text('persyaratan');
             $table->timestamps();
         });
     }

@@ -16,8 +16,11 @@ class CreateJudulTable extends Migration
         Schema::create('judul', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_mahasiswa')->constrained('mahasiswa');
+            $table->foreignId('detail_tanggal')->constrained('sistem_informasi');
             $table->string('nama_judul');
             $table->text('descJudul');
+            $table->string('status');
+            $table->file('jurnal');
             $table->timestamps();
         });
     }

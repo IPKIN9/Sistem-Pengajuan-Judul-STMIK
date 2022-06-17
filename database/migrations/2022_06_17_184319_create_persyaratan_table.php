@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePengajuanTable extends Migration
+class CreatePersyaratanTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreatePengajuanTable extends Migration
      */
     public function up()
     {
-        Schema::create('pengajuan', function (Blueprint $table) {
+        Schema::create('persyaratan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_mahasiswa')->constrained('mahasiswa');
-            $table->foreignId('detail_tanggal')->constrained('sistem_informasi');
+            $table->string('persyaratan');
+            $table->file('format_file');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreatePengajuanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pengajuan');
+        Schema::dropIfExists('persyaratan');
     }
 }

@@ -12,7 +12,6 @@ class PengajuanModel extends Model
     protected $fillable = [
         'id',
         'id_mahasiswa',
-        'status',
         'detail_tanggal',
         'created_at',
         'updated_at',
