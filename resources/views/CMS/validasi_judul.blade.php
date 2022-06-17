@@ -62,7 +62,6 @@
                 let url = `{{ config('app.url') }}` + "/api/judul_validation/" + _id;
 
                 $.get(url, function(result) {
-                    console.log(result);
                     $.each(result, function(i, item) {
                         $('#table').DataTable().row.add([
                             i + 1,
@@ -71,16 +70,51 @@
                             item.mahasiswa_role.jurusan,
                             item.mahasiswa_role.angkatan,
                             `<td>
-                                <a href="{{ config('app.url') }}/CMS/validasi_judul/${item.id_mahasiswa}">
-                                    <button type="button" class="btn-sm btn rounded-pill btn-secondary">
-                                        <span class="tf-icons bx bx-list-ul"></span>&nbsp; Judul
-                                    </button>
-                                </a>
+                                <button id="btn-detail" type="button" data-id="${item.id_mahasiswa}/${item.detail_tanggal}" class="btn-sm btn rounded-pill btn-secondary">
+                                    <span class="tf-icons bx bx-list-ul"></span>&nbsp; Judul
+                                </button>
                             </td>`
                         ]).draw();
                     });
                 });
             });
         });
+
+        $(document).on('click', '#btn-detail', function() {
+            let _id = $(this).data('id');
+            let url = `{{ config('app.url') }}` + "/api/judul_validation/detail/" + _id;
+
+            $.get(url, function(result) {
+                $('#modalUpdate').modal('show');
+                $('#buttonUpdate').remove();
+                $('#formUpdate').html('');
+                $('.modal-title').html('');
+                $('#formUpdate').append(`
+                <div class="card-body">
+                    <small class="text-light fw-semibold">judul source</small>
+                    <figure class="mt-2">
+                    <blockquote class="blockquote">
+                        <p class="mb-0">List judul mahasiswa yang mengajukan.</p>
+                    </blockquote>
+                    <figcaption class="blockquote-footer">
+                        Someone famous in <cite title="Source Title">Source Title</cite>
+                    </figcaption>
+                    </figure>
+                </div>
+                <div class="card-body" id="list-judul">
+                </div>
+                `);
+                $.each(result, function(i, item) {
+                    $('#list-judul').append(`
+                        <dl class="row">
+                            <dt class="col-sm-3">${item.nama_judul}</dt>
+                            <dd class="col-sm-9">
+                                <p>${item.descJudul}</p>
+                            </dd>
+                        </dl>
+                    `);
+                });
+            });
+        })
     </script>
 @endsection

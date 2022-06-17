@@ -10,8 +10,9 @@ use Illuminate\Http\Request;
 
 class DetailPengajuan extends Controller
 {
-    public function getAllJudul($id)
+    public function getAllJudul($idMahasiswa, $idJadwal)
     {
-        $judul = JudulModel::whereId($id)->get();
+        $judul = JudulModel::where('id_mahasiswa', $idMahasiswa)->where('detail_tanggal', $idJadwal)->get();
+        return response()->json($judul, 200);
     }
 }
