@@ -10,7 +10,7 @@ class PersyaratanModel extends Model
     use HasFactory;
     protected $table = "persyaratan";
     protected $fillable = [
-        'pesyaratan',
+        'persyaratan',
         'format_file',
     ];
 }

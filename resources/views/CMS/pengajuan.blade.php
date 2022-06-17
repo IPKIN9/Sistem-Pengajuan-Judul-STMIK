@@ -13,7 +13,6 @@
                                     <tr class="text-nowrap">
                                         <th>No</th>
                                         <th>Nama Mahasiswa</th>
-                                        <th>Status</th>
                                         <th>Tanggal</th>
                                         <th>Opsi</th>
                                     </tr>
@@ -26,7 +25,6 @@
                                     <tr>
                                         <th scope="row">{{ $no++ }}</th>
                                         <td>{{ $d->mahasiswaRole->nama }}</td>
-                                        <td>{{ $d->status }}</td>
                                         <td>{{ $d->detailTanggalRole->tgl_buka }}</td>
                                         <td>
                                             <button type="button" id="deleteId" data-id="{{ $d->id }}"

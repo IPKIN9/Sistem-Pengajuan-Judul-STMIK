@@ -21,6 +21,6 @@ class UserDashboardController extends Controller
             'jadwal_list' => $jadwalList,
         );
         // return dd($dashboardData);
-        return view('Web.UserDashboard')->with('data', $dashboardData);
+        return view('Web.pengajuanUser')->with('data', $dashboardData);
     }
 }
