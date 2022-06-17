@@ -16,8 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [UserDashboardController::class, 'index'])->name('user.dash');
 
-Route::get('/detail_judul/{id}', [DetailPengajuan::class, 'getAllJudul']);
-
 Route::middleware(['auth', 'role:suadmin|user'])->group(function () {
     route::get('/admin_panel', function () {
         return view('CMS.dashboard');
@@ -25,8 +23,10 @@ Route::middleware(['auth', 'role:suadmin|user'])->group(function () {
     Route::get('/swagger-doc', function () {
         return view('Swagger.index');
     });
+
     Route::get('/judul_validation', [ValidationJudulController::class, 'index'])->name('judul.validation');
     Route::get('/judul_validation/{id}', [DetailPengajuan::class, 'getById'])->name('judul.validation.detail');
+    Route::get('/detail_judul/{id}', [DetailPengajuan::class, 'getAllJudul']);
 });
 
 Route::prefix('auth')->group(function () {
@@ -101,5 +101,9 @@ Route::prefix('api')->middleware('auth')->group(function () {
         Route::get('/{id}', [SkripsiController::class, 'getById']);
         Route::patch('/{id}', [SkripsiController::class, 'updateData']);
         Route::delete('/{id}', [SkripsiController::class, 'deleteData']);
+    });
+
+    Route::prefix('judul_validation')->group(function () {
+        Route::get('/{id}', [ValidationJudulController::class, 'getJudulBySesion']);
     });
 });
