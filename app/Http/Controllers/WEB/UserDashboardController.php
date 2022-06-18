@@ -4,6 +4,7 @@ namespace App\Http\Controllers\WEB;
 
 use App\Http\Controllers\Controller;
 use App\Models\PengajuanModel;
+use App\Models\PersyaratanModel;
 use App\Models\SisteminformasiModel;
 use DateTime;
 
@@ -15,9 +16,9 @@ class UserDashboardController extends Controller
         // jadwal list dan buka tutup
         $jadwalList = $jadwalDatabase->orderBy('updated_at', 'desc')->limit(5)->get();
         // persyaratan
-        $persyaratan = $jadwalDatabase->first();
+        $persyaratan = PersyaratanModel::first();
         $dashboardData = array(
-            'persyaratan' => $persyaratan ? $persyaratan->value('persyaratan') : null,
+            'persyaratan' => $persyaratan ? $persyaratan : null,
             'jadwal_list' => $jadwalList,
         );
         // return dd($dashboardData);

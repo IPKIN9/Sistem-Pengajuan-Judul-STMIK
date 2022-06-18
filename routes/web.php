@@ -16,6 +16,9 @@ use App\Http\Controllers\WEB\ValidationJudulController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [UserDashboardController::class, 'index'])->name('user.dash');
+Route::get('/pengajuan_user', function () {
+    return view('Web.JudulUser');
+})->name('pengajuan_form');
 
 Route::middleware(['auth', 'role:suadmin|user'])->group(function () {
     route::get('/admin_panel', function () {

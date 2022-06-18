@@ -20,7 +20,6 @@ class SIRequest extends FormRequest
             'tgl_buka' => 'required|date',
             'tgl_tutup' => 'required|date',
             'sesi' => 'required',
-            'persyaratan' => 'required|min:5',
         ];
     }
 
