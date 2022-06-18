@@ -59,7 +59,8 @@
                                             <div class="user-progress">
                                                 <small>
                                                     @if ($d->tgl_buka <= date('Y-m-d') and $d->tgl_tutup >= date('Y-m-d'))
-                                                        <a href="" class="btn btn-primary btn-sm">Buka</a>
+                                                        <a href="{{ route('pengajuan_form') }}"
+                                                            class="btn btn-primary btn-sm">Buka</a>
                                                     @elseif ($d->tgl_buka > date('Y-m-d') and $d->tgl_tutup > date('Y-m-d'))
                                                         <small class="text-muted">Belum Buka</small>
                                                     @else

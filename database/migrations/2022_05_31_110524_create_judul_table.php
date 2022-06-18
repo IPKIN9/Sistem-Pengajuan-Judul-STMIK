@@ -19,7 +19,7 @@ class CreateJudulTable extends Migration
             $table->foreignId('detail_tanggal')->constrained('sistem_informasi');
             $table->string('nama_judul');
             $table->text('descJudul');
-            $table->string('status');
+            $table->string('status')->default('on_process');
             $table->string('jurnal');
             $table->timestamps();
         });
