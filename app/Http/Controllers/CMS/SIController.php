@@ -27,7 +27,6 @@ class SIController extends Controller
             'tgl_buka',
             'tgl_tutup',
             'sesi',
-            'persyaratan',
         ]);
 
         $SI = $this->SIRepository->createSI($SIDetails);
@@ -47,7 +46,6 @@ class SIController extends Controller
             'tgl_buka',
             'tgl_tutup',
             'sesi',
-            'persyaratan',
         ]);
 
         $SI = $this->SIRepository->updateSI($id, $SIDetails);
