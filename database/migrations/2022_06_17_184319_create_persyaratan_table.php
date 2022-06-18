@@ -15,7 +15,7 @@ class CreatePersyaratanTable extends Migration
     {
         Schema::create('persyaratan', function (Blueprint $table) {
             $table->id();
-            $table->string('persyaratan');
+            $table->longText('persyaratan');
             $table->string('format_file');
             $table->timestamps();
         });

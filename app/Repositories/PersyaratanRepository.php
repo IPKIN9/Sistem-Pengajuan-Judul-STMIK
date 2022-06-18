@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\PersyaratanInterface;
 use App\Models\PersyaratanModel;
+use Illuminate\Support\Facades\File;
 
 class PersyaratanRepository implements PersyaratanInterface
 {
@@ -25,11 +26,27 @@ class PersyaratanRepository implements PersyaratanInterface
     public function createPersyaratan(array $detailPersyaratan)
     {
         try {
-            $fileUpload = $detailPersyaratan['format_file'];
-            $nameFile = $fileUpload->getClientOriginalName();
+            if (array_key_exists('format_file', $detailPersyaratan)) {
+                File::delete(public_path('storage/format_file/' . $detailPersyaratan['old_file']));
+                unset($detailPersyaratan['old_file']);
+                $fileUpload = $detailPersyaratan['format_file'];
+                $nameFile = $fileUpload->getClientOriginalName();
 
-            $detailPersyaratan['format_file'] = $nameFile;
-            $dbResult = PersyaratanModel::create($detailPersyaratan);
+                $filePath = public_path('storage/format_file/');
+                $fileUpload->move($filePath, $fileUpload->getClientOriginalName());
+                $detailPersyaratan['format_file'] = $nameFile;
+            } else {
+                $detailPersyaratan['format_file'] = $detailPersyaratan['old_file'];
+                unset($detailPersyaratan['old_file']);
+            }
+            $dataBaseCon = new PersyaratanModel;
+            $getOne = $dataBaseCon->first();
+            if ($getOne) {
+                $dbResult = $dataBaseCon->whereId($getOne->id)->update($detailPersyaratan);
+            } else {
+                $dbResult = $dataBaseCon->create($detailPersyaratan);
+            }
+
             $persyaratan = array(
                 'data' => $dbResult,
                 'response' => array(
@@ -38,9 +55,7 @@ class PersyaratanRepository implements PersyaratanInterface
                     'message' => 'Data berhasil disimpan',
                 ),
                 'code' => 201
-            );;
-            $filePath = public_path('storage/format_file/');
-            $fileUpload->move($filePath, $fileUpload->getClientOriginalName());
+            );
         } catch (\Throwable $th) {
             $persyaratan = array(
                 'data' => null,

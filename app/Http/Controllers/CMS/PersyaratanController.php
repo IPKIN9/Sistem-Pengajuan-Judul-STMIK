@@ -16,7 +16,6 @@ class PersyaratanController extends Controller
     public function index()
     {
         $persyaratan = $this->persyaratanRepository->getAllPersyaratan();
-        // return dd($persyaratan);
         return view('CMS.persyaratan')->with('data', $persyaratan);
     }
 
@@ -25,8 +24,10 @@ class PersyaratanController extends Controller
         $persyaratanDetail = $request->only([
             'persyaratan',
             'format_file',
+            'old_file',
         ]);
         $persyaratan = $this->persyaratanRepository->createPersyaratan($persyaratanDetail);
+        // return response()->json($persyaratanDetail);
         return response()->json($persyaratan, $persyaratan['code']);
     }
 }
