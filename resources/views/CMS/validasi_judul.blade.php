@@ -14,7 +14,7 @@
                                 <select class="form-select" id="selectSesi" aria-label="Default select example">
                                     <option disabled selected="">Open this select menu</option>
                                     @foreach ($data as $d)
-                                        <option value="1">Sesi {{ $d->sesi }} | Tgl
+                                        <option value="{{ $d->id }}">Sesi {{ $d->sesi }} | Tgl
                                             {{ date('d-M', strtotime($d->tgl_buka)) }} Sampai
                                             {{ date('d-M-Y', strtotime($d->tgl_tutup)) }}</option>
                                     @endforeach

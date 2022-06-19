@@ -28,6 +28,13 @@ class MahasiswaController extends Controller
         return response()->json($mahasiswa, $mahasiswa['code']);
     }
 
+    public function getByNim($id)
+    {
+        $mahasiswa = $this->mahasiswaRepository->getMahasiswaByNim($id);
+
+        return response()->json($mahasiswa, $mahasiswa['code']);
+    }
+
     public function createMahasiswa(MahasiswaRequest $request)
     {
         $mahasiswaDetails = $request->only([

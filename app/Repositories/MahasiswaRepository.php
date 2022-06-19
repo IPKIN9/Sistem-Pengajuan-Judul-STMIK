@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\MahasiswaRepositoryInterface;
 use App\Models\MahasiswaModel;
+use App\Models\PengajuanModel;
 use Carbon\Carbon;
 
 class MahasiswaRepository implements MahasiswaRepositoryInterface
@@ -47,6 +48,42 @@ class MahasiswaRepository implements MahasiswaRepositoryInterface
             );
         }
 
+        return $mahasiswa;
+    }
+
+    public function getMahasiswaByNim($nim)
+    {
+        try {
+            $dbResult = MahasiswaModel::where('nim', $nim)->first();
+            $checkPengajuan = PengajuanModel::where('id_mahasiswa', $dbResult->id)->first();
+            if ($checkPengajuan) {
+                $mahasiswa = array(
+                    'data' => null,
+                    'message' => "Sudah pernah pengajuan",
+                    'code' => 404
+                );
+            } else {
+                if ($dbResult) {
+                    $mahasiswa = array(
+                        'data' => $dbResult,
+                        'message' => "Data ditemukan",
+                        'code' => 200
+                    );
+                } else {
+                    $mahasiswa = array(
+                        'data' => null,
+                        'message' => "Data tidak ditemukan",
+                        'code' => 404
+                    );
+                }
+            }
+        } catch (\Throwable $th) {
+            $mahasiswa = array(
+                'data' => null,
+                'message' => $th->getMessage(),
+                'code' => 500
+            );
+        }
         return $mahasiswa;
     }
 
