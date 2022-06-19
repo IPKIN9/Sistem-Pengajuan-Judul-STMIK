@@ -118,6 +118,7 @@ Route::prefix('api')->middleware('auth')->group(function () {
 
     Route::prefix('judul_validation')->group(function () {
         Route::get('/{id}', [ValidationJudulController::class, 'getJudulBySesion']);
+        Route::patch('/{id}', [ValidationJudulController::class, 'updateStatus']);
         Route::get('/detail/{idMhs}/{idJadwal}', [DetailPengajuan::class, 'getAllJudul']);
     });
 });
