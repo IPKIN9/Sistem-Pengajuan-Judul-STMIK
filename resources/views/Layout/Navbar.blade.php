@@ -17,6 +17,11 @@
                 <div data-i18n="Basic">Data User</div>
             </a>
         </li>
+        <li class="menu-item {{ Route::is('register.index') ? 'active' : '' }}">
+            <a href="{{ route('register.index') }}" class="menu-link">
+                <div data-i18n="Basic">Data Akun</div>
+            </a>
+        </li>
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Master Data</span>
         </li>

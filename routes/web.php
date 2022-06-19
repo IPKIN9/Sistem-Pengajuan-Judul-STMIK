@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CMS\AdminController;
 use App\Http\Controllers\CMS\DosenController;
 use App\Http\Controllers\CMS\JudulController;
@@ -50,6 +51,7 @@ Route::middleware(['auth', 'role:suadmin',])->group(function () {
     Route::get('/pengajuan_page', [PengajuanController::class, 'index'])->name('pengajuan.index');
     Route::get('/skripsi_page', [SkripsiController::class, 'index'])->name('skripsi.index');
     Route::get('/persyaratan_page', [PersyaratanController::class, 'index'])->name('persyaratan.index');
+    Route::get('/Akun_page', [RegisterController::class, 'index'])->name('register.index');
 });
 
 Route::prefix('api')->middleware('auth')->group(function () {
@@ -120,5 +122,11 @@ Route::prefix('api')->middleware('auth')->group(function () {
         Route::get('/{id}', [ValidationJudulController::class, 'getJudulBySesion']);
         Route::patch('/{id}', [ValidationJudulController::class, 'updateStatus']);
         Route::get('/detail/{idMhs}/{idJadwal}', [DetailPengajuan::class, 'getAllJudul']);
+    });
+
+    route::prefix('akun')->group( function () {
+        Route::get('/admin', [RegisterController::class, 'getByAdmin'])->name('akun.admin');
+        Route::get('/dosen', [RegisterController::class, 'getByDosen'])->name('akun.dosen');
+        Route::post('/createAkun', [RegisterController::class, 'createAkun'])->name('akun.create');
     });
 });
