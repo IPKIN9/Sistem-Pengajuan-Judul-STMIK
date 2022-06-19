@@ -58,6 +58,7 @@
             $('#table').DataTable();
 
             $('#selectSesi').on('change', function() {
+                $('#table').DataTable().clear();
                 let _id = $(this).val();
                 let url = `{{ config('app.url') }}` + "/api/judul_validation/" + _id;
 
@@ -86,7 +87,6 @@
 
             $.get(url, function(result) {
                 $('#modalUpdate').modal('show');
-                $('#buttonUpdate').remove();
                 $('#formUpdate').html('');
                 $('.modal-title').html('');
                 $('#formUpdate').append(`
@@ -96,9 +96,6 @@
                     <blockquote class="blockquote">
                         <p class="mb-0">List judul mahasiswa yang mengajukan.</p>
                     </blockquote>
-                    <figcaption class="blockquote-footer">
-                        Someone famous in <cite title="Source Title">Source Title</cite>
-                    </figcaption>
                     </figure>
                 </div>
                 <div class="card-body" id="list-judul">
@@ -107,14 +104,56 @@
                 $.each(result, function(i, item) {
                     $('#list-judul').append(`
                         <dl class="row">
+                            <input type="hidden" name="idJudul[]" value="${item.id}">
                             <dt class="col-sm-3">${item.nama_judul}</dt>
-                            <dd class="col-sm-9">
-                                <p>${item.descJudul}</p>
+                            <dd class="col-sm-9 row">
+                                <p class="col-sm-9">${item.descJudul}</p>
+                                <div class="col-sm-3 btn-group" role="group">
+                                    <select name="status[]" id="statusId" class="form-select form-select-sm">
+                                        <option selected disabled>Validasi Judul</option>
+                                        <option value="diterima">Diterima</option>
+                                        <option value="konfirmasi">Konfirmasi Kembali</option>
+                                        <option value="ditolak">Ditolak</option>
+                                    </select>
+                                </div>
                             </dd>
                         </dl>
                     `);
                 });
             });
-        })
+        });
+
+        $(document).on('click', '#buttonUpdate', function() {
+            let _id = 1;
+            let url = `{{ config('app.url') }}` + "/api/judul_validation/" + _id;
+            let data = $('#formUpdate').serialize();
+            $.ajax({
+                type: 'PATCH',
+                url: url,
+                data: data,
+                success: function(result) {
+                    $('#modalUpdate').modal('toggle');
+                    let data = result.data;
+                    Swal.fire({
+                        title: result.response.title,
+                        text: result.response.message,
+                        icon: result.response.icon,
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Oke'
+                    }).then((result) => {
+                        location.reload();
+                    });
+                },
+                error: function(result) {
+                    $('#modalUpdate').modal('toggle');
+                    let data = result.responseJSON
+                    Swal.fire({
+                        icon: data.response.icon,
+                        title: data.response.title,
+                        text: data.response.message,
+                    });
+                }
+            });
+        });
     </script>
 @endsection
