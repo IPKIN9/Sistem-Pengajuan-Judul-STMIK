@@ -37,6 +37,9 @@ class UserPermissionSeeder extends Seeder
             'suadmin-delete',
         ]);
 
+        $roleUser = Role::create(['name' => 'dosen']);
+        $roleUser->givePermissionTo(['dosen-get', 'dosen-create', 'dosen-update']);
+
         $roleUser = Role::create(['name' => 'user']);
         $roleUser->givePermissionTo(['user-get', 'user-create', 'user-update']);
 

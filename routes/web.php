@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [UserDashboardController::class, 'index'])->name('user.dash');
 Route::get('/pengajuan_user/{id}', [PengajuanProcessController::class, 'getId'])->name('pengajuan_form');
 Route::post('/pengajuan_process', [PengajuanProcessController::class, 'createPengajuan']);
+Route::get('api/mahasiswa/nim/{id}', [MahasiswaController::class, 'getByNim']);
 
 Route::middleware(['auth', 'role:suadmin|user'])->group(function () {
     route::get('/admin_panel', function () {
@@ -55,7 +56,6 @@ Route::prefix('api')->middleware('auth')->group(function () {
     Route::prefix('mahasiswa')->group(function () {
         Route::post('/', [MahasiswaController::class, 'createMahasiswa']);
         Route::get('/{id}', [MahasiswaController::class, 'getById']);
-        Route::get('/nim/{id}', [MahasiswaController::class, 'getByNim']);
         Route::patch('/{id}', [MahasiswaController::class, 'updateMahasiswa']);
         Route::delete('/{id}', [MahasiswaController::class, 'deleteMahasiswa']);
     });

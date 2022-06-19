@@ -7,9 +7,9 @@
                     <div class="d-flex align-items-end row">
                         <div class="col-sm-8">
                             <div class="card-body">
-                                <h4 class="card-title text-success">Selamat Datang Di Aplikasi JUDULKU</h4>
+                                <h4 class="card-title">Selamat Datang Di Aplikasi JUDULKU</h4>
                                 @if (session('status'))
-                                    <p>{{ session('status') }}</p>
+                                    <p class="text-success">{{ session('status') }}</p>
                                 @endif
                                 @if ($data['persyaratan'])
                                     <h6 class="card-title text-primary">Persyaratan</h6>
