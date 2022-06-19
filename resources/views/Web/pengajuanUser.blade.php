@@ -7,7 +7,10 @@
                     <div class="d-flex align-items-end row">
                         <div class="col-sm-8">
                             <div class="card-body">
-                                <h4 class="card-title text-primary">Selamat Datang Di Aplikasi JUDULKU</h4>
+                                <h4 class="card-title text-success">Selamat Datang Di Aplikasi JUDULKU</h4>
+                                @if (session('status'))
+                                    <p>{{ session('status') }}</p>
+                                @endif
                                 @if ($data['persyaratan'])
                                     <h6 class="card-title text-primary">Persyaratan</h6>
                                     <p class="mt-2">
@@ -59,7 +62,7 @@
                                             <div class="user-progress">
                                                 <small>
                                                     @if ($d->tgl_buka <= date('Y-m-d') and $d->tgl_tutup >= date('Y-m-d'))
-                                                        <a href="{{ route('pengajuan_form') }}"
+                                                        <a href="{{ route('pengajuan_form', $d->id) }}"
                                                             class="btn btn-primary btn-sm">Buka</a>
                                                     @elseif ($d->tgl_buka > date('Y-m-d') and $d->tgl_tutup > date('Y-m-d'))
                                                         <small class="text-muted">Belum Buka</small>
