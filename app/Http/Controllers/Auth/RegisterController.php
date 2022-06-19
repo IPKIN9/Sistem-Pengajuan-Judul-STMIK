@@ -20,7 +20,7 @@ class RegisterController extends Controller
     public function index()
     {
         $user = User::all();
-        return view('Auth.regisAkun')->with('user',$user);
+        return view('Auth.regisAkun')->with('user', $user);
     }
 
     public function getByAdmin()
@@ -53,6 +53,35 @@ class RegisterController extends Controller
                     'message' => 'Data berhasil disimpan',
                 ),
                 'code' => 201
+            );
+        } catch (\Throwable $th) {
+            $akun = array(
+                'data' => null,
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
+                'code' => 500
+            );
+        }
+
+        return response()->json($akun, $akun['code']);
+    }
+
+    public function deleteAkun($id)
+    {
+        try {
+            $dbResult = User::WhereId($id);
+            $dbResult->delete();
+            $akun = array(
+                'data' => $dbResult,
+                'response' => array(
+                    'icon' => 'success',
+                    'title' => 'Terhapus',
+                    'message' => 'Data berhasil dihapus',
+                ),
+                'code' => 200
             );
         } catch (\Throwable $th) {
             $akun = array(

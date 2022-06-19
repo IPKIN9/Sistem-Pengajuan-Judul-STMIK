@@ -124,9 +124,10 @@ Route::prefix('api')->middleware('auth')->group(function () {
         Route::get('/detail/{idMhs}/{idJadwal}', [DetailPengajuan::class, 'getAllJudul']);
     });
 
-    route::prefix('akun')->group( function () {
+    route::prefix('akun')->group(function () {
         Route::get('/admin', [RegisterController::class, 'getByAdmin'])->name('akun.admin');
         Route::get('/dosen', [RegisterController::class, 'getByDosen'])->name('akun.dosen');
         Route::post('/createAkun', [RegisterController::class, 'createAkun'])->name('akun.create');
+        Route::delete('/deleteAkun', [RegisterController::class, 'deleteAkun'])->name('akun.delete');
     });
 });
