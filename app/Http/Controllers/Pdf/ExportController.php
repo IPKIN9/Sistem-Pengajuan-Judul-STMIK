@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\JudulModel;
 use App\Models\MahasiswaModel;
 use App\Models\PengajuanModel;
+use \Mpdf\Mpdf as PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ExportController extends Controller
 {
@@ -24,11 +26,23 @@ class ExportController extends Controller
                     'nama' => $value->nama,
                     'nim' => $value->nim,
                     'jurusan' => $value->jurusan,
-                    'angkatan' => $value->angkatan,
-                    'judul' => $pengumuman->where('id_mahasiswa', $value->id)->select(array('nama_judul', 'descJudul', 'status', 'jurnal'))->get(),
+                    'judul' => $pengumuman->where('id_mahasiswa', $value->id)->select(array('nama_judul', 'status'))->first(),
                 ),
             );
         }
-        return response()->json($data, 200);
+        // Create the mPDF document
+        $document = new PDF([
+            'mode' => 'utf-8',
+            'format' => 'legal',
+            'margin_header' => '3',
+            'margin_top' => '20',
+            'margin_bottom' => '20',
+            'margin_footer' => '2',
+            'orientation' => 'L'
+        ]);
+
+        $document->WriteHTML(view('Pdf.pdf')->with('data', $data));
+        return $document->Output();
+        // return response()->json($data, 200);
     }
 }
