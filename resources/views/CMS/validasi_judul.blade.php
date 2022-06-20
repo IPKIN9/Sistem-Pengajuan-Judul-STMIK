@@ -10,15 +10,19 @@
                             <blockquote class="blockquote">
                                 <p class="mb-0">Pilih tanggal pengajuan</p>
                             </blockquote>
-                            <div class="col-md-4">
-                                <select class="form-select" id="selectSesi" aria-label="Default select example">
-                                    <option disabled selected="">Open this select menu</option>
-                                    @foreach ($data as $d)
-                                        <option value="{{ $d->id }}">Sesi {{ $d->sesi }} | Tgl
-                                            {{ date('d-M', strtotime($d->tgl_buka)) }} Sampai
-                                            {{ date('d-M-Y', strtotime($d->tgl_tutup)) }}</option>
-                                    @endforeach
-                                </select>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <select class="form-select" id="selectSesi" aria-label="Default select example">
+                                        <option disabled selected="">Open this select menu</option>
+                                        @foreach ($data as $d)
+                                            <option value="{{ $d->id }}">Sesi {{ $d->sesi }} | Tgl
+                                                {{ date('d-M', strtotime($d->tgl_buka)) }} Sampai
+                                                {{ date('d-M-Y', strtotime($d->tgl_tutup)) }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4" id="btnRilisPlace">
+                                </div>
                             </div>
                         </figure>
                         <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
@@ -77,6 +81,10 @@
                             </td>`
                         ]).draw();
                     });
+                    $('#btnRilisPlace').html(`
+                        <button type="button" id="btnRilis" class="btn btn-outline-primary">Rilis
+                        Pengumuman</button>
+                    `);
                 });
             });
         });
@@ -105,16 +113,22 @@
                     $('#list-judul').append(`
                         <dl class="row">
                             <input type="hidden" name="idJudul[]" value="${item.id}">
-                            <dt class="col-sm-3">${item.nama_judul}</dt>
-                            <dd class="col-sm-9 row">
-                                <p class="col-sm-9">${item.descJudul}</p>
+                            <dt class="col-sm-4">${item.nama_judul}</dt>
+                            <dd class="col-sm-8 row">
+                                <p class="col-sm-8">${item.descJudul}</p>
                                 <div class="col-sm-3 btn-group" role="group">
                                     <select name="status[]" id="statusId" class="form-select form-select-sm">
-                                        <option selected disabled>Validasi Judul</option>
+                                        <option selected disabled>Validasi</option>
                                         <option value="diterima">Diterima</option>
                                         <option value="konfirmasi">Konfirmasi Kembali</option>
                                         <option value="ditolak">Ditolak</option>
                                     </select>
+                                </div>
+                                <div class="col-sm-1 float-right">
+                                    <a href="{{ asset('storage/jurnal/${item.jurnal}') }}" target="_blank"
+                                        class="btn rounded-pill btn-icon btn-primary btn-sm">
+                                        <i class='bx bx-cloud-download'></i>
+                                    </a>
                                 </div>
                             </dd>
                         </dl>
@@ -152,6 +166,51 @@
                         title: data.response.title,
                         text: data.response.message,
                     });
+                }
+            });
+        });
+
+        $(document).on('click', '#btnRilis', function() {
+            $('#btnRilis').html(`
+                <div class="spinner-border spinner-border-sm text-secondary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            `);
+            $('#selectSesi').prop('disabled', true);
+            $('#btnRilis').prop('disabled', true);
+
+            let _id = $('#selectSesi').val();
+            let url = `{{ config('app.url') }}` + "/api/sistem_informasi/" + _id;
+            let data = {
+                'rilis': 1
+            };
+            $.ajax({
+                url: url,
+                method: "patch",
+                data: data,
+                success: function(result) {
+                    Swal.fire({
+                        title: result.response.title,
+                        text: result.response.message,
+                        icon: result.response.icon,
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Oke'
+                    }).then((result) => {
+                        $('#btnRilis').html('Rilis Pengumuman');
+                        $('#selectSesi').prop('disabled', false);
+                        location.reload();
+                    });
+                },
+                error: function(result) {
+                    let data = result.responseJSON
+                    Swal.fire({
+                        icon: data.response.icon,
+                        title: data.response.title,
+                        text: data.response.message,
+                    });
+                    $('#btnRilis').html('Rilis Pengumuman');
+                    $('#btnRilis').prop('disabled', false);
+                    $('#selectSesi').prop('disabled', false);
                 }
             });
         });

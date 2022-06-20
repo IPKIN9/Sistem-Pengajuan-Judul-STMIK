@@ -40,13 +40,9 @@ class SIController extends Controller
         return response()->json($SI, $SI['code']);
     }
 
-    public function updateInSI(SIRequest $request, $id)
+    public function updateInSI(Request $request, $id)
     {
-        $SIDetails = $request->only([
-            'tgl_buka',
-            'tgl_tutup',
-            'sesi',
-        ]);
+        $SIDetails = $request->all();
 
         $SI = $this->SIRepository->updateSI($id, $SIDetails);
         return response()->json($SI, $SI['code']);

@@ -109,24 +109,32 @@
                             </div>
                         </div>
                         <ul class="p-0 m-0">
-                            <li class="d-flex mb-4 pb-1">
-                                <div class="avatar flex-shrink-0 me-3">
-                                    <span class="avatar-initial rounded bg-label-primary"><i
-                                            class='bx bxs-file-pdf'></i></span>
-                                </div>
-                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="me-2">
-                                        <h6 class="mb-0">Sesi Pertama</h6>
-                                        <small class="text-muted">15-Juni-2022</small>
-                                    </div>
-                                    <div class="user-progress">
-                                        <small class=""><a href="#"
-                                                class="btn rounded-pill btn-icon btn-primary btn-sm">
-                                                <i class='bx bx-cloud-download'></i>
-                                            </a></small>
-                                    </div>
-                                </div>
-                            </li>
+                            @if ($data['export_pdf'])
+                                @foreach ($data['export_pdf'] as $d)
+                                    <li class="d-flex mb-4 pb-1">
+                                        <div class="avatar flex-shrink-0 me-3">
+                                            <span class="avatar-initial rounded bg-label-primary"><i
+                                                    class='bx bxs-file-pdf'></i></span>
+                                        </div>
+                                        <div
+                                            class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                            <div class="me-2">
+                                                <h6 class="mb-0">Sesi {{ $d->sesi }}</h6>
+                                                <small class="text-muted">{{ date('d-M', strtotime($d->tgl_buka)) }}
+                                                    sampai
+                                                    {{ date('d-M', strtotime($d->tgl_tutup)) }}</small>
+                                            </div>
+                                            <div class="user-progress">
+                                                <small class=""><a href="#"
+                                                        class="btn rounded-pill btn-icon btn-primary btn-sm">
+                                                        <i class='bx bx-cloud-download'></i>
+                                                    </a></small>
+                                            </div>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            @else
+                            @endif
                         </ul>
                     </div>
                 </div>
