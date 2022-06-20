@@ -7,8 +7,6 @@ use App\Models\JudulModel;
 use App\Models\MahasiswaModel;
 use App\Models\PengajuanModel;
 use \Mpdf\Mpdf as PDF;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class ExportController extends Controller
 {

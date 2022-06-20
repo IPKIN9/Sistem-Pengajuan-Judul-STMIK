@@ -11,15 +11,15 @@
 <body>
     <h3 style="text-align: center;">PENGUMUMAN PENGAJUAN JUDUL</h3>
     <hr>
-    <table style="border-collapse: collapse;" width="100%">
+    <table border="1" style="border-collapse: collapse; text-align: center;" width="100%">
         <thead>
             <tr>
-                <th>No</th>
-                <th>Nama</th>
-                <th>NIM</th>
-                <th>Jurusan</th>
-                <th>Judul</th>
-                <th>Status</th>
+                <th style="width: 5%; !important">No</th>
+                <th style="width: 10%; !important">Nama</th>
+                <th style="width: 10%; !important">NIM</th>
+                <th style="width: 10%; !important">Jurusan</th>
+                <th style="width: 55%; !important">Judul</th>
+                <th style="width: 10%; !important">Status</th>
             </tr>
         </thead>
         <tbody>
@@ -27,12 +27,14 @@
                 $no = 1;
             @endphp
             @foreach ($data as $item)
-                <tr>
+                <tr
+                    style="@if ($item['judul']['status'] == 'diterima') background: #3EC70B; @else background: #F94C66; @endif !important">
                     <td>{{ $no++ }}</td>
                     <td>{{ $item['nama'] }}</td>
                     <td>{{ $item['nim'] }}</td>
                     <td>{{ $item['jurusan'] }}</td>
                     <td>{{ $item['judul']['nama_judul'] }}</td>
+                    <td>{{ $item['judul']['status'] }}</td>
                 </tr>
             @endforeach
         </tbody>
