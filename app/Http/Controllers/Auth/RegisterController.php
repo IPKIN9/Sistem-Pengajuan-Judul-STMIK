@@ -72,8 +72,7 @@ class RegisterController extends Controller
     public function deleteAkun($id)
     {
         try {
-            $dbResult = User::WhereId($id);
-            $dbResult->delete();
+            $dbResult = User::whereId($id)->delete();
             $akun = array(
                 'data' => $dbResult,
                 'response' => array(
