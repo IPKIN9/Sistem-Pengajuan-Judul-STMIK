@@ -19,14 +19,19 @@ class PengajuanProcessController extends Controller
     {
         $idMahasiswa = $request->id_mahasiswa;
         $idTanggal = $request->id_tanggal;
+        $file = $request->file('jurnal');
         try {
             foreach ($request->nama_judul as $key => $value) {
+                $fileUpload = $file[$key];
+                $nameFile = $request->nama_judul[$key] . "." . $fileUpload->getClientOriginalExtension();
+                $filePath = public_path('storage/jurnal/');
+                $fileUpload->move($filePath, $nameFile);
                 JudulModel::create([
                     'id_mahasiswa' => $idMahasiswa,
                     'detail_tanggal' => $idTanggal,
                     'nama_judul' => $request->nama_judul[$key],
                     'descJudul' => $request->descJudul[$key],
-                    'jurnal' => $request->jurnal[$key],
+                    'jurnal' => $nameFile,
                 ]);
             }
             PengajuanModel::create([

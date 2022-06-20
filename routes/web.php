@@ -11,6 +11,7 @@ use App\Http\Controllers\CMS\PengajuanController;
 use App\Http\Controllers\CMS\PersyaratanController;
 use App\Http\Controllers\CMS\SIController;
 use App\Http\Controllers\CMS\SkripsiController;
+use App\Http\Controllers\Pdf\ExportController;
 use App\Http\Controllers\WEB\DetailPengajuan;
 use App\Http\Controllers\WEB\PengajuanProcessController;
 use App\Http\Controllers\WEB\UserDashboardController;
@@ -130,4 +131,8 @@ Route::prefix('api')->middleware('auth')->group(function () {
         Route::post('/createAkun', [RegisterController::class, 'createAkun'])->name('akun.create');
         Route::delete('/deleteAkun', [RegisterController::class, 'deleteAkun'])->name('akun.delete');
     });
+});
+
+Route::prefix('exportPdf')->group(function () {
+    Route::get('/{detail_tgl}', [ExportController::class, 'exportAllPengumuman'])->name('exportPdf');
 });
