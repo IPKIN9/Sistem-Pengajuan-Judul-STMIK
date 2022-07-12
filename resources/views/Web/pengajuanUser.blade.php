@@ -125,8 +125,7 @@
                                                     {{ date('d-M', strtotime($d->tgl_tutup)) }}</small>
                                             </div>
                                             <div class="user-progress">
-                                                <small class=""><a href="{{ route('exportPdf', $d->id) }}"
-                                                        target="_blank"
+                                                <small class=""><a href="#"
                                                         class="btn rounded-pill btn-icon btn-primary btn-sm">
                                                         <i class='bx bx-cloud-download'></i>
                                                     </a></small>
