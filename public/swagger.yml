@@ -1,0 +1,720 @@
+openapi: '3.0.2'
+info:
+  title: SIPEJU Api Documentation
+  version: '1.0'
+servers:
+  - url: http://127.0.0.1:8000/api
+  - url: https://developmentprogres.judulkustmikadhiguna.xyz
+paths:
+
+  /mahasiswa:
+    post:
+      tags:
+        - "Mahasiswa"
+      summary: "Post Data Mahasiswa"
+      description: 'Insert new data to mahasiswa table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama:
+                  type: string
+                nim:
+                  type: number
+                  example: "05520117043"
+                jurusan:
+                  type: string
+                hp:
+                  type: number
+                  example: "081222202202"
+                alamat:
+                  type: string
+                jk:
+                  type: string
+                angkatan:
+                  type: string
+                kelas:
+                  type: string
+      parameters: []
+      responses:
+        '201':
+          description: OK
+
+  /mahasiswa/{mahasiswa_id}:
+    get:
+      tags:
+        - "Mahasiswa"
+      summary: Get Mahasiswa By Id
+      description: 'This endpoint to get mahasiswa by id'
+      parameters: 
+        - in: path
+          name: mahasiswa_id
+          schema:
+            type: integer
+          required: true
+          description: numeric ID
+      responses:
+        '200':
+          description: OK
+
+    patch:
+      tags:
+        - "Mahasiswa"
+      summary: Update Mahasiswa By Id
+      description: 'This endpoint to get mahasiswa by id'
+      parameters: 
+        - in: path
+          name: mahasiswa_id
+          schema:
+            type: integer
+          required: true
+          description: numeric ID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama:
+                  type: string
+                nim:
+                  type: number
+                  example: "05520117043"
+                jurusan:
+                  type: string
+                hp:
+                  type: number
+                  example: "081222202202"
+                alamat:
+                  type: string
+                jk:
+                  type: string
+                angkatan:
+                  type: string
+                kelas:
+                  type: string
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - "Mahasiswa"
+      summary: Delete Mahasiswa By Id
+      description: 'This endpoint to delete mahasiswa by id'
+      parameters: 
+        - in : path
+          name: mahasiswa_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
+  /dosen:
+    post:
+      tags:
+        - "Dosen"
+      summary: "Post Data Dosen"
+      description: 'Insert new data to dosen table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama:
+                  type: string
+                NIDN:
+                  type: number
+                  example: 522433
+                jabatan:
+                  type: string
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          
+  /dosen/{dosen_id}:
+    get:
+      tags:
+        - "Dosen"
+      summary: Get dosen by id
+      description: 'This endpoint to get dosen by id'
+      parameters:
+        - in : path
+          name: dosen_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
+    patch:
+      tags:
+        - "Dosen"
+      summary: Update Dosen By Id
+      description: 'This endpoint to get dosen by id'
+      parameters:
+        - in : path
+          name: dosen_id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama:
+                  type: string
+                NIDN:
+                  type: number
+                  example: 522433
+                jabatan:
+                  type: string
+      responses:
+        '200':
+          description: OK
+
+    delete:
+      tags:
+        - "Dosen"
+      summary: Delete Dosen By Id
+      description: 'This endpoint to delete dosen by id'
+      parameters:
+        - in : path
+          name: dosen_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
+  /sistem_informasi:
+    post:
+      tags:
+        - "Sistem Informasi"
+      summary: "Post Data Sistem Informasi"
+      description: 'Insert new data to sistem informasi table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tgl_buka:
+                  type: string
+                  format: date
+                tgl_tutup:
+                  type: string
+                  format: date
+                sesi:
+                  type: number
+                  example: 1
+                persyaratan:
+                  type: string
+      parameters: []
+      responses:
+        '200':
+          description: OK
+
+  /sistem_informasi/{SI_id}:
+    get:
+      tags:
+        - "Sistem Informasi"
+      summary: Get sistem informasi by id
+      description: 'This endpoint to get sistem informasi by id'
+      parameters:
+        - in : path
+          name: SI_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
+    patch:
+      tags:
+        - "Sistem Informasi"
+      summary: "Update Data Sistem Informasi"
+      description: 'Update data to sistem informasi table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tgl_buka:
+                  type: string
+                  format: date
+                tgl_tutup:
+                  type: string
+                  format: date
+                sesi:
+                  type: number
+                  example: 1
+                persyaratan:
+                  type: string
+      parameters:
+        - in : path
+          name: SI_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
+    delete:
+      tags:
+        - "Sistem Informasi"
+      summary: "Delete Data Sistem Informasi"
+      description: 'Delete data to sistem informasi table'
+      parameters:
+        - in : path
+          name: SI_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
+  /admin:
+    post:
+      tags:
+        - "Admin"
+      summary: "Post Data Admin"
+      description: 'Post data to admin table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama:
+                  type: string
+                jabatan:
+                  type: string
+                nidn:
+                  type: number
+                  example: 4435533
+      parameters: []
+      responses:
+        '200':
+          description: OK
+
+  /admin/{admin_id}:
+    get:
+      tags:
+        - "Admin"
+      summary: "Get Data Admin"
+      description: 'Get data from admin table'
+      parameters:
+        - in : path
+          name: admin_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
+    patch:
+      tags:
+        - "Admin"
+      summary: "Update Data Admin"
+      description: 'Update data to admin table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama:
+                  type: string
+                jabatan:
+                  type: string
+                nidn:
+                  type: number
+                  example: 4435533
+      parameters:
+        - in : path
+          name: admin_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
+    delete:
+      tags:
+        - "Admin"
+      summary: "Delete Data Admin"
+      description: 'Delete data from admin table'
+      parameters:
+        - in : path
+          name: admin_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
+  /judul:
+    post:
+      tags:
+        - "Judul"
+      summary: "Post Data Judul"
+      description: 'Post data to judul table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_mahasiswa:
+                  type: integer
+                nama_judul:
+                  type: string
+                descJudul:
+                  type: string
+                  minLength: 3
+                  maxLength: 255
+      parameters: []
+      responses:
+        '200':
+          description: OK
+
+  /judul/{judul_id}:
+    get:
+      tags:
+        - "Judul"
+      summary: "Get Data Judul"
+      description: 'Get data from judul table'
+      parameters:
+        - in : path
+          name: judul_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
+    patch:
+      tags:
+        - "Judul"
+      summary: "Get Data Judul"
+      description: 'Get data from judul table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_mahasiswa:
+                  type: integer
+                nama_judul:
+                  type: string
+                descJudul:
+                  type: string
+                  minLength: 3
+                  maxLength: 255
+      parameters:
+        - in : path
+          name: judul_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
+    delete:
+      tags:
+        - "Judul"
+      summary: "Delete Data Judul"
+      description: 'Delete data from judul table'
+      parameters:
+        - in : path
+          name: judul_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
+
+  /jurnal:
+    post:
+      tags:
+        - "Jurnal"
+      summary: "Post Jurnal"
+      description: 'Post data to jurnal table'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                id_judul:
+                  type: integer
+                nama_jurnal:
+                  type: string
+                sumber:
+                  type: string
+                descJurnal:
+                  type: string
+                ISSN:
+                  type: number
+                  example: 55477344
+                tahunterbit:
+                  type: number
+                  format: years
+                path_file:
+                  type: string
+                  format: binary
+      parameters: []
+      responses:
+        '200':
+          description: OK
+
+  /jurnal/{jurnal_id}:
+    get:
+      tags:
+        - "Jurnal"
+      summary: "Get Data Jurnal"
+      description: 'Get data from jurnal table'
+      parameters:
+        - in : path
+          name: jurnal_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
+    delete:
+      tags:
+        - "Jurnal"
+      summary: "Delete Jurnal"
+      description: 'Delete data to jurnal table'
+      parameters:
+        - in : path
+          name: jurnal_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
+  /pengajuan:
+    post:
+      tags:
+        - "Pengajuan"
+      summary: "Post Jurnal"
+      description: 'Post data to jurnal table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_mahasiswa:
+                  type: integer
+                id_judul:
+                  type: integer
+                status:
+                  type: string
+                  enum:
+                    - "Diajukan"
+                    - "Diterima"
+                    - "Ditolak"
+                detail_tanggal:
+                  type: integer
+      parameters: []
+      responses:
+        '200':
+          description: OK
+
+  /pengajuan/{pengajuan_id}:
+    get:
+      tags:
+        - "Pengajuan"
+      summary: "Get Data Pengajuan"
+      description: 'Get data from pengajuan table'
+      parameters:
+        - in : path
+          name: pengajuan_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
+    patch:
+      tags:
+        - "Pengajuan"
+      summary: "Update Data Pengajuan"
+      description: 'Update data to pengajuan table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_mahasiswa:
+                  type: integer
+                id_judul:
+                  type: integer
+                status:
+                  type: string
+                  enum:
+                    - "Diajukan"
+                    - "Diterima"
+                    - "Ditolak"
+                detail_tanggal:
+                  type: integer
+      parameters:
+        - in : path
+          name: pengajuan_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
+    delete:
+      tags:
+        - "Pengajuan"
+      summary: "Delete Pengajuan"
+      description: 'Delete data to pengajuan table'
+      parameters:
+        - in : path
+          name: pengajuan_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
+  /skripsi:
+    post:
+      tags:
+        - "Skripsi"
+      summary: "Post Data Skripsi"
+      description: 'Post data to skripsi table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama_judul:
+                  type: string
+                peneliti:
+                  type: string
+                tempat_penelitian:
+                  type: string
+                abstrak:
+                  type: string
+                pembimbing1:
+                  type: string
+                pembimbing2:
+                  type: string
+                tgl_terbit:
+                  type: number
+                  format: date
+                  example: '2020-01-01'
+      parameters: []
+      responses:
+        '200':
+          description: OK
+
+  /skripsi/{skripsi_id}:
+    get:
+      tags:
+        - "Skripsi"
+      summary: "Get Data Skripsi"
+      description: 'Get data from skripsi table'
+      parameters:
+        - in : path
+          name: skripsi_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
+    patch:
+      tags:
+        - "Skripsi"
+      summary: "Update Data Skripsi"
+      description: 'Update data to skripsi table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama_judul:
+                  type: string
+                peneliti:
+                  type: string
+                tempat_penelitian:
+                  type: string
+                abstrak:
+                  type: string
+                pembimbing1:
+                  type: string
+                pembimbing2:
+                  type: string
+                tgl_terbit:
+                  type: number
+                  format: date
+                  example: '2020-01-01'
+      parameters:
+        - in : path
+          name: skripsi_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+
+    delete:
+      tags:
+        - "Skripsi"
+      summary: "Delete Skripsi"
+      description: 'Delete data to skripsi table'
+      parameters:
+        - in : path
+          name: skripsi_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+    
+
+
+    
