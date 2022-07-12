@@ -27,11 +27,11 @@
                             <table class="table" id="table">
                                 <thead>
                                     <tr class="text-nowrap">
-                                        <th>No</th>
+                                        <th style="width: 5px">No</th>
                                         <th>Nama</th>
                                         <th>Jabatan</th>
                                         <th>NIDN</th>
-                                        <th>Opsi</th>
+                                        <th style="width: 12px;">Opsi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -47,9 +47,11 @@
                                         <td>
                                             <button type="button" id="editId" data-id="{{ $d->id }}"
                                                 data-bs-toggle="modal" data-bs-target="#modalUpdate"
-                                                class="btn rounded-pill btn-outline-primary"><i class='bx bx-message-square-edit'></i></button>
+                                                class="btn rounded-pill btn-outline-primary"><i
+                                                    class='bx bx-message-square-edit'></i></button>
                                             <button type="button" id="deleteId" data-id="{{ $d->id }}"
-                                                class="btn rounded-pill btn-outline-danger"><i class='bx bx-trash'></i></button>
+                                                class="btn rounded-pill btn-outline-danger"><i
+                                                    class='bx bx-trash'></i></button>
                                         </td>
                                     </tr>
                                     @endforeach
