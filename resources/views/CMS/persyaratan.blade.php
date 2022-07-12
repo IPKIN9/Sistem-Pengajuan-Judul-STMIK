@@ -20,7 +20,7 @@
                                             <textarea name="persyaratan" id="persyaratan" class="form-control" placeholder="Input Persyaratan"
                                                 aria-describedby="basic-icon-default-message2" rows="8">
 @if ($data != null)
-@nl2br($data->persyaratan)
+{{$data->persyaratan}}
 @endif
 </textarea>
                                             <p class="text-danger miniAlert text-capitalize" id="alertPersyaratan"></p>
