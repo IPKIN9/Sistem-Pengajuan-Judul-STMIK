@@ -34,7 +34,8 @@
                     <td>{{ $item['nim'] }}</td>
                     <td>{{ $item['jurusan'] }}</td>
                     <td>{{ $item['judul']['nama_judul'] }}</td>
-                    <td>{{ $item['judul']['status'] }}</td>
+                    <td>
+                        {{ $item['judul']['status'] }}</td>
                 </tr>
             @endforeach
         </tbody>

@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [UserDashboardController::class, 'index'])->name('user.dash');
 Route::get('/pengajuan_user/{id}', [PengajuanProcessController::class, 'getId'])->name('pengajuan_form');
 Route::post('/pengajuan_process', [PengajuanProcessController::class, 'createPengajuan']);
-Route::get('api/mahasiswa/nim/{id}', [MahasiswaController::class, 'getByNim']);
+Route::get('api/mahasiswa/nim/{id}/{idtanggal}', [MahasiswaController::class, 'getByNim']);
 
 Route::middleware(['auth', 'role:suadmin|user'])->group(function () {
     route::get('/admin_panel', function () {

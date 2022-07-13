@@ -12,20 +12,40 @@ class ExportController extends Controller
 {
     public function exportAllPengumuman($detail_tanggal)
     {
-        $mahasiswa = MahasiswaModel::all();
+        // $mahasiswa = MahasiswaModel::all();
 
-        $data = '';
+        // $data = '';
 
-        $pengumuman = JudulModel::where('detail_tanggal', $detail_tanggal)->where('status', 'diterima')->orWhere('status', 'konfirmasi');
-        $dataMhs = $mahasiswa->intersect(PengajuanModel::where('detail_tanggal', $detail_tanggal)->get());
-        foreach ($dataMhs as $key => $value) {
-            $data = array(
-                'mahasiswa' => array(
-                    'nama' => $value->nama,
-                    'nim' => $value->nim,
-                    'jurusan' => $value->jurusan,
-                    'judul' => $pengumuman->where('id_mahasiswa', $value->id)->select(array('nama_judul', 'status'))->first(),
-                ),
+        // $pengumuman = JudulModel::where('detail_tanggal', $detail_tanggal)->where('status', 'diterima')->orWhere('status', 'konfirmasi');
+        // $dataMhs = $mahasiswa->intersect(PengajuanModel::where('detail_tanggal', $detail_tanggal)->get());
+        // foreach ($dataMhs as $key => $value) {
+        //     $data = array(
+        //         'mahasiswa' => array(
+        //             'nama' => $value->nama,
+        //             'nim' => $value->nim,
+        //             'jurusan' => $value->jurusan,
+        //             'judul' => $pengumuman->where('id_mahasiswa', $value->id)->select(array('nama_judul', 'status'))->first(),
+        //         ),
+        //     );
+        // }
+        $pengumuman = PengajuanModel::where('detail_tanggal', $detail_tanggal)->select(array('detail_tanggal', 'id_mahasiswa'))->with('mahasiswaRole')->get();
+        $judul = array();
+        foreach ($pengumuman as $key => $value) {
+            $judul[$key] = array(
+                'nama' => $value->mahasiswaRole['nama'],
+                'nim' => $value->mahasiswaRole['nim'],
+                'jurusan' => $value->mahasiswaRole['jurusan'],
+                'judul' =>  JudulModel::where('detail_tanggal', $value->detail_tanggal)
+                    ->where('id_mahasiswa', $value->id_mahasiswa)
+                    ->where('status', 'diterima')
+                    ->orWhere('status', 'konfirmasi')
+                    ->select(array(
+                        'nama_judul',
+                        'descJudul',
+                        'status',
+                        'jurnal',
+                    ))
+                    ->first()
             );
         }
         // Create the mPDF document
@@ -39,7 +59,7 @@ class ExportController extends Controller
             'orientation' => 'L'
         ]);
 
-        $document->WriteHTML(view('Pdf.pdf')->with('data', $data));
+        $document->WriteHTML(view('Pdf.pdf')->with('data', $judul));
         return $document->Output();
         // return response()->json($data, 200);
     }

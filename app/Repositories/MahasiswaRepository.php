@@ -51,31 +51,31 @@ class MahasiswaRepository implements MahasiswaRepositoryInterface
         return $mahasiswa;
     }
 
-    public function getMahasiswaByNim($nim)
+    public function getMahasiswaByNim($nim, $idtanggal)
     {
         try {
             $dbResult = MahasiswaModel::where('nim', $nim)->first();
-            $checkPengajuan = PengajuanModel::where('id_mahasiswa', $dbResult->id)->first();
-            if ($checkPengajuan) {
-                $mahasiswa = array(
-                    'data' => null,
-                    'message' => "Sudah pernah pengajuan",
-                    'code' => 404
-                );
-            } else {
-                if ($dbResult) {
+            if ($dbResult) {
+                $checkPengajuan = PengajuanModel::where('id_mahasiswa', $dbResult->id)->where('detail_tanggal', $idtanggal)->first();
+                if ($checkPengajuan) {
+                    $mahasiswa = array(
+                        'data' => null,
+                        'message' => "Sudah pernah pengajuan",
+                        'code' => 402
+                    );
+                } else {
                     $mahasiswa = array(
                         'data' => $dbResult,
                         'message' => "Data ditemukan",
                         'code' => 200
                     );
-                } else {
-                    $mahasiswa = array(
-                        'data' => null,
-                        'message' => "Data tidak ditemukan",
-                        'code' => 404
-                    );
                 }
+            } else {
+                $mahasiswa = array(
+                    'data' => null,
+                    'message' => "Data tidak ditemukan",
+                    'code' => 404
+                );
             }
         } catch (\Throwable $th) {
             $mahasiswa = array(

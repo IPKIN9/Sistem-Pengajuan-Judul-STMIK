@@ -44,7 +44,8 @@
 
         $(document).on('click', '#btn-search-nim', function() {
             let _id = $('#search-nim').val();
-            let url = `{{ config('app.url') }}` + `/api/mahasiswa/nim/${_id}`
+            let _idtanggal = $('#id_tanggal').val();
+            let url = `{{ config('app.url') }}` + `/api/mahasiswa/nim/${_id}/${_idtanggal}`
 
             $('#profile-view').html('');
             $('#formInputData').html('');
@@ -53,6 +54,7 @@
                 type: 'GET',
                 url: url,
                 success: function(result) {
+                    // console.log(result);
                     $('#id_mahasiswa').val(result.data.id);
 
                     $('#alert-found').html(`

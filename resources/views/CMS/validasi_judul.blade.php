@@ -117,11 +117,11 @@
                             <dd class="col-sm-8 row">
                                 <p class="col-sm-8">${item.descJudul}</p>
                                 <div class="col-sm-3 btn-group" role="group">
-                                    <select name="status[]" id="statusId" class="form-select form-select-sm">
-                                        <option selected disabled>Validasi</option>
-                                        <option value="diterima">Diterima</option>
-                                        <option value="konfirmasi">Konfirmasi Kembali</option>
-                                        <option value="ditolak">Ditolak</option>
+                                    <select name="status[]" id="statusId${item.id}" class="form-select form-select-sm">
+                                        <option value="on_process" >Dalam Proses</option>
+                                        <option value="diterima" >Diterima</option>
+                                        <option value="konfirmasi" >Konfirmasi Kembali</option>
+                                        <option value="ditolak" >Ditolak</option>
                                     </select>
                                 </div>
                                 <div class="col-sm-1 float-right">
@@ -133,6 +133,7 @@
                             </dd>
                         </dl>
                     `);
+                    $('#statusId' + item.id).val(item.status);
                 });
             });
         });
