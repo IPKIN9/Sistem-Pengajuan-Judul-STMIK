@@ -24,7 +24,7 @@
                     <form id="formInput" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" id="id_mahasiswa" name="id_mahasiswa">
-                        <input type="hidden" name="id_tanggal" value="{{ $id }}">
+                        <input type="hidden" id="id_tanggal" name="id_tanggal" value="{{ $id }}">
                         <div id="formInputData"></div>
                     </form>
                 </div>
