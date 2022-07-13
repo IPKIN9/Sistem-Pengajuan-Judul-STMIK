@@ -18,7 +18,7 @@ class MahasiswaRequest extends FormRequest
     {
         return [
             'nama' => 'required|min:2|max:255',
-            'nim' => 'required|min:10|numeric|unique:mahasiswa,nim',
+            'nim' => 'required|min:10|numeric',
             'jurusan' => 'required|min:3|max:50',
             'hp' => 'required|min:10|numeric',
             'alamat' => 'required|min:5|max:255',

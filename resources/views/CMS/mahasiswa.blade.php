@@ -57,9 +57,11 @@
                                                 <td>
                                                     <button type="button" id="editId" data-id="{{ $d->id }}"
                                                         data-bs-toggle="modal" data-bs-target="#modalUpdate"
-                                                        class="btn rounded-pill btn-outline-primary"><i class='bx bx-message-square-edit'></i></button>
+                                                        class="btn rounded-pill btn-outline-primary"><i
+                                                            class='bx bx-message-square-edit'></i></button>
                                                     <button type="button" id="deleteId" data-id="{{ $d->id }}"
-                                                        class="btn rounded-pill btn-outline-danger"><i class='bx bx-trash'></i></button>
+                                                        class="btn rounded-pill btn-outline-danger"><i
+                                                            class='bx bx-trash'></i></button>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -135,10 +137,11 @@
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <label class="col-sm-2 col-form-label" for="basic-default-name">Angkatan</label>
+                                            <label class="col-sm-2 col-form-label"
+                                                for="basic-default-name">Angkatan</label>
                                             <div class="col-sm-10">
-                                                <input type="number" class="form-control" name="angkatan" id="angkatan"
-                                                    placeholder="Input Tahun Angkatan">
+                                                <input type="number" class="form-control" name="angkatan"
+                                                    id="angkatan" placeholder="Input Tahun Angkatan">
                                                 <p class="text-danger miniAlert text-capitalize" id="alertAngkatan"></p>
                                             </div>
                                         </div>
@@ -152,7 +155,8 @@
                                         </div>
                                         <div class="row justify-content-end">
                                             <div class="col-sm-10">
-                                                <button type="button" class="btn btn-primary" id="saveId">Save</button>
+                                                <button type="button" class="btn btn-primary"
+                                                    id="saveId">Save</button>
                                             </div>
                                         </div>
                                     </form>
