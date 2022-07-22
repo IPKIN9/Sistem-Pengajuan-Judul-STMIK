@@ -155,8 +155,6 @@
                         icon: result.response.icon,
                         cancelButtonColor: '#d33',
                         confirmButtonText: 'Oke'
-                    }).then((result) => {
-                        location.reload();
                     });
                 },
                 error: function(result) {

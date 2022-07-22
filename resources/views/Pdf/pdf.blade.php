@@ -27,16 +27,17 @@
                 $no = 1;
             @endphp
             @foreach ($data as $item)
-                <tr
-                    style="@if ($item['judul']['status'] == 'diterima') background: #3EC70B; @else background: #F94C66; @endif !important">
-                    <td>{{ $no++ }}</td>
-                    <td>{{ $item['nama'] }}</td>
-                    <td>{{ $item['nim'] }}</td>
-                    <td>{{ $item['jurusan'] }}</td>
-                    <td>{{ $item['judul']['nama_judul'] }}</td>
-                    <td>
-                        {{ $item['judul']['status'] }}</td>
-                </tr>
+                @if ($item['judul'])
+                    <tr style="background: {{ $item['judul']['status'] == 'diterima' ? '#3EC70B' : '#F7EC09' }}">
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $item['nama'] }}</td>
+                        <td>{{ $item['nim'] }}</td>
+                        <td>{{ $item['jurusan'] }}</td>
+                        <td>{{ $item['judul']['nama_judul'] }}</td>
+                        <td>
+                            {{ $item['judul']['status'] }}</td>
+                    </tr>
+                @endif
             @endforeach
         </tbody>
     </table>
