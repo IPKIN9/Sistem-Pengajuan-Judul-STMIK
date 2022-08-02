@@ -36,7 +36,7 @@
                                     @php
                                     $no = 1;
                                     @endphp
-                                    @foreach ($user as $d)
+                                    @foreach ($user['user'] as $d)
                                     <tr>
                                         <th scope="row">{{ $no++ }}</th>
                                         <td>{{ $d->username }}</td>
@@ -76,6 +76,9 @@
                                                 </ul>
                                                 <select name="id_profile" id="id_profile" class="form-control">
                                                     <option selected disabled>Pilih Profile</option>
+                                                    @foreach ($user['profile'] as $d)
+                                                    <option value="{{$d->id}}">{{$d->nama}}</option>
+                                                    @endforeach
                                                 </select>
                                                 <p class="text-danger miniAlert text-capitalize" id="alertProfile"></p>
                                             </div>
