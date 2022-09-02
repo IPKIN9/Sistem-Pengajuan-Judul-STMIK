@@ -47,7 +47,13 @@ class RegisterController extends Controller
                 'username' => $request->username,
                 'password' => Hash::make($request->password)
             ]);
-            $dbResult->assignRole('dosen');
+            $isAdmin = AdminModel::whereId($request->id_profile)->first();
+            if ($isAdmin) {
+                $dbResult->assignRole('user');
+            } else {
+                $dbResult->assignRole('dosen');
+            }
+            
             $akun = array(
                 'data' => $dbResult,
                 'response' => array(
