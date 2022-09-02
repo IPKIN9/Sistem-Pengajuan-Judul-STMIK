@@ -45,14 +45,17 @@ Route::prefix('auth')->group(function () {
 Route::middleware(['auth', 'role:suadmin',])->group(function () {
     Route::get('/mahasiswa_page', [MahasiswaController::class, 'index'])->name('mahasiswa.index');
     Route::get('/dosen_page', [DosenController::class, 'index'])->name('dosen.index');
-    Route::get('/sistem_informasi_page', [SIController::class, 'index'])->name('si.index');
     Route::get('/admin_page', [AdminController::class, 'index'])->name('admin.index');
-    Route::get('/judul_page', [JudulController::class, 'index'])->name('judul.index');
     Route::get('/jurnal_page', [JurnalController::class, 'index'])->name('jurnal.index');
-    Route::get('/pengajuan_page', [PengajuanController::class, 'index'])->name('pengajuan.index');
-    Route::get('/skripsi_page', [SkripsiController::class, 'index'])->name('skripsi.index');
     Route::get('/persyaratan_page', [PersyaratanController::class, 'index'])->name('persyaratan.index');
     Route::get('/Akun_page', [RegisterController::class, 'index'])->name('register.index');
+});
+
+Route::middleware(['auth', 'role:user',])->group(function () {
+    Route::get('/sistem_informasi_page', [SIController::class, 'index'])->name('si.index');
+    Route::get('/judul_page', [JudulController::class, 'index'])->name('judul.index');
+    Route::get('/pengajuan_page', [PengajuanController::class, 'index'])->name('pengajuan.index');
+    Route::get('/skripsi_page', [SkripsiController::class, 'index'])->name('skripsi.index');
 });
 
 Route::prefix('api')->middleware('auth')->group(function () {

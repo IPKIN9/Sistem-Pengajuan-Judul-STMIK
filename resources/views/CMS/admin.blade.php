@@ -42,8 +42,8 @@
                                     <tr>
                                         <th scope="row">{{ $no++ }}</th>
                                         <td>{{ $d->nama }}</td>
-                                        <td>{{ $d->nidn }}</td>
                                         <td>{{ $d->jabatan }}</td>
+                                        <td>{{ $d->nidn }}</td>
                                         <td>
                                             <button type="button" id="editId" data-id="{{ $d->id }}"
                                                 data-bs-toggle="modal" data-bs-target="#modalUpdate"
