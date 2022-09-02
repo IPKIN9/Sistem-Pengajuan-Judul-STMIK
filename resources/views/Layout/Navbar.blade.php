@@ -55,6 +55,7 @@
     </li>
     @endhasrole
 
+    @hasrole('admin')
     <li class="menu-header small text-uppercase">
         <span class="menu-header-text">Data Lainnya</span>
     </li>
@@ -73,6 +74,7 @@
             <div data-i18n="Basic">Data Skripsi</div>
         </a>
     </li>
+    @endhasrole
     <li class="menu-item {{ Route::is('judul.validation') ? 'active' : '' }}">
         <a href="{{ route('judul.validation') }}" class="menu-link">
             <div data-i18n="Basic">Validasi Judul</div>
