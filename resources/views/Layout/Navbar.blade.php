@@ -55,7 +55,7 @@
     </li>
     @endhasrole
 
-    @hasrole('admin')
+    @hasrole('user')
     <li class="menu-header small text-uppercase">
         <span class="menu-header-text">Data Lainnya</span>
     </li>
