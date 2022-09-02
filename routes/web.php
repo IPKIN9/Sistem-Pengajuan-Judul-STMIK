@@ -23,7 +23,7 @@ Route::get('/pengajuan_user/{id}', [PengajuanProcessController::class, 'getId'])
 Route::post('/pengajuan_process', [PengajuanProcessController::class, 'createPengajuan']);
 Route::get('api/mahasiswa/nim/{id}/{idtanggal}', [MahasiswaController::class, 'getByNim']);
 
-Route::middleware(['auth', 'role:suadmin|user'])->group(function () {
+Route::middleware(['auth', 'role:suadmin|user|dosen'])->group(function () {
     route::get('/admin_panel', function () {
         return view('CMS.dashboard');
     })->name('home');
