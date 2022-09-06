@@ -31,6 +31,7 @@ Route::middleware(['auth', 'role:suadmin|user|dosen'])->group(function () {
         return view('Swagger.index');
     });
 
+    Route::get('/skripsi_page', [SkripsiController::class, 'index'])->name('skripsi.index');
     Route::get('/judul_validation', [ValidationJudulController::class, 'index'])->name('judul.validation');
     Route::get('/judul_validation/{id}', [DetailPengajuan::class, 'getById'])->name('judul.validation.detail');
     Route::get('/detail_judul/{id}', [DetailPengajuan::class, 'getAllJudul']);
@@ -49,7 +50,6 @@ Route::middleware(['auth', 'role:suadmin',])->group(function () {
     Route::get('/jurnal_page', [JurnalController::class, 'index'])->name('jurnal.index');
     Route::get('/persyaratan_page', [PersyaratanController::class, 'index'])->name('persyaratan.index');
     Route::get('/Akun_page', [RegisterController::class, 'index'])->name('register.index');
-    Route::get('/skripsi_page', [SkripsiController::class, 'index'])->name('skripsi.index');
 });
 
 Route::middleware(['auth', 'role:user',])->group(function () {
