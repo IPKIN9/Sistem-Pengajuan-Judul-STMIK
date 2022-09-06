@@ -50,7 +50,11 @@
                     <div data-i18n="Basic">Data Persyaratan</div>
                 </a>
             </li>
-
+            <li class="menu-item {{ Route::is('skripsi.index') ? 'active' : '' }}">
+                <a href="{{ route('skripsi.index') }}" class="menu-link">
+                    <div data-i18n="Basic">Data Skripsi</div>
+                </a>
+            </li>
         </ul>
     </li>
     @endhasrole
@@ -67,11 +71,6 @@
     <li class="menu-item {{ Route::is('pengajuan.index') ? 'active' : '' }}">
         <a href="{{ route('pengajuan.index') }}" class="menu-link">
             <div data-i18n="Basic">Pengajuan</div>
-        </a>
-    </li>
-    <li class="menu-item {{ Route::is('skripsi.index') ? 'active' : '' }}">
-        <a href="{{ route('skripsi.index') }}" class="menu-link">
-            <div data-i18n="Basic">Data Skripsi</div>
         </a>
     </li>
     @endhasrole
